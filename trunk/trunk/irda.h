@@ -1,0 +1,1 @@
+char *IrdaChatMessage[256];
