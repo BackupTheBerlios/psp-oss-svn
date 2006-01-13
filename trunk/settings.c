@@ -156,18 +156,14 @@ SettingsScreen ()
 	  && cursorPosition.y > windowy + 90
 	  && cursorPosition.y < windowy + 105)
 	{
-	  /*
 	     if(DesktopEffect=="None"){
-	     //make it snow
-	     Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/EFFECT.CFG","Snow");
+	     //Lines
+         Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/EFFECT.CFG","Lines");
 
-	     Effect_GFX1 = LoadGFX("ms0:/PSP-OSS/SYSTEM/IMAGES/snow.png");
-	     DesktopEffect="Snow";
-	     Effect_Snow_PositionX=0;
-	     Effect_Snow_PositionY=0;
+	     DesktopEffect="Lines";
 	     }
-	     else if(DesktopEffect=="Snow"){
-	     //make it nothing
+	     else if(DesktopEffect=="Lines"){
+	     //Nothing
 	     Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/EFFECT.CFG","None");
 
 	     DesktopEffect="None";
@@ -175,7 +171,7 @@ SettingsScreen ()
 
 	     checkkey=1;
 	     PauseVbl(30);
-	   */
+
 	}
 
       //Wallpaper
@@ -312,7 +308,7 @@ DrawSettingsScreenGUI ()
 
   //
 
-  PutTextFont (itemx + 5, windowy + 77, "Mouse Speed:", BLACK);
+  PutTextFont (itemx + 5, windowy + 77, "Toggle wallpaper:", BLACK);
   PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text, RED);
 
   PutTextFont (itemx + 5, windowy + 92, "Desktop effect:", BLACK);

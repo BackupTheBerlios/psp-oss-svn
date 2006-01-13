@@ -18,15 +18,7 @@ WwW.PsP-OsS.CoM
 #include "main.h"
 #include "desktop.h"
 #include "functions.h"
-typedef struct
-{
-  signed int x;
-  signed int y;
-  signed int v;
-  signed int vx;
-} fstruct;
-fstruct fountain[5000];
-int finited = 0;
+
 void
 DoActiveDesktop ()
 {
@@ -39,7 +31,7 @@ DoActiveDesktop ()
       DoDesktopEffects ();	//Desktop effect
     }
 
-  PutGFX (0, 0, 480, 15, taskbar, 0, 257);	//Taskbar                             
+  PutGFX (0, 0, 480, 15, taskbar, 0, 257);	//Taskbar
   PutGFX (0, 0, 480, 15, TopBar, 0, 0);	//Top Bar
   PutTextFont (5, 5, OSSVersion, DARK_RED);	//Version
 
@@ -82,106 +74,21 @@ DoActiveDesktop ()
 }
 
 void
-initf ()
-{
-  int a = 0;
-  for (a = 0; a <= 5000; a++)
-    {
-      fountain[a].x = 340 - (Random (0, 200));
-      fountain[a].y = 272;
-      fountain[a].v = Random (0, 80) + 150;
-      fountain[a].vx = 20 - Random (0, 40);
-    }
-  finited = 1;
-}
-
-void
 DoDesktopEffects ()
 {
-  if (DesktopEffect == "Snow")
-    {
-
-      int TempY;
-      int TempX;
-
-      TempX = -40;
-      while (480 > TempX)
-	{
-	  TempY = 0;
-	  while (272 > TempY)
-	    {
-	      PutGFX (0, 0, 15, 15, Effect_GFX1,
-		      (Effect_Snow_PositionX + TempX),
-		      (Effect_Snow_PositionY + TempY));
-	      TempY += 40;
-	    }
-	  TempX += 40;
-	}
-
-      if (Effect_Snow_PositionX > 40)
-	{
-	  Effect_Snow_PositionX = 0;
-	}
-      else if (Effect_Snow_PositionX < -40)
-	{
-	  Effect_Snow_PositionX = 0;
-	}
-      else
-	{
-	  //Effect_Snow_PositionX+=1;
-	  Effect_Snow_PositionX += Random (0, 3);
-	  Effect_Snow_PositionX -= 1;
-	}
-
-      if (Effect_Snow_PositionY == 40)
-	{
-	  Effect_Snow_PositionY = 0;
-	}
-      else
-	{
-	  Effect_Snow_PositionY += 1;
-	}
-
-    }
-  else if (DesktopEffect == "Fountain")
-    {
-      if (finited == 0)
-	{
-	  initf ();
-	}
-      //Move particles//
-      int a = 0;
-      for (a = 0; a <= 5000; a++)
-	{
-	  fountain[a].y -= fountain[a].v;
-	  fountain[a].v -= 9.81;
-	  fountain[a].x += fountain[a].vx;
-	  if (fountain[a].y > 480)
-	    {
-	      fountain[a].x = 380 - Random (0, 200);
-	      fountain[a].y = 272;
-	      fountain[a].v = Random (0, 80) + 150;
-	      fountain[a].vx = 20 - Random (0, 40);
-	    }
-	  //Draw Particles//
-	  for (a = 0; a <= 5000; a++)
-	    {
-	      //PutPixel(fountain[a].x,fountain[a].y,RGB(200+Random(0,30),200+Random(0,30),255));
-	      PutPixel (1, 2,
-			RGB (200 + Random (0, 30), 200 + Random (0, 30),
-			     255));
-	    }
-	  //End of Draw Particles//
-	}
-    }
-  else if (DesktopEffect == "Starfield")
+  if (DesktopEffect == "None")
+     {
+     //Do nothing?
+     }
+     
+  else if (DesktopEffect == "Lines")
     {
       char *startX[100];
       char *startY[100];
 
       //allocate 30 x positions
       int a = 0;
-      while (a != 100)
+      while (a != 30)
 	{
 	  startX[a] = Random (0, 480);
 	  a++;
@@ -189,23 +96,22 @@ DoDesktopEffects ()
 
       //allocate 30 y positions             
       int b = 0;
-      while (b != 100)
+      while (b != 30)
 	{
-	  startY[b] = Random (0, 272);
+	  startY[b] = Random (0, 242);
+	  startY[b]+=15;
 	  b++;
 	}
 
-      //place 10 WHITE stars
+      //Draw lines
       int c = 1;
-      while (c != 100)
+      while (c != 30)
 	{
-	  PutPixel (startX[c], startY[c], WHITE);
-	  c++;
-	}
-      c = 1;
-      while (c <= 10)
-	{
-	  PutPixel (startX[c], startY[c], BLUE);
+	  int templine = 0;
+	  while(templine < 20){
+                     PutPixel ((startX[c]+templine), startY[c], WHITE);
+                     templine++;
+                     }
 	  c++;
 	}
     }

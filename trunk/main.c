@@ -43,7 +43,7 @@ BlueScreen (PspDebugRegBlock * regs)
   pspDebugScreenPrintf ("Something went wrong...\n");
 
   int check = FileCheck ("ms0:/PSP-OSS/CRASHED");
-  if (check == 0)
+  if (!check)
     {
       Write_config ("ms0:/PSP-OSS/CRASHED",
 		    "OH NOES! PSP-OSS DIED! LYKE OMGZ!");
@@ -119,17 +119,14 @@ osLoop ()
 	    }
 	  else if (toggle_wallpapers == "SEL")
 	    {
-	      if (pad.Buttons & PSP_CTRL_SELECT)
-		{
-		  if (pad.Buttons & PSP_CTRL_RTRIGGER)
+		  if (pad.Buttons & PSP_CTRL_SELECT && pad.Buttons & PSP_CTRL_RTRIGGER)
 		    {
 		      Toggle_Wallpapers ("R");
 		    }
-		  else if (pad.Buttons & PSP_CTRL_LTRIGGER)
+		  else if (pad.Buttons & PSP_CTRL_SELECT && pad.Buttons & PSP_CTRL_LTRIGGER)
 		    {
 		      Toggle_Wallpapers ("L");
 		    }
-		}
 	    }
 	}
       //Display our cursor.

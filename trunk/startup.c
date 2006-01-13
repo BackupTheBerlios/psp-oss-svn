@@ -430,9 +430,9 @@ StartUp (void)
       Effect_Snow_PositionX = 0;
       Effect_Snow_PositionY = 0;
     }
-  else if (strcmp (effect, "Fountain") == 0)
+  else if (strcmp (effect, "Stripes") == 0)
     {
-      DesktopEffect = "Fountain";
+      DesktopEffect = "Lines";
     }
   else
     {
@@ -488,15 +488,6 @@ StartUp (void)
   sceCtrlSetSamplingCycle (0);
   sceCtrlSetSamplingMode (PSP_CTRL_MODE_ANALOG);
   MediaStatus = "stop";		//We're not playing any music, so set startus to stop, so mp3 controls wont show up
-
-  //Does the CONFIG file exist? if not, its most likely the first run, so display the wizard
-  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SETTINGS.cfg", PSP_O_RDONLY, 0);
-  sceIoClose (file);
-
-  if (file < 0)
-    {
-      //FirstRun();
-    }
 
   frtd = 1;
 
