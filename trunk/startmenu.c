@@ -159,7 +159,7 @@ StartMenu ()
 	{
 	  if (pad.Buttons & PSP_CTRL_CONFIRM || pad.Buttons & PSP_CTRL_BACK)
 	    {
-	      //DesktopIconsActive = 1;
+	      DesktopIconsActive = 1;
 	      break;
 	    }
 	}
@@ -701,7 +701,7 @@ StartListMenu ()
 				}
 			      else
 				{
-					//DesktopIconsActive = 1;	
+					DesktopIconsActive = 1;	
 					stopmenu = 1;
 				  sprintf (buffer, "%s%s/", selectmenu, startitemname[i]);	//This line works out the directory and folder name e.g ms0:/PSP-OSS/GAMES/
 				  BrowseDirectory (buffer);	//This line lunches the file Browser				  
@@ -710,7 +710,7 @@ StartListMenu ()
 			  //If the folder is not a directory it will try to open it.
 			  else
 			    {
-			    	//DesktopIconsActive = 1;	
+			    	DesktopIconsActive = 1;	
 			      sprintf (buffer, "%s%s", selectmenu, startitemname[i]);	//This line works out the directory and item name e.g ms0:/PSP-OSS/WALLPAPER/XWING.PNG
 			      OpenFile (buffer);	//Sends the File to be opend by the appropriate app
 			      stopmenu = 1;
@@ -884,7 +884,7 @@ StartListMenu ()
 		  //mstart required to disable the start menu
 		  mstart = 0;
 		  fourcolumns = 0;
-		  //DesktopIconsActive = 1;
+		  DesktopIconsActive = 1;
 		  stopmenu = 1;
 		  break;
 		}
@@ -893,7 +893,6 @@ StartListMenu ()
 		  //mstart required to disable the start menu
 		  mstart = 0;
 		  fourcolumns = 0;
-		  //DesktopIconsActive = 1;
 		  stopmenu = 1;
 		  break;
 		}		
@@ -913,7 +912,7 @@ StartListMenu ()
 	    {
 	      mstart = 0;
 	      fourcolumns = 0;
-	      //DesktopIconsActive = 1;
+	      DesktopIconsActive = 1;
 	      break;
 	    }
 	}
