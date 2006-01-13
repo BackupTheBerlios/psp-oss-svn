@@ -1,4 +1,4 @@
-#define OSSVersion "PSP-OSS_0,2,1"
+#define OSSVersion "PSP-OSS_0,2c"
 #include <ctype.h>
 #include <pspumd.h>
 #include <pspkernel.h>
