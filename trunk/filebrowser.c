@@ -147,7 +147,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 	      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 190
 		  && cursorPosition.x < 230 && cursorPosition.y > 250
 		  && cursorPosition.y < 272
-		  || pad.Buttons & PSP_CTRL_LTRIGGER)
+		  || pad.Buttons & PSP_CTRL_LEFT)
 		{
 		  FBpage -= 1;
 		}
@@ -172,7 +172,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 	      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 250
 		  && cursorPosition.x < 490 && cursorPosition.y > 250
 		  && cursorPosition.y < 272
-		  || pad.Buttons & PSP_CTRL_RTRIGGER)
+		  || pad.Buttons & PSP_CTRL_RIGHT)
 		{
 		  FBpage += 1;
 		}
@@ -317,7 +317,7 @@ BrowseSkins ()
 	      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 190
 		  && cursorPosition.x < 230 && cursorPosition.y > 250
 		  && cursorPosition.y < 272
-		  || pad.Buttons & PSP_CTRL_LTRIGGER)
+		  || pad.Buttons & PSP_CTRL_LEFT)
 		{
 		  FBpage -= 1;
 		}
@@ -342,7 +342,7 @@ BrowseSkins ()
 	      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 250
 		  && cursorPosition.x < 490 && cursorPosition.y > 250
 		  && cursorPosition.y < 272
-		  || pad.Buttons & PSP_CTRL_RTRIGGER)
+		  || pad.Buttons & PSP_CTRL_RIGHT)
 		{
 		  FBpage += 1;
 		}
@@ -725,7 +725,7 @@ loo:
 
 	  if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 190
 	      && cursorPosition.x < 230 && cursorPosition.y > 250
-	      && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_LTRIGGER)
+	      && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_LEFT)
 	    {
 	      FBpage -= 1;
 	    }
@@ -749,7 +749,7 @@ loo:
 
 	  if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 250
 	      && cursorPosition.x < 490 && cursorPosition.y > 250
-	      && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_RTRIGGER)
+	      && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_RIGHT)
 	    {
 	      FBpage += 1;
 	    }
