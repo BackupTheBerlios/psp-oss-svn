@@ -768,7 +768,7 @@ RightClick_Icon_Filebrowser ()
     size2 = strlen (suffix);           
     strncpy (Createlink,FilebrowserRightclickFilename,(size-size2));
     Createlink[(size-size2)]='\0'; 
-	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,Createlink);
+	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,FilebrowserRightclickFilename);
 	  char *new_filename;
 	  new_filename = Keyboard (Createlink);
     sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.ql", new_filename);
@@ -839,7 +839,7 @@ RightClick_Icon_Filebrowser ()
     size2 = strlen (suffix);           
     strncpy (Createlink,FilebrowserRightclickFilename,(size-size2));
     Createlink[(size-size2)]='\0'; 
-	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,Createlink);
+	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,FilebrowserRightclickFilename);
 	  char *new_filename;
 	  new_filename = Keyboard (Createlink);
     sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.ql", new_filename);

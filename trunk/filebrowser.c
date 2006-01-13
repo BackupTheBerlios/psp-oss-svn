@@ -150,6 +150,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 		  || pad.Buttons & PSP_CTRL_LEFT)
 		{
 		  FBpage -= 1;
+		  PauseVbl (15);
 		}
 	    }
 
@@ -175,6 +176,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 		  || pad.Buttons & PSP_CTRL_RIGHT)
 		{
 		  FBpage += 1;
+		  PauseVbl (15);
 		}
 	    }
 
@@ -320,6 +322,7 @@ BrowseSkins ()
 		  || pad.Buttons & PSP_CTRL_LEFT)
 		{
 		  FBpage -= 1;
+		  PauseVbl (15);
 		}
 	    }
 
@@ -345,6 +348,7 @@ BrowseSkins ()
 		  || pad.Buttons & PSP_CTRL_RIGHT)
 		{
 		  FBpage += 1;
+		  PauseVbl (15);
 		}
 	    }
 
@@ -728,6 +732,7 @@ loo:
 	      && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_LEFT)
 	    {
 	      FBpage -= 1;
+	      PauseVbl (15);
 	    }
 	}
 
@@ -752,6 +757,7 @@ loo:
 	      && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_RIGHT)
 	    {
 	      FBpage += 1;
+	      PauseVbl (15);
 	    }
 	}
 

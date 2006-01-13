@@ -402,6 +402,7 @@ DoDesktopIcons ()
       while (sceIoDread (DesktopDirectory, &dir) > 0)
 	{
 	  desktopiconname[i] = strdup (dir.d_name);
+	  desktopiconcopy[i] = desktopiconname[i];
 
    suffix = strrchr(desktopiconname[i], '.');   
    	
@@ -437,13 +438,14 @@ DoDesktopIcons ()
            //Get file extension
            int size;
            int size2;
-           char deskitem[i][10];
-           char deskitemrs[i][30];
-           size = strlen (desktopiconname[i]);
-           size2 = strlen (suffix);           
-           strncpy (deskitemrs[i],desktopiconname[i],(size-size2));
-           deskitemrs[i][(size-size2)]='\0';
+           char deskitem[i][32];
+           char deskitemrs[i][32];
            
+           suffix = strrchr(desktopiconcopy[i], '.');           
+           size = strlen (desktopiconcopy[i]);
+           size2 = strlen (suffix);           
+           strncpy (deskitemrs[i],desktopiconcopy[i],(size-size2));
+           deskitemrs[i][(size-size2)]='\0';
            if (size <=10)
            {
            	strncpy (deskitem[i],deskitemrs[i],(size-size2));
@@ -647,24 +649,18 @@ DoDesktopIcons ()
 		  char buffer[200];
 
 		  if (desktopisdir[i] == 1)
-		    {
-				if (DesktopIconsActive==1)
-					{		  		    	
+		    { 		    	
 		      sprintf (buffer, "ms0:/PSP-OSS/DESKTOP/%s/",
 			       desktopiconname[i]);
 		      BrowseDirectory (buffer);
 		      break;
-		      }
 		    }
 
 		  else
-		    {
-				if (DesktopIconsActive==1)
-					{		  		    	
+		    {   	
 		      sprintf (buffer, "ms0:/PSP-OSS/DESKTOP/%s",
 			       desktopiconname[i]);
 		      OpenFile (buffer);
-		      }
 		    }
 		}
 
@@ -673,14 +669,11 @@ DoDesktopIcons ()
 		  && iconSelected.col == IconPositionY)
 		{
 		  if (desktopisdir[i] != 1)
-		    {
-				if (DesktopIconsActive==1)
-					{		  		    	
+		    {  		    	
 		      RightClick_Icon_Desktop (cursorPosition.x,
 					       cursorPosition.y,
 					       "ms0:/PSP-OSS/DESKTOP/",
 					       desktopiconname[i]);
-					}
 		    }
 		}
 	    }
