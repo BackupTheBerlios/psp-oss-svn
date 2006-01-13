@@ -397,7 +397,7 @@ DoDesktopIcons ()
       while (sceIoDread (DesktopDirectory, &dir) > 0)
 	{
 	  desktopiconname[i] = strdup (dir.d_name);
-
+		
 	  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
 	    {
 	      desktopisdir[i] = 1;
@@ -406,7 +406,14 @@ DoDesktopIcons ()
 	    {
 	      desktopisdir[i] = 0;
 	    }
+	  
+	  char *suffix = strrchr (desktopiconname[i], '.pico');
 
+	  if (suffix)
+	    {
+	      i--;
+	    }
+	    
 	  i++;
 	}
 
@@ -422,8 +429,25 @@ DoDesktopIcons ()
 	{
 
 	  //Get file extension
-	  char *suffix = strrchr (desktopiconname[i], '.');
-
+           //Get file extension
+           int size;
+           char* suffix = strrchr(desktopiconname[i], '.');   
+           char deskitem[i][13];
+           char deskitemrs[i][13];
+           size = strlen (desktopiconname[i]);           
+           strncpy (deskitemrs[i],desktopiconname[i],(size-4));
+           
+           if (size <=10)
+           {
+           	strncpy (deskitem[i],deskitemrs[i],(size-4));
+           	deskitem[i][(size-4)]='\0';
+           }
+           else
+           {
+            strncpy (deskitem[i],deskitemrs[i],6);
+            deskitem[i][6]='\0';
+           }           
+           PutText((60*IconPositionX-46),(60*IconPositionY+7),deskitem[i],BLACK); 
 
 
 	  if (desktopisdir[i] == 1)
@@ -519,19 +543,51 @@ DoDesktopIcons ()
 	      if (iconSelected.row == IconPositionX
 		  && iconSelected.col == IconPositionY)
 		{
-		  PutGFX (0, 0, 48, 48, Icon_QuickLink_Over,
-			  (60 * IconPositionX - 48),
-			  (60 * IconPositionY - 48 + 5));
-		  PutTextFont (380, 260, "QuickLink", BLACK);
-		  PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+		  	if (qlcheck[i] == 1) 
+		  	{ 
+	  		  PutGFX (0, 0, 48, 48, ShortcutIcon[i],
+					(60 * IconPositionX - 48),
+			 		(60 * IconPositionY - 48 + 5));
+			   }
+			   else
+			   {
+			   	 PutGFX (0, 0, 48, 48, Icon_QuickLink,
+					  (60 * IconPositionX - 48),
+					  (60 * IconPositionY - 48 + 5));
+				}			
+		  	PutTextFont (380, 260, "QuickLink", BLACK);
+		  	PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
 			       desktopiconname[i], BLUE);
 		}
 	      else
-		{
-		  PutGFX (0, 0, 48, 48, Icon_QuickLink,
-			  (60 * IconPositionX - 48),
-			  (60 * IconPositionY - 48 + 5));
-		}
+		{		  
+				if (qlcheck[i] == 0)
+				{
+					 char qlpath[500];
+					 sprintf (qlpath, "ms0:/PSP-OSS/DESKTOP/%s.pico", desktopiconname[i]);
+			  	 File=fopen(qlpath,"r");                     // Check To See If The File Exists		
+					 fclose(File); 			  	 		
+			   
+			   if (File)                                 // Does The File Exist?
+				   {					
+	  					ShortcutIcon[i] = LoadGFX (qlpath);
+	  					qlcheck[i] = 1;		
+			  		}
+		  	}
+		  		
+		  	if (qlcheck[i] == 1) 
+		  	{ 
+	  		  PutGFX (0, 0, 48, 48, ShortcutIcon[i],
+					(60 * IconPositionX - 48),
+			 		(60 * IconPositionY - 48 + 5));
+			   }
+			   else
+			   {
+			   	 PutGFX (0, 0, 48, 48, Icon_QuickLink,
+					  (60 * IconPositionX - 48),
+					  (60 * IconPositionY - 48 + 5));
+				}
+			}
 	    }
 
 	  //Unknown files
