@@ -403,20 +403,8 @@ DoDesktopIcons ()
 	{
 	  desktopiconname[i] = strdup (dir.d_name);
 
-	  char *suffix1 = strrchr (desktopiconname[i], '.qli');
-
-	  if (suffix1)
-	    {
-	      i--;
-	    }	  
-	    
-	  char *suffix2 = strrchr (desktopiconname[i], '.QLI');
-
-	  if (suffix2)
-	    {
-	      i--;
-	    }	  	    
-		
+   suffix = strrchr(desktopiconname[i], '.');   
+   	
 	  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
 	    {
 	      desktopisdir[i] = 1;
@@ -425,6 +413,11 @@ DoDesktopIcons ()
 	    {
 	      desktopisdir[i] = 0;
 	    }
+	    
+   if (stricmp (suffix, ".qli") == 0)
+   {
+   	i--;
+  }	    
 	    
 	  i++;
 	}
@@ -444,7 +437,6 @@ DoDesktopIcons ()
            //Get file extension
            int size;
            int size2;
-           char* suffix = strrchr(desktopiconname[i], '.');   
            char deskitem[i][10];
            char deskitemrs[i][30];
            size = strlen (desktopiconname[i]);
