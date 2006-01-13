@@ -60,6 +60,11 @@ DoActiveDesktop ()
 
   //Is the cursor over a icon?
   findIcon ();
+  
+  if (pad.Buttons & PSP_CTRL_START && pad.Buttons & PSP_CTRL_LTRIGGER)
+    {
+      USB_Mode ();
+    }    
 
   if (pad.Buttons & PSP_CTRL_LTRIGGER && pad.Buttons & PSP_CTRL_RTRIGGER)
     {
@@ -397,6 +402,20 @@ DoDesktopIcons ()
       while (sceIoDread (DesktopDirectory, &dir) > 0)
 	{
 	  desktopiconname[i] = strdup (dir.d_name);
+
+	  char *suffix1 = strrchr (desktopiconname[i], '.qli');
+
+	  if (suffix1)
+	    {
+	      i--;
+	    }	  
+	    
+	  char *suffix2 = strrchr (desktopiconname[i], '.QLI');
+
+	  if (suffix2)
+	    {
+	      i--;
+	    }	  	    
 		
 	  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
 	    {
@@ -405,13 +424,6 @@ DoDesktopIcons ()
 	  else
 	    {
 	      desktopisdir[i] = 0;
-	    }
-	  
-	  char *suffix = strrchr (desktopiconname[i], '.qli');
-
-	  if (suffix)
-	    {
-	      i--;
 	    }
 	    
 	  i++;
@@ -431,16 +443,19 @@ DoDesktopIcons ()
 	  //Get file extension
            //Get file extension
            int size;
+           int size2;
            char* suffix = strrchr(desktopiconname[i], '.');   
-           char deskitem[i][13];
-           char deskitemrs[i][13];
-           size = strlen (desktopiconname[i]);           
-           strncpy (deskitemrs[i],desktopiconname[i],(size-4));
+           char deskitem[i][10];
+           char deskitemrs[i][30];
+           size = strlen (desktopiconname[i]);
+           size2 = strlen (suffix);           
+           strncpy (deskitemrs[i],desktopiconname[i],(size-size2));
+           deskitemrs[i][(size-size2)]='\0';
            
            if (size <=10)
            {
-           	strncpy (deskitem[i],deskitemrs[i],(size-4));
-           	deskitem[i][(size-4)]='\0';
+           	strncpy (deskitem[i],deskitemrs[i],(size-size2));
+           	deskitem[i][(size-size2)]='\0';
            }
            else
            {
@@ -459,8 +474,11 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, "Directory", BLACK);
-		  PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				if (DesktopIconsActive==1)
+					{
+		  		 PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
 			       desktopiconname[i], BLUE);
+					}
 		}
 	      else
 		{
@@ -483,8 +501,11 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, "Graphics", BLACK);
-		  PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				if (DesktopIconsActive==1)
+					{		  
+		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
 			       desktopiconname[i], BLUE);
+			     }
 		}
 	      else
 		{
@@ -504,8 +525,11 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, "Music", BLACK);
-		  PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				if (DesktopIconsActive==1)
+					{		  
+		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
 			       desktopiconname[i], BLUE);
+			     }
 		}
 	      else
 		{
@@ -526,8 +550,11 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, "Executable", BLACK);
-		  PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				if (DesktopIconsActive==1)
+					{		  
+		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
 			       desktopiconname[i], BLUE);
+			     }
 		}
 	      else
 		{
@@ -551,13 +578,16 @@ DoDesktopIcons ()
 			   }
 			   else
 			   {
-			   	 PutGFX (0, 0, 48, 48, Icon_QuickLink,
+			   	 PutGFX (0, 0, 48, 48, Icon_QuickLink_Over,
 					  (60 * IconPositionX - 48),
 					  (60 * IconPositionY - 48 + 5));
 				}			
 		  	PutTextFont (380, 260, "QuickLink", BLACK);
-		  	PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				if (DesktopIconsActive==1)
+					{		  	
+		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
 			       desktopiconname[i], BLUE);
+			    }
 		}
 	      else
 		{		  
@@ -565,7 +595,7 @@ DoDesktopIcons ()
 				{
 					 char qlpath[500];
 					 FILE *File=NULL;
-					 sprintf (qlpath, "ms0:/PSP-OSS/DESKTOP/%s.qli", desktopiconname[i]);
+					 sprintf (qlpath, "ms0:/PSP-OSS/DESKTOP/%s.qli", deskitemrs[i]);
 			  	 File=fopen(qlpath,"r");                     // Check To See If The File Exists		
 					 fclose(File); 			  	 		
 			   
@@ -601,8 +631,11 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, "Unknown", BLACK);
-		  PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				if (DesktopIconsActive==1)
+					{		  
+		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
 			       desktopiconname[i], BLUE);
+					}			       
 		}
 	      else
 		{
@@ -623,17 +656,23 @@ DoDesktopIcons ()
 
 		  if (desktopisdir[i] == 1)
 		    {
+				if (DesktopIconsActive==1)
+					{		  		    	
 		      sprintf (buffer, "ms0:/PSP-OSS/DESKTOP/%s/",
 			       desktopiconname[i]);
 		      BrowseDirectory (buffer);
 		      break;
+		      }
 		    }
 
 		  else
 		    {
+				if (DesktopIconsActive==1)
+					{		  		    	
 		      sprintf (buffer, "ms0:/PSP-OSS/DESKTOP/%s",
 			       desktopiconname[i]);
 		      OpenFile (buffer);
+		      }
 		    }
 		}
 
@@ -643,14 +682,19 @@ DoDesktopIcons ()
 		{
 		  if (desktopisdir[i] != 1)
 		    {
+				if (DesktopIconsActive==1)
+					{		  		    	
 		      RightClick_Icon_Desktop (cursorPosition.x,
 					       cursorPosition.y,
 					       "ms0:/PSP-OSS/DESKTOP/",
 					       desktopiconname[i]);
+					}
 		    }
 		}
 	    }
-
+			else
+			{
+			}
 	  //+ everything that needs to be +'ed =D
 	  if (IconPositionY > 3)
 	    {

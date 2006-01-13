@@ -162,6 +162,8 @@ cursorHandler (int analogX, int analogY)
 void
 findIcon ()
 {
+if (DesktopIconsActive==1)
+{		  		    		
   if (!(cursorPosition.y <= 15 || cursorPosition.y >= 272 - 15))
     {
       //Row
@@ -243,6 +245,7 @@ findIcon ()
       iconSelected.col = 0;
       iconSelected.row = 0;
     }
+}
 }
 
 void
@@ -758,11 +761,19 @@ RightClick_Icon_Filebrowser ()
 	       && cursorPosition.y > (FilebrowserRightclickPosY + 50)
 	       && cursorPosition.y < (FilebrowserRightclickPosY + 60))
 	{
-	  char buffer2[500];
-    char buffer3[500];  
-	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,FilebrowserRightclickFilename);
+	  char buffer2[255];
+    char buffer3[255]; 
+    int size;
+    int size2;
+    char* suffix = strrchr(FilebrowserRightclickFilename, '.');   
+    char Createlink[255];
+    size = strlen (FilebrowserRightclickFilename);
+    size2 = strlen (suffix);           
+    strncpy (Createlink,FilebrowserRightclickFilename,(size-size2));
+    Createlink[(size-size2)]='\0'; 
+	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,Createlink);
 	  char *new_filename;
-	  new_filename = Keyboard (FilebrowserRightclickFilename);
+	  new_filename = Keyboard (Createlink);
     sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.pol", new_filename);
     Write_config (buffer3,buffer2);
     frtd = 1;
@@ -821,11 +832,19 @@ RightClick_Icon_Filebrowser ()
 	       && cursorPosition.y > (FilebrowserRightclickPosY + 60)
 	       && cursorPosition.y < (FilebrowserRightclickPosY + 70))
 	{
-	  char buffer2[500];
-    char buffer3[500];  
-	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,FilebrowserRightclickFilename);
+	  char buffer2[255];
+    char buffer3[255]; 
+    int size;
+    int size2;
+    char* suffix = strrchr(FilebrowserRightclickFilename, '.');   
+    char Createlink[255];
+    size = strlen (FilebrowserRightclickFilename);
+    size2 = strlen (suffix);           
+    strncpy (Createlink,FilebrowserRightclickFilename,(size-size2));
+    Createlink[(size-size2)]='\0'; 
+	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,Createlink);
 	  char *new_filename;
-	  new_filename = Keyboard (FilebrowserRightclickFilename);
+	  new_filename = Keyboard (Createlink);
     sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.pol", new_filename);
     Write_config (buffer3,buffer2);
     frtd = 1;

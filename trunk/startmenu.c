@@ -23,7 +23,6 @@ int stopmenu2;
 int fourcolumns;		//This will be used to move the start menu over to the left if there are 4 columns
 int empty;			//This will be used to display information if a folder is empty
 int settings;			//system menu
-int mstart;
 int substart = 0;
 int substartdpad = 0;
 int DPad_PositionY;
@@ -156,11 +155,11 @@ StartMenu ()
 	  DesktopIconsActive = 1;
 	  break;
 	}
-      if (cursorPosition.x > 71 || cursorPosition.y < 197)
+      if (cursorPosition.x > 71 || cursorPosition.y < 187)
 	{
 	  if (pad.Buttons & PSP_CTRL_CONFIRM || pad.Buttons & PSP_CTRL_BACK)
 	    {
-	      DesktopIconsActive = 1;
+	      //DesktopIconsActive = 1;
 	      break;
 	    }
 	}
@@ -174,6 +173,7 @@ StartMenu ()
 void
 findStartMenu ()
 {
+	DesktopIconsActive = 0;
 
   //Defines the Rows
   //fourcolums will adjust the colums appropriately when there are 4 colums on the sceen.
@@ -347,7 +347,7 @@ StartListMenu ()
   fourcolumns = 0;		//Useful for when there are 4 colums
   empty = 0;
   startcounter = 1;
-
+  DesktopIconsActive = 0;
 
   //The following code reads the directory selected earlier by selectmenu.
   int dfd = sceIoDopen (selectmenu);
@@ -398,7 +398,6 @@ StartListMenu ()
 	  mstart = 0;
 	  smpage = 1;
 	  fourcolumns = 0;
-	  DesktopIconsActive = 1;
 	  stopmenu = 0;
 	  break;
 	}
@@ -696,20 +695,22 @@ StartListMenu ()
 			    {
 			      if (selectmenu == "ms0:/PSP/GAME/")
 				{
+				  stopmenu = 1;
 				  sprintf (buffer, "%s%s/EBOOT.PBP", selectmenu, startitemname[i]);	//Uncomment these lines to have EBOOTS lunch from inside folders.  Comment the two lines above
 				  ELF_Run (buffer);
-				  stopmenu = 1;
 				}
 			      else
 				{
+					//DesktopIconsActive = 1;	
+					stopmenu = 1;
 				  sprintf (buffer, "%s%s/", selectmenu, startitemname[i]);	//This line works out the directory and folder name e.g ms0:/PSP-OSS/GAMES/
-				  BrowseDirectory (buffer);	//This line lunches the file Browser
-				  stopmenu = 1;
+				  BrowseDirectory (buffer);	//This line lunches the file Browser				  
 				}
 			    }
 			  //If the folder is not a directory it will try to open it.
 			  else
 			    {
+			    	//DesktopIconsActive = 1;	
 			      sprintf (buffer, "%s%s", selectmenu, startitemname[i]);	//This line works out the directory and item name e.g ms0:/PSP-OSS/WALLPAPER/XWING.PNG
 			      OpenFile (buffer);	//Sends the File to be opend by the appropriate app
 			      stopmenu = 1;
@@ -878,16 +879,24 @@ StartListMenu ()
 	  if (pad.Buttons & PSP_CTRL_CONFIRM || pad.Buttons & PSP_CTRL_BACK)
 	    {
 	      //uses to close the start menu if the cross is not pressed on an icon
-	      if (cursorPosition.x < 80 - fourcolumns
-		  || cursorPosition.x > (MenuSelected.row1 + startcounter))
+	      if (cursorPosition.x < 80 - fourcolumns && cursorPosition.y < 180)
 		{
 		  //mstart required to disable the start menu
 		  mstart = 0;
 		  fourcolumns = 0;
-		  DesktopIconsActive = 1;
+		  //DesktopIconsActive = 1;
 		  stopmenu = 1;
 		  break;
 		}
+	   else if (cursorPosition.x > (MenuSelected.row1 + startcounter))
+		{
+		  //mstart required to disable the start menu
+		  mstart = 0;
+		  fourcolumns = 0;
+		  //DesktopIconsActive = 1;
+		  stopmenu = 1;
+		  break;
+		}		
 	    }
 	  /*used to close the start menu if the triangle button is pressed
 	     if(pad.Buttons & PSP_CTRL_TRIANGLE)
@@ -904,7 +913,7 @@ StartListMenu ()
 	    {
 	      mstart = 0;
 	      fourcolumns = 0;
-	      DesktopIconsActive = 1;
+	      //DesktopIconsActive = 1;
 	      break;
 	    }
 	}
@@ -937,7 +946,7 @@ StartListMenu ()
 void
 drawSettings ()
 {
-
+  DesktopIconsActive =0;
   int Themes = 13;
   int Wallpapers = 14;
   int Setmenu = 15;
@@ -1019,6 +1028,7 @@ drawSettings ()
 void
 Startmenulistover ()
 {
+	DesktopIconsActive = 0;
   if (cursorPosition.x > 0 && cursorPosition.x < 70 && cursorPosition.y > 197
       && cursorPosition.y < 207)
     {
@@ -1061,6 +1071,7 @@ Startmenulistover ()
 void
 Startmenulist ()
 {
+	DesktopIconsActive = 0;
   right = 0;
   if (pad.Buttons & PSP_CTRL_RIGHT)
     {
@@ -1086,6 +1097,7 @@ Startmenulist ()
 	  DPad_PositionY = 1;
 	  smpage = 1;
 	  selectmenu = "ms0:/PSP/GAME/";
+	  DesktopIconsActive = 0;	
 	  StartListMenu ();
 	}
       //Music
@@ -1099,6 +1111,7 @@ Startmenulist ()
 	  DPad_PositionY = 1;
 	  smpage = 1;
 	  selectmenu = "ms0:/PSP/MUSIC/";
+	  DesktopIconsActive = 0;	
 	  StartListMenu ();
 	}
       //Pictures
@@ -1112,6 +1125,7 @@ Startmenulist ()
 	  DPad_PositionY = 1;
 	  smpage = 1;
 	  selectmenu = "ms0:/PSP/PHOTO/";
+	  DesktopIconsActive = 0;	
 	  StartListMenu ();
 	}
       //System
@@ -1126,6 +1140,7 @@ Startmenulist ()
 	  smpage = 1;
 	  selectmenu = "ms0:/NOTREALFOROURUSEONLY";
 	  settings = 3;		//System is used to define how may items we have in this folder
+	  DesktopIconsActive = 0;	
 	  StartListMenu ();
 	}
 
@@ -1144,7 +1159,7 @@ Startmenulist ()
 void
 SubmenuDPad ()
 {
-
+  DesktopIconsActive =0;
   if (substart == 0 && empty != 1 && right == 1)
     {
       cursorPosition.x = 130 - fourcolumns;

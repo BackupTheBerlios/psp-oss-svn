@@ -54,7 +54,11 @@ USB_Mode ()
 
       //Get key input
       GetUserInput ();
-
+if (pad.Buttons & PSP_CTRL_LTRIGGER)
+		{
+		}
+   else
+   {
       if (pad.Buttons & PSP_CTRL_START || pad.Buttons & PSP_CTRL_BACK)
 	{
 	  sceUsbStop (PSP_USBSTOR_DRIVERNAME, 0, 0);
@@ -63,4 +67,5 @@ USB_Mode ()
 	  break;
 	}
     }
+   }
 }
