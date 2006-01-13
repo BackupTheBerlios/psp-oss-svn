@@ -161,9 +161,7 @@ cursorHandler (int analogX, int analogY)
 //Mechanism that finds which icon your'e over
 void
 findIcon ()
-{
-if (DesktopIconsActive==1)
-{		  		    		
+{	
   if (!(cursorPosition.y <= 15 || cursorPosition.y >= 272 - 15))
     {
       //Row
@@ -245,7 +243,6 @@ if (DesktopIconsActive==1)
       iconSelected.col = 0;
       iconSelected.row = 0;
     }
-}
 }
 
 void
