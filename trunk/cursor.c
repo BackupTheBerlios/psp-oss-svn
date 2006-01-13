@@ -771,7 +771,7 @@ RightClick_Icon_Filebrowser ()
 	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,Createlink);
 	  char *new_filename;
 	  new_filename = Keyboard (Createlink);
-    sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.pol", new_filename);
+    sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.ql", new_filename);
     Write_config (buffer3,buffer2);
     frtd = 1;
     DoDesktopIcons ();
@@ -842,7 +842,7 @@ RightClick_Icon_Filebrowser ()
 	  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,Createlink);
 	  char *new_filename;
 	  new_filename = Keyboard (Createlink);
-    sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.pol", new_filename);
+    sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.ql", new_filename);
     Write_config (buffer3,buffer2);
     frtd = 1;
     DoDesktopIcons ();
