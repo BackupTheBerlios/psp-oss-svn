@@ -16,7 +16,6 @@
 
 #include "main.h"
 #include "startmenu.h"
-#include "desktop.h"
 int MenuPositionX = 1;		//Used to defind the columns that will be used for the start menu item
 int MenuPositionY;		//Used to set the Start Menu to star in the second row
 int stopmenu = 0;		//used to kill the start menu

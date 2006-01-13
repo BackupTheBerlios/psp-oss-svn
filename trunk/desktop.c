@@ -407,7 +407,7 @@ DoDesktopIcons ()
 	      desktopisdir[i] = 0;
 	    }
 	  
-	  char *suffix = strrchr (desktopiconname[i], '.pico');
+	  char *suffix = strrchr (desktopiconname[i], '.qli');
 
 	  if (suffix)
 	    {
@@ -564,7 +564,7 @@ DoDesktopIcons ()
 				if (qlcheck[i] == 0)
 				{
 					 char qlpath[500];
-					 sprintf (qlpath, "ms0:/PSP-OSS/DESKTOP/%s.pico", desktopiconname[i]);
+					 sprintf (qlpath, "ms0:/PSP-OSS/DESKTOP/%s.qli", desktopiconname[i]);
 			  	 File=fopen(qlpath,"r");                     // Check To See If The File Exists		
 					 fclose(File); 			  	 		
 			   
