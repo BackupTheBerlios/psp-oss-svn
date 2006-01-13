@@ -62,18 +62,14 @@ StartUp (void)
     {
       scePowerSetClockFrequency (333, 333, 166);
     }
-  if (strcmp (CPU, "222") == 0)
+  else if (strcmp (CPU, "222") == 0)
     {
       scePowerSetClockFrequency (222, 222, 133);
     }
-  if (strcmp (CPU, "265") == 0)
+  else if (strcmp (CPU, "265") == 0 || strcmp (CPU, "266") == 0)
     {
       scePowerSetClockFrequency (266, 266, 133);
-    }
-  if (strcmp (CPU, "266") == 0)
-    {
-      scePowerSetClockFrequency (266, 266, 133);
-    }        
+    } 
   /*
      Load Wallpaper
    */

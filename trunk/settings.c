@@ -75,19 +75,12 @@ SettingsScreen ()
 	      scePowerSetClockFrequency (266, 266, 133);
 	    }
 	  //If its at 266mHz, set it to 333mHz.
-	  else if (strcmp (CPU_Speed, "265") == 0)
+	  else if (strcmp (CPU_Speed, "265") == 0 || strcmp (CPU_Speed, "266") == 0)
 	    {
 	      sceIoWrite (file, "333", 3);
 
 	      scePowerSetClockFrequency (333, 333, 166);
 	    }
-	  //If its at 266mHz, set it to 333mHz.
-	  else if (strcmp (CPU_Speed, "266") == 0)
-	    {
-	      sceIoWrite (file, "333", 3);
-
-	      scePowerSetClockFrequency (333, 333, 166);
-	    }	    
 
 
 	  PauseVbl (30);
