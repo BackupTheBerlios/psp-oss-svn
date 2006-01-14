@@ -135,17 +135,17 @@ void
 DrawBattery ()
 {
 
-  if (scePowerGetBatteryLifePercent () > 65)
+  if (scePowerGetBatteryLifePercent () > 65 && scePowerGetBatteryLifePercent () > 35)
     {
       PutGFX (0, 0, 23, 11, Battery_full, 385, 1);
     }
 
-  else if (scePowerGetBatteryLifePercent () > 35)
+  else if (scePowerGetBatteryLifePercent () > 35 && scePowerGetBatteryLifePercent () <= 65)
     {
       PutGFX (0, 0, 23, 11, Battery_half, 385, 1);
     }
 
-  else if (scePowerGetBatteryLifePercent () < 35)
+  else if (scePowerGetBatteryLifePercent () <= 35)
     {
       PutGFX (0, 0, 23, 11, Battery_low, 385, 1);
     }
@@ -163,10 +163,52 @@ DrawBattery ()
   if (cursorPosition.x > 385 && cursorPosition.x < 408 && cursorPosition.y > 1
       && cursorPosition.y < 12)
     {
-      int powlev = scePowerGetBatteryLifePercent ();
-      //PutTextFont(380,260,powlev,BLACK);
-    }
-}
+        long BatteryVolt = scePowerGetBatteryVolt (); // Voltage: 5000 = 5.000 Volts 	
+        long BatteryCharging = scePowerIsBatteryCharging (); // 	    	
+        int BatteryLifePercent = scePowerGetBatteryLifePercent (); //  	
+        int BatteryLifeTime = scePowerGetBatteryLifeTime (); // Estimated number of minutes the battery will last        
+
+        char message [256]; 	
+        char BatteryVolt_ret_text [16]; 	
+        char BatteryCharge_percent [16];
+        
+        if (BatteryLifePercent < 100) { 	
+                sprintf (BatteryCharge_percent, "%d%%", BatteryLifePercent); 	
+        } else { 		
+                strcpy (BatteryCharge_percent, "100%"); 	
+        } 	
+	
+	
+        // Running on AC power... 	
+        if (BatteryLifePercent < 100)
+        {
+                        sprintf (message, "Using AC"); 	
+        } 	
+	
+        // Battery is being used... 	
+        else if (BatteryCharging == 0) { 	
+                if (BatteryLifeTime > 0 && BatteryLifeTime < 330 /* 5:30 */) { 	
+                        sprintf (message, "%s %01d:%02d", BatteryCharge_percent,  	
+                                                                            BatteryLifeTime / 60, BatteryLifeTime % 60); 	
+                } else { 	
+                        sprintf (message, "%s", BatteryCharge_percent); 	
+                } 	
+        } 	
+	
+        // Battery is being charged... 	
+        else { 	
+                long BatteryTemp = scePowerGetBatteryTemp (); 	
+                // If the battery temp. is > 38C (100F), display the temp. 	
+                if ((BatteryTemp > 38) && (BatteryTemp < 100)) { 	
+                        sprintf (message, "AC: %s - %d° F", BatteryCharge_percent, 	
+                                                                       (int)((9.0f/5.0f) * (float)BatteryTemp) + 32); 	
+                } else { 	
+                        sprintf (message, "AC: %s", BatteryCharge_percent); 	
+                } 	
+        }
+      PutTextFont(380,260,message,BLACK);        
+    }   
+}        
 
 void
 DrawStartMenu ()
