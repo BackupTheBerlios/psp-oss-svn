@@ -359,12 +359,11 @@ DoDesktopIcons ()
 	    {
 	      desktopisdir[i] = 0;
 				suffix = strrchr(desktopiconname[i], '.');   	  	      
-	    }
-  
 			   if (stricmp (suffix, ".qli") == 0)
 			   {
 			   	i--;
-			  }	    
+			  }	    				
+	    }
 	  i++;
 	}
 
