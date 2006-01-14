@@ -180,7 +180,7 @@ DrawBattery ()
 	
 	
         // Running on AC power... 	
-        if (BatteryLifePercent < 100)
+        if (BatteryLifePercent > 100)
         {
                         sprintf (message, "Using AC"); 	
         } 	
@@ -350,10 +350,7 @@ DoDesktopIcons ()
       while (sceIoDread (DesktopDirectory, &dir) > 0)
 	{
 	  desktopiconname[i] = strdup (dir.d_name);
-	  desktopiconcopy[i] = desktopiconname[i];
 
-   suffix = strrchr(desktopiconname[i], '.');   
-   	
 	  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
 	    {
 	      desktopisdir[i] = 1;
@@ -361,13 +358,13 @@ DoDesktopIcons ()
 	  else
 	    {
 	      desktopisdir[i] = 0;
+				suffix = strrchr(desktopiconname[i], '.');   	  	      
 	    }
-	    
-   if (stricmp (suffix, ".qli") == 0)
-   {
-   	i--;
-  }	    
-	    
+  
+			   if (stricmp (suffix, ".qli") == 0)
+			   {
+			   	i--;
+			  }	    
 	  i++;
 	}
 
@@ -382,28 +379,36 @@ DoDesktopIcons ()
       while (numberoffilesondesktop > i)
 	{
 
-	  //Get file extension
-           //Get file extension
-           int size;
-           int size2;
-           char deskitem[i][32];
-           char deskitemrs[i][32];
-           
-           suffix = strrchr(desktopiconcopy[i], '.');           
-           size = strlen (desktopiconcopy[i]);
-           size2 = strlen (suffix);           
-           strncpy (deskitemrs[i],desktopiconcopy[i],(size-size2));
-           deskitemrs[i][(size-size2)]='\0';
-           if (size <=10)
+           //Get file extension          
+          char deskitem[i][32];       
+           char deskitemrs[i][32];   
+               
+           if (desktopisdir[i] != 1)
            {
-           	strncpy (deskitem[i],deskitemrs[i],(size-size2));
-           	deskitem[i][(size-size2)]='\0';
-           }
-           else
-           {
-            strncpy (deskitem[i],deskitemrs[i],6);
-            deskitem[i][6]='\0';
-           }           
+             int size;
+             int size2;        	
+	           suffix = strrchr(desktopiconname[i], '.');           
+	           size = strlen (desktopiconname[i]);
+	           size2 = strlen (suffix);           
+	           strncpy (deskitemrs[i],desktopiconname[i],(size-size2));
+	           deskitemrs[i][(size-size2)]='\0';     
+	                 
+	           if (size <=10)
+		           {
+			           	strncpy (deskitem[i],deskitemrs[i],(size-size2));
+			           	deskitem[i][(size-size2)]='\0';
+		           }
+		           else
+		           {
+			            strncpy (deskitem[i],deskitemrs[i],6);
+			            deskitem[i][6]='\0';
+		           }		        	       	
+	          }
+	          else
+	          {
+	          	strncpy (deskitem[i], desktopiconname[i], 6);
+		  				deskitem[i][6] = '\0';     	     
+          }
            PutText((60*IconPositionX-46),(60*IconPositionY+7),deskitem[i],BLACK); 
 
 

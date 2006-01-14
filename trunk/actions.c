@@ -629,17 +629,27 @@ void
 Shortcut_Run (const char *filename)
 {
   SceUID file;
-  char Temp_Shortcut[255];
+	char Temp_Shortcut[255];
+	file = sceIoOpen (filename, PSP_O_RDONLY, 0);	// Open the File
+	sceIoRead (file, Temp_Shortcut, 255);	// Read 255 Bytes from the File
+	int filesize = sceIoLseek (file, 0, SEEK_END);	// Determine the File's Size
+	sceIoClose (file);
+	Temp_Shortcut[filesize] = 0x00;	// Insert a Terminator Null at the End of the File (Cuts the String to the True Width)
 
-  file = sceIoOpen (filename, PSP_O_RDONLY, 0);	// Open the File
-  sceIoRead (file, Temp_Shortcut, 255);	// Read 255 Bytes from the File
-  int filesize = sceIoLseek (file, 0, SEEK_END);	// Determine the File's Size
-  sceIoClose (file);
-  Temp_Shortcut[filesize] = 0x00;	// Insert a Terminator Null at the End of the File (Cuts the String to the True Width)
+	PauseVbl (10);		// Pause  
+	
+   char *suffix = strrchr(Temp_Shortcut, '/');   
+   		    
+   if (stricmp (suffix, "/") == 0)
+   	  {
+   			BrowseDirectory (Temp_Shortcut);
+	    }	    
+	  else
+	    {
+				OpenFile (Temp_Shortcut);	// Open the Short Cut
+	    } 
+   	
 
-  PauseVbl (10);		// Pause
-
-  OpenFile (Temp_Shortcut);	// Open the Short Cut
 }
 
 //Api Stuff

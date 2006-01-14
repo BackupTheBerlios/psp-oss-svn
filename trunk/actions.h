@@ -22,3 +22,5 @@ void ELF_Run (const char *filename);
 WriteTxtFile (const char *filename, const char *texttowrite);
 //Random Number
 int Random (int low, int high);
+
+
