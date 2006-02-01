@@ -39,14 +39,14 @@ Execute ()
       int UMD_CHK = sceUmdCheckMedium (0);
       if (!UMD_CHK == 0)
 	{
-	  FadeScreenMessage ("Loading UMD...", "PSP-OSS is loading UMD",
-			     "Please wait...", "");
+	  FadeScreenMessage (UMDLoadT, UMDLoad2T,
+	  		WaitT, "");
 	  PrintScreen ();
 	  UMD_Run ();
 	}
       else
 	{
-	  MessageWindow ("No UMD", "Please insert a UMD and try again");
+	  MessageWindow (NoUMDT, NoUMD2T);
 	}
     }
 
@@ -106,8 +106,8 @@ SetSkin (const char *NewSkin)
 void
 ReloadSkin ()
 {
-  FadeScreenMessage ("Reloading skin", "Reloading skin...", "Please wait...",
-		     "");
+  FadeScreenMessage (ReloadSkinT, ReloadSkin2T, WaitT,
+  			 "");
   PrintScreen ();
 
   freeImage (taskbar);
@@ -474,7 +474,7 @@ ViewImage (const char *filename)
   while (1)
     {
       GetUserInput ();		// Get Control Input
-      DrawFullscreenWindow ("Image viewer");	// Draw Window with Title "Image Viewer"
+      DrawFullscreenWindow (FSImageT);	// Draw Window with Title "Image Viewer"
       PutGFX (0, 0, TempImage->imageWidth, TempImage->imageHeight, TempImage, tx, ty);	// Place Image Center of Screen/Window
 
       /*
@@ -494,7 +494,7 @@ ViewImage (const char *filename)
 	    {
 	      PutGFX (0, 0, 75, 20, Button1, 380, 240);
 	    }
-	  PutTextFont (400, 245, "Use", 0x00000000);
+	  PutTextFont (400, 245, FSImageUseT, FSImageUseC);
 	}
 
       // Move the Image One Pixel Up
@@ -616,7 +616,7 @@ LUA_Run (const char *filename)
   
      Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/LUA_TEMP.CFG",filename);
 
-     FadeScreenMessage("Loading LUA","PSP-OSS is loading LUA","Please wait...","");
+     FadeScreenMessage(LUALoadT,LUALoad2T,WaitT,"");
      PrintScreen();
      PauseVbl(10); // Pause
 

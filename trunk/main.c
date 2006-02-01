@@ -17,7 +17,6 @@ WwW.PsP-OsS.CoM
 
 //PSP-OSS Main code
 #include "main.h"
-
 #include "startup.h"
 #include "cursor.h"
 #include "actions.h"
@@ -26,6 +25,8 @@ WwW.PsP-OsS.CoM
 #include "desktop.h"
 #include "filebrowser.h"
 #include "settings.h"
+#include "config.h"
+#include "customskin.h"
 
 PSP_MODULE_INFO ("PSP-OSS", 0x1000, 1, 1);	// 0x1000 = Kernel MODE
 PSP_MAIN_THREAD_ATTR (0);	// 0 for kernel mode too
@@ -178,7 +179,7 @@ main (int argc, char *argv[])
   if (check == 1)
     {
       sceIoRemove ("ms0:/PSP-OSS/CRASHED");
-      MessageWindow ("Sorry", "Sorry about the crash.");
+      MessageWindow (CrashT, Crash2T);  
     }
 
   //Our main loop

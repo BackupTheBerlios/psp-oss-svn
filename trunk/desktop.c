@@ -33,7 +33,7 @@ DoActiveDesktop ()
 
   PutGFX (0, 0, 480, 15, taskbar, 0, 257);	//Taskbar
   PutGFX (0, 0, 480, 15, TopBar, 0, 0);	//Top Bar
-  PutTextFont (5, 5, OSSVersion, DARK_RED);	//Version
+	PutTextFont (5, 5, OSSVersion, OSSVersionC);	//Version
 
   //Draw the start menu
   DrawStartMenu ();
@@ -126,7 +126,7 @@ DrawUSBState ()
   if (cursorPosition.x > 417 && cursorPosition.x < 433
       && cursorPosition.y < 12)
     {
-      PutTextFont (380, 260, "USB", BLACK);
+      PutTextFont (380, 260, USBT, USBC);
     }
 }
 
@@ -182,7 +182,7 @@ DrawBattery ()
         // Running on AC power... 	
         if (BatteryLifePercent > 100)
         {
-                        sprintf (message, "Using AC"); 	
+                        sprintf (message, UsingACT); 	
         } 	
 	
         // Battery is being used... 	
@@ -206,7 +206,7 @@ DrawBattery ()
                         sprintf (message, "AC: %s", BatteryCharge_percent); 	
                 } 	
         }
-      PutTextFont(380,260,message,BLACK);        
+      PutTextFont(380,260,message,BatteryC);    //Battery stuff       
     }   
 }        
 
@@ -238,7 +238,7 @@ drawtime ()
   sprintf (buff, "%02d%c%02d",
 	   (tsys->tm_hour > 12 ? tsys->tm_hour - 12 : tsys->tm_hour),
 	   (tsys->tm_sec & 1 ? ':' : ' '), tsys->tm_min);
-  PutTextFont (440, 4, buff, DARK_RED);
+  PutTextFont (440, 4, buff, TimeC); //current Time
 
 }
 
@@ -273,7 +273,7 @@ DrawMediaStatus ()
 	      PutGFX (0, 0, 15, 15, Music_pause2, 315, 0);
 	      if (DesktopActive == 1)
 		{
-		  PutTextFont (380, 260, "Pause", 0x00000000);
+		  PutTextFont (380, 260, PauseT, PauseC); //Audio
 		}
 	    }
 	  else
@@ -291,7 +291,7 @@ DrawMediaStatus ()
 	      PutGFX (0, 0, 15, 15, Music_play2, 315, 0);
 	      if (DesktopActive == 1)
 		{
-		  PutTextFont (380, 260, "Play", 0x00000000);
+		  PutTextFont (380, 260, PlayT, PlayC);
 		}
 	    }
 	  else
@@ -306,7 +306,7 @@ DrawMediaStatus ()
 	  PutGFX (0, 0, 15, 15, Music_stop2, 345, 0);
 	  if (DesktopActive == 1)
 	    {
-	      PutTextFont (380, 260, "Stop", 0x00000000);
+	      PutTextFont (380, 260, StopT, StopC);	
 	    }
 	}
       else
@@ -408,7 +408,7 @@ DoDesktopIcons ()
 	          	strncpy (deskitem[i], desktopiconname[i], 6);
 		  				deskitem[i][6] = '\0';     	     
           }
-           PutText((60*IconPositionX-46),(60*IconPositionY+7),deskitem[i],BLACK); 
+           PutText((60*IconPositionX-46),(60*IconPositionY+7),deskitem[i],DesktopTextC); 
 
 
 	  if (desktopisdir[i] == 1)
@@ -419,11 +419,11 @@ DoDesktopIcons ()
 		  PutGFX (0, 0, 48, 48, Icon_Folder_Over,
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
-		  PutTextFont (380, 260, "Directory", BLACK);
+		  PutTextFont (380, 260, DirectoryT, DirectoryC);
 				if (DesktopIconsActive==1)
 					{
 		  		 PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], BLUE);
+			       desktopiconname[i], DesktopTextOverC);
 					}
 		}
 	      else
@@ -446,11 +446,11 @@ DoDesktopIcons ()
 		  PutGFX (0, 0, 48, 48, Icon_GFX_Over,
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
-		  PutTextFont (380, 260, "Graphics", BLACK);
+		  PutTextFont (380, 260, GraphicT, GraphicC);
 				if (DesktopIconsActive==1)
 					{		  
 		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], BLUE);
+			       desktopiconname[i], DesktopTextOverC);
 			     }
 		}
 	      else
@@ -470,11 +470,11 @@ DoDesktopIcons ()
 		  PutGFX (0, 0, 48, 48, Icon_Audio_Over,
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
-		  PutTextFont (380, 260, "Music", BLACK);
+		  PutTextFont (380, 260, MusicT, MusicC);
 				if (DesktopIconsActive==1)
 					{		  
 		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], BLUE);
+			       desktopiconname[i], DesktopTextOverC);
 			     }
 		}
 	      else
@@ -495,11 +495,11 @@ DoDesktopIcons ()
 		  PutGFX (0, 0, 48, 48, Icon_Eboot_Over,
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
-		  PutTextFont (380, 260, "Executable", BLACK);
+		  PutTextFont (380, 260, ExecutableT, ExecutableC);
 				if (DesktopIconsActive==1)
 					{		  
 		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], BLUE);
+			       desktopiconname[i], DesktopTextOverC);
 			     }
 		}
 	      else
@@ -528,11 +528,11 @@ DoDesktopIcons ()
 					  (60 * IconPositionX - 48),
 					  (60 * IconPositionY - 48 + 5));
 				}			
-		  	PutTextFont (380, 260, "QuickLink", BLACK);
+		  	PutTextFont (380, 260, QuickLinkT, QuickLinkC);
 				if (DesktopIconsActive==1)
 					{		  	
 		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], BLUE);
+			       desktopiconname[i], DesktopTextOverC);
 			    }
 		}
 	      else
@@ -576,11 +576,11 @@ DoDesktopIcons ()
 		  PutGFX (0, 0, 48, 48, Icon_Unknown_Over,
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
-		  PutTextFont (380, 260, "Unknown", BLACK);
+		  PutTextFont (380, 260, UnknownT, UnknownC);	
 				if (DesktopIconsActive==1)
 					{		  
 		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], BLUE);
+			       desktopiconname[i], DesktopTextOverC);
 					}			       
 		}
 	      else
@@ -655,7 +655,7 @@ drawIcons ()
   //Exit Desktop Icon
   if (iconSelected.row == 8 && iconSelected.col == 4)
     {				//Cursor is over the exit icon
-      PutTextFont (380, 260, "Exit OSS", 0x00000000);
+      PutTextFont (380, 260, ExitOSST, ExitOSSC);
       PutGFX (0, 0, 48, 48, Icon_Quit_Over, (IconXSize * 8 - 48),
 	      (IconYSize * 4 - 48));
     }
@@ -671,7 +671,7 @@ drawIcons ()
     {
       if (iconSelected.row == 8 && iconSelected.col == 3)
 	{			//Cursor is over the UMD icon
-	  PutTextFont (380, 260, "Start UMD", 0x00000000);
+	  PutTextFont (380, 260, StartUMDT, StartUMDC);	
 	  PutGFX (0, 0, 48, 48, Icon_UMD_Over, (IconXSize * 8 - 48),
 		  (IconYSize * 3 - 48));
 	}
@@ -687,7 +687,7 @@ drawIcons ()
     {
       if (iconSelected.row == 8 && iconSelected.col == 3)
 	{			//Cursor is over the No UMD icon
-	  PutTextFont (380, 260, "No UMD", 0x00000000);
+	  PutTextFont (380, 260, NoUMDT, NoUMDC);
 	  PutGFX (0, 0, 48, 48, Icon_No_UMD_Over, (IconXSize * 8 - 48),
 		  (IconYSize * 3 - 48));
 	}
@@ -701,7 +701,7 @@ drawIcons ()
   //Settings Icon
   if (iconSelected.row == 8 && iconSelected.col == 2)
     {
-      PutTextFont (380, 260, "Settings", 0x00000000);
+      PutTextFont (380, 260, SettingsT, SettingsC);	
       PutGFX (0, 0, 48, 48, Icon_Settings_Over, (IconXSize * 8 - 48),
 	      (IconYSize * 2 - 48));
     }

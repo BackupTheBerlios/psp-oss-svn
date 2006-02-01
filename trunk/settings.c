@@ -253,27 +253,27 @@ DrawSettingsScreenGUI ()
 	}
 	
 	    //Mouse Speed
-  if (mousespeed == 1)
+  if (mousespeed == 2)
     {
       sprintf (mouse_speed_text, "1");
     }
-  else if (mousespeed == 2)
+  else if (mousespeed == 3)
     {
       sprintf (mouse_speed_text, "2");
     }
-  else if (mousespeed == 3)
+  else if (mousespeed == 4)
     {
       sprintf (mouse_speed_text, "3");
     }
-  else if (mousespeed == 4)
+  else if (mousespeed == 5)
     {
       sprintf (mouse_speed_text, "4");
     }
-  else if (mousespeed == 5)
+  else if (mousespeed == 6)
     {
       sprintf (mouse_speed_text, "5");
     }
-  else if (mousespeed == 6)
+  else if (mousespeed == 7)
     {
        sprintf (mouse_speed_text, "6");
     }
@@ -297,27 +297,23 @@ DrawSettingsScreenGUI ()
   PutGFX (0, 0, 300, 15, Settings_Window, windowx, windowy + 135);
   PutGFX (0, 0, 300, 15, Settings_Window_Bottom, windowx, windowy + 150);
 
-  PutTextFont (itemx + 5, windowy + 17, "Language:", BLACK);
-  PutTextFont (optionx + 150, windowy + 17, "English", RED);
+	PutTextFont (itemx + 5, windowy + 17, LanguageT, LanguageC);
+  PutTextFont (optionx + 150, windowy + 17, "English", SettingsC);
 
-  PutTextFont (itemx + 5, windowy + 32, "CPU Speed:", BLACK);
-  PutTextFont (optionx + 150, windowy + 32, CPU_Speed, RED);
+  PutTextFont (itemx + 5, windowy + 32, CPUT, CPUC);
+  PutTextFont (optionx + 150, windowy + 32, CPU_Speed, SettingsC);
 
-  PutTextFont (itemx + 5, windowy + 47, "Confirm key:", BLACK);
-  PutTextFont (optionx + 150, windowy + 47, currentkey, RED);
+  PutTextFont (itemx + 5, windowy + 47, ConfirmT, ConfirmC);
+  PutTextFont (optionx + 150, windowy + 47, currentkey, SettingsC);
 
-  //
+  PutTextFont (itemx + 5, windowy + 77, ToggleWallpaperT, ToggleWallpaperC);
+  PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text, SettingsC);
 
-  PutTextFont (itemx + 5, windowy + 77, "Toggle wallpaper:", BLACK);
-  PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text, RED);
+  PutTextFont (itemx + 5, windowy + 92, DeasktopEffectT, DeasktopEffectC);
+  PutTextFont (optionx + 150, windowy + 92, DesktopEffect, SettingsC);
 
-  PutTextFont (itemx + 5, windowy + 92, "Desktop effect:", BLACK);
-  PutTextFont (optionx + 150, windowy + 92, DesktopEffect, RED);
-
-  //
-
-  PutTextFont (itemx + 5, windowy + 122, "Mouse Speed:", BLACK);
-  PutTextFont (optionx + 160, windowy + 122, mouse_speed_text, RED);
+  PutTextFont (itemx + 5, windowy + 122, MouseSpeedT, MouseSpeedC);
+	PutTextFont (optionx + 160, windowy + 122, mouse_speed_text, SettingsC);
 
   /*PutTextFont (itemx + 5, windowy + 137, "Theme:", BLACK);
   PutTextFont (optionx + 150, windowy + 137, "Change", RED);
@@ -331,33 +327,32 @@ DrawSettingsScreenGUI ()
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 15 && cursorPosition.y < windowy + 30)
     {
-      PutTextFont (optionx + 150, windowy + 17, "English", DARK_RED);
+      PutTextFont (optionx + 150, windowy + 17, "English", Settings2C);
     }
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 30 && cursorPosition.y < windowy + 45)
     {
-      PutTextFont (optionx + 150, windowy + 32, CPU_Speed, DARK_RED);
+      PutTextFont (optionx + 150, windowy + 32, CPU_Speed, Settings2C);
     }
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 45 && cursorPosition.y < windowy + 60)
     {
-      PutTextFont (optionx + 150, windowy + 47, currentkey, DARK_RED);
+      PutTextFont (optionx + 150, windowy + 47, currentkey, Settings2C);
     }
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 75 && cursorPosition.y < windowy + 90)
     {
-      PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text,
-		   DARK_RED);
+      PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text, Settings2C);
     }
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 90 && cursorPosition.y < windowy + 105)
     {
-      PutTextFont (optionx + 150, windowy + 92, DesktopEffect, DARK_RED);
+      PutTextFont (optionx + 150, windowy + 92, DesktopEffect, Settings2C);
     }
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 120 && cursorPosition.y < windowy + 135)
     {
-      PutTextFont (optionx + 160, windowy + 122, mouse_speed_text, DARK_RED);
+      PutTextFont (optionx + 160, windowy + 122, mouse_speed_text, Settings2C);
     }
 /*    
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
@@ -417,7 +412,7 @@ SettingsScreen_Language ()
 	  break;
 	}
 
-      PutTextFont (optionx + 155, windowy + 25, "English", RED);
+      PutTextFont (optionx + 155, windowy + 25, "English", SettingsC);
 
       PutGFX (0, 0, 32, 32, cursor, cursorPosition.x, cursorPosition.y);
       PrintScreen ();
@@ -474,57 +469,56 @@ void SettingsScreen_MouseSpeed ()
 	{
 		  if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 75 && cursorPosition.y < windowy + 85)
 			{
-				mousespeed = 1;
+				mousespeed = 2;
 			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "1");
 			  DrawSettingsScreenGUI ();
 			  break;
 			}
 		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 85 && cursorPosition.y < windowy + 95)
 			{
-				mousespeed = 2;
+				mousespeed = 3;
 			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "2");
 			  DrawSettingsScreenGUI ();
 			  break;
 			}	
 		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 95 && cursorPosition.y < windowy + 105)
 			{
-				mousespeed = 3;
+				mousespeed = 4;
 			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "3");
 			  DrawSettingsScreenGUI ();
 			  break;
 			}	
 		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 105 && cursorPosition.y < windowy + 115)
 			{
-				mousespeed = 4;
+				mousespeed = 5;
 			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "4");
 			  DrawSettingsScreenGUI ();
 			  break;
 			}	
 		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 115 && cursorPosition.y < windowy + 125)
 			{
-				mousespeed = 5;
+				mousespeed = 6;
 			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "5");
 			  DrawSettingsScreenGUI ();
 			  break;
 			}	
 		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 125 && cursorPosition.y < windowy + 135)
 			{
-				mousespeed = 6;
+				mousespeed = 7;
 			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "6");
 			  DrawSettingsScreenGUI ();			  
 			  break;
 			}	
 
-	  PauseVbl (30);
 	  GetUserInput ();
 	}
 
-      PutTextFont (optionx + 200, windowy + 75, "1", RED);
-      PutTextFont (optionx + 200, windowy + 85, "2", RED);
-      PutTextFont (optionx + 200, windowy + 95, "3", RED);
-      PutTextFont (optionx + 200, windowy + 105, "4", RED);
-      PutTextFont (optionx + 200, windowy + 115, "5", RED);
-      PutTextFont (optionx + 200, windowy + 125, "6", RED);
+      PutTextFont (optionx + 200, windowy + 75, "1", SettingsC);
+      PutTextFont (optionx + 200, windowy + 85, "2", SettingsC);
+      PutTextFont (optionx + 200, windowy + 95, "3", SettingsC);
+      PutTextFont (optionx + 200, windowy + 105, "4", SettingsC);
+      PutTextFont (optionx + 200, windowy + 115, "5", SettingsC);
+      PutTextFont (optionx + 200, windowy + 125, "6", SettingsC);
 
       PutGFX (0, 0, 32, 32, cursor, cursorPosition.x, cursorPosition.y);
       PrintScreen ();

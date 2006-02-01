@@ -40,6 +40,7 @@ char *selectmenu;
 void
 StartMenu ()
 {
+  	
   DesktopIconsActive = 0;
   PauseVbl (10);
   stopmenu = 0;
@@ -445,12 +446,12 @@ StartListMenu ()
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 227);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 237);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 247);
-      PutText (5, 197, "Browse", BLACK);
-      PutText (5, 207, "Games", BLACK);
-      PutText (5, 217, "Music", BLACK);
-      PutText (5, 227, "Pictures", BLACK);
-      PutText (5, 237, "System", BLACK);
-      PutText (5, 247, "Quit", BLACK);
+		  PutText (5, 197, BrowseT, BrowseC);
+		  PutText (5, 207, GamesT, GamesC);
+		  PutText (5, 217, MusicT, MusicC);
+		  PutText (5, 227, PicturesT, PicturesC);
+		  PutText (5, 237, SystemT, SystemC);
+		  PutText (5, 247, QuitT, QuitC);     
 
       findStartMenu ();
       GetUserInput ();
@@ -513,7 +514,7 @@ StartListMenu ()
 	      char Startitem[i][13];
 	      int size;
 	      size = strlen (startitemname[i]);
-
+	
 	      if (isdir[i] != 1)
 		{
 		  if (size <= 12)
@@ -534,7 +535,7 @@ StartListMenu ()
 		  Startitem[i][12] = '\0';
 		}
 
-
+			PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], StartSubMenuC);	//Displays the name of the item in the Start Menu
 	      //Used to check is an item is a Directory
 	      if (isdir[i] == 1)
 		{
@@ -543,23 +544,18 @@ StartListMenu ()
 		  if (MenuSelected.row1 == MenuPositionX
 		      && MenuSelected.col1 == MenuPositionY)
 		    {
-		      PutGFX (0, 0, 100, 15, SubMenuSelect, (100 * MenuPositionX - fourcolumns - 19), (15 * MenuPositionY + 7));	//Puts an overlay over the Text if the mouse cursor is over the item.
-		      PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], BLACK);	//Displays the name of the item in the Start Menu
-
+		      PutGFX (0, 0, 100, 15, SubMenuSelect, (100 * MenuPositionX - fourcolumns - 19), (15 * MenuPositionY + 7));	//Puts an overlay over the Text if the mouse cursor is over the item.		      
+								PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);	//Displays the name of the item in the Start Menu
 		      if (selectmenu == "ms0:/PSP/GAME/")
 			{
-			  PutText (380, 260, "Executable", BLACK);	//Display the type of file type in the Status Bar e.g Executable
+			  PutText (380, 260, ExecutableT, StartSubMenuTypeC);	//Display the type of file type in the Status Bar e.g Executable
 			}
 		      else
 			{
-			  PutText (380, 260, "Folder", BLACK);	//Display the type of file type in the Status Bar e.g Executable
+			  PutText (380, 260, DirectoryT, StartSubMenuTypeC);	//Display the type of file type in the Status Bar e.g Executable
 			}
 		    }
-		  //The following is used to display the items in the Start Menu normally without the highlights
-		  else
-		    {
-		      PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], BLACK);	//Displays the name of the item in the Start Menu
-		    }
+
 		}
 
 	      //Used to check is an item is an Image
@@ -574,13 +570,10 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
-		      PutText (380, 260, "Graphic", BLACK);
+			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+		      PutText (380, 260, GraphicT, StartSubMenuTypeC);
 		    }
-		  else
-		    {
-		      PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], BLACK);	//Displays the name of the item in the Start Menu
-		    }
+
 		}
 
 
@@ -595,14 +588,10 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
-		      PutText (380, 260, "Music", BLACK);
+			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+		      PutText (380, 260, MusicT, StartSubMenuTypeC);
 		    }
-		  else
-		    {
-		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
-		    }
+
 		}
 
 
@@ -617,13 +606,8 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
-		      PutText (380, 260, "Executable", BLACK);
-		    }
-		  else
-		    {
-		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
+			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+		      PutText (380, 260, ExecutableT, StartSubMenuTypeC);
 		    }
 		}
 
@@ -638,14 +622,10 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
-		      PutText (380, 260, "Shortcut", BLACK);
+			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+		      PutText (380, 260, QuickLinkT, StartSubMenuTypeC);
 		    }
-		  else
-		    {
-		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
-		    }
+
 		}
 
 	      //Unknown files
@@ -658,13 +638,8 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
-		      PutText (380, 260, "Unknown", BLACK);
-		    }
-		  else
-		    {
-		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], BLACK);
+			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+		      PutText (380, 260, UnknownT, StartSubMenuTypeC);
 		    }
 		}
 
@@ -773,13 +748,13 @@ StartListMenu ()
 		{		//Cursor is over the exit icon
 		  PutGFX (0, 0, 100, 15, SubMenuMiddle, (100 * 4 - fourcolumns - 20), (15 * 15 + 7));	//SubMenuMiddle is the image that both the icon and the text of an item in the start menu is dispayed on.
 		  PutGFX (0, 0, 100, 15, SubMenuSelect, (100 * 4 - fourcolumns - 19), (15 * 15 + 7));	//Puts an overlay over the Text if the mouse cursor is over the item.     
-		  PutText ((100 * 4 - fourcolumns - 10), (15 * 15 + 9), "More...", BLACK);	//Displays the name of the item in the Start Menu
-		  PutText (380, 260, "More..", BLACK);	//Display the type of file in the Status Bar e.g Executable
+		  PutText ((100 * 4 - fourcolumns - 10), (15 * 15 + 9), MoreT, StartSubMenuOverC);	//Displays the name of the item in the Start Menu
+		  PutText (380, 260, MoreT, StartSubMenuTypeC);	//Display the type of file in the Status Bar e.g Executable
 		}
 	      else
 		{
 		  PutGFX (0, 0, 100, 15, SubMenuMiddle, (100 * 4 - fourcolumns - 20), (15 * 15 + 7));	//SubMenuMiddle is the image that both the icon and the text of an item in the start menu is dispayed on.
-		  PutText ((100 * 4 - fourcolumns - 10), (15 * 15 + 9), "More...", BLACK);	//Displays the name of the item in the Start Menu       
+		  PutText ((100 * 4 - fourcolumns - 10), (15 * 15 + 9), MoreT, StartSubMenuC);	//Displays the name of the item in the Start Menu              
 		}
 	    }
 	  i++;
@@ -869,9 +844,9 @@ StartListMenu ()
       //No files in list
       if (empty == 1)
 	{
-	  PutText ((100 * 1 - fourcolumns - 6), (15 * 14 + 9), "Empty", BLUE);	//Displays the name of the item in the Start Menu       
-	  PutText ((100 * 1 - fourcolumns - 6), (15 * 15 + 9), "Directory", BLUE);	//Displays the name of the item in the Start Menu                                                                               
-	}
+	  PutText ((100 * 1 - fourcolumns - 6), (15 * 14 + 9), EmptyT, StartSubMenuEmptyC);	//Displays the name of the item in the Start Menu       
+	  PutText ((100 * 1 - fourcolumns - 6), (15 * 15 + 9), DirectoryT, StartSubMenuEmptyC);	//Displays the name of the item in the Start Menu   
+	  	}
 
       if (FilebrowserRightclickActive != 1)
 	{
@@ -954,39 +929,39 @@ drawSettings ()
     {				//Cursor is over the exit icon
       PutGFX (0, 0, 100, 15, SubMenuMiddle, (100 * 1 - fourcolumns - 20), (15 * Wallpapers + 7));	//SubMenuMiddle is the image that both the icon and the text of an item in the start menu is dispayed on.
       PutGFX (0, 0, 100, 15, SubMenuSelect, (100 * 1 - fourcolumns - 19), (15 * Wallpapers + 7));	//Puts an overlay over the Text if the mouse cursor is over the item.
-      PutText ((100 * 1 - fourcolumns - 10), (15 * Wallpapers + 9), "Wallpapers", BLACK);	//Displays the name of the item in the Start Menu
-      PutText (380, 260, "Wallpapers", BLACK);	//Display the type of file in the Status Bar e.g Executable
+      PutText ((100 * 1 - fourcolumns - 10), (15 * Wallpapers + 9), SMWallpapersT, StartSubMenuOverC);	//Displays the name of the item in the Start Menu
+      PutText (380, 260, SMWallpapersT, StartSubMenuTypeC);	//Display the type of file in the Status Bar e.g Executable
     }
   else
     {
       PutGFX (0, 0, 100, 15, SubMenuMiddle, (100 * 1 - fourcolumns - 20), (15 * Wallpapers + 7));	//SubMenuMiddle is the image that both the icon and the text of an item in the start menu is dispayed on.
-      PutText ((100 * 1 - fourcolumns - 10), (15 * Wallpapers + 9), "Wallpapers", BLACK);	//Displays the name of the item in the Start Menu       
+      PutText ((100 * 1 - fourcolumns - 10), (15 * Wallpapers + 9), SMWallpapersT, StartSubMenuC);	//Displays the name of the item in the Start Menu       
     }
 
   if (MenuSelected.row1 == 1 && MenuSelected.col1 == Themes)
     {				//Cursor is over the exit icon
       PutGFX (0, 0, 100, 15, SubMenuMiddle, (100 * 1 - fourcolumns - 20), (15 * Themes + 7));	//SubMenuMiddle is the image that both the icon and the text of an item in the start menu is dispayed on.
       PutGFX (0, 0, 100, 15, SubMenuSelect, (100 * 1 - fourcolumns - 19), (15 * Themes + 7));	//Puts an overlay over the Text if the mouse cursor is over the item.     
-      PutText ((100 * 1 - fourcolumns - 10), (15 * Themes + 9), "Themes", BLACK);	//Displays the name of the item in the Start Menu
-      PutText (380, 260, "Themes", BLACK);	//Display the type of file in the Status Bar e.g Executable
+      PutText ((100 * 1 - fourcolumns - 10), (15 * Themes + 9), SMThemesT, StartSubMenuOverC);	//Displays the name of the item in the Start Menu
+      PutText (380, 260, SMThemesT, StartSubMenuTypeC);	//Display the type of file in the Status Bar e.g Executable
     }
   else
     {
       PutGFX (0, 0, 100, 15, SubMenuMiddle, (100 * 1 - fourcolumns - 20), (15 * Themes + 7));	//SubMenuMiddle is the image that both the icon and the text of an item in the start menu is dispayed on.
-      PutText ((100 * 1 - fourcolumns - 10), (15 * Themes + 9), "Themes", BLACK);	//Displays the name of the item in the Start Menu       
+      PutText ((100 * 1 - fourcolumns - 10), (15 * Themes + 9), SMThemesT, StartSubMenuC);	//Displays the name of the item in the Start Menu       
     }
 
   if (MenuSelected.row1 == 1 && MenuSelected.col1 == Setmenu)
     {				//Cursor is over the exit icon
       PutGFX (0, 0, 100, 15, SubMenuMiddle, (100 * 1 - fourcolumns - 20), (15 * Setmenu + 7));	//SubMenuMiddle is the image that both the icon and the text of an item in the start menu is dispayed on.
       PutGFX (0, 0, 100, 15, SubMenuSelect, (100 * 1 - fourcolumns - 19), (15 * Setmenu + 7));	//Puts an overlay over the Text if the mouse cursor is over the item.     
-      PutText ((100 * 1 - fourcolumns - 10), (15 * Setmenu + 9), "Settings", BLACK);	//Displays the name of the item in the Start Menu
-      PutText (380, 260, "Setmenu", BLACK);	//Display the type of file in the Status Bar e.g Executable
+      PutText ((100 * 1 - fourcolumns - 10), (15 * Setmenu + 9), SMSettingsT, StartSubMenuOverC);	//Displays the name of the item in the Start Menu
+      PutText (380, 260, SMSettingsT, StartSubMenuTypeC);	//Display the type of file in the Status Bar e.g Executable
     }
   else
     {
       PutGFX (0, 0, 100, 15, SubMenuMiddle, (100 * 1 - fourcolumns - 20), (15 * Setmenu + 7));	//SubMenuMiddle is the image that both the icon and the text of an item in the start menu is dispayed on.
-      PutText ((100 * 1 - fourcolumns - 10), (15 * Setmenu + 9), "Settings", BLACK);	//Displays the name of the item in the Start Menu       
+      PutText ((100 * 1 - fourcolumns - 10), (15 * Setmenu + 9), SMSettingsT, StartSubMenuC);	//Displays the name of the item in the Start Menu       
     }
 
 
@@ -1058,12 +1033,12 @@ Startmenulistover ()
     {
       PutGFX (0, 0, 70, 10, Start_Menu_Body_Over, 0, 247);
     }
-  PutText (5, 197, "Browse", BLACK);
-  PutText (5, 207, "Games", BLACK);
-  PutText (5, 217, "Music", BLACK);
-  PutText (5, 227, "Pictures", BLACK);
-  PutText (5, 237, "System", BLACK);
-  PutText (5, 247, "Quit", BLACK);
+		  PutText (5, 197, BrowseT, BrowseC);
+		  PutText (5, 207, GamesT, GamesC);
+		  PutText (5, 217, MusicT, MusicC);
+		  PutText (5, 227, PicturesT, PicturesC);
+		  PutText (5, 237, SystemT, SystemC);
+		  PutText (5, 247, QuitT, QuitC);       
 
 }
 

@@ -38,7 +38,7 @@ Keyboard (char *Keyboard_Output_Temp)
 
       PutGFX (0, 0, 480, 270, wallpaper, 0, 0);	//Wallpaper
       PutGFX (0, 0, 480, 15, Keyboard_Output, 0, 242);
-      PutTextFont (5, 245, Keyboard_Output_Temp, 0x00000000);
+      PutTextFont (5, 245, Keyboard_Output_Temp, KeyboardC);
 
       Keyboard_ButtonTemp = 1;
 
@@ -59,7 +59,7 @@ Keyboard (char *Keyboard_Output_Temp)
 	  sprintf (buffer, "%c",
 		   Keyboard_Characters[(Keyboard_ButtonTemp - 1)]);
 	  PutTextFont ((15 * (Keyboard_ButtonTemp - 1) + 3), 260, buffer,
-		       0x00000000);
+		       Keyboard2C);
 
 	  Keyboard_ButtonTemp += 1;
 	}

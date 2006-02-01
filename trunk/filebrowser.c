@@ -60,7 +60,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
       while (1)
 	{
 
-	  DrawFullscreenWindow ("Wallpaper browser");
+	  DrawFullscreenWindow (FSWallpaperT);
 	  findIcon ();
 	  GetUserInput ();
 
@@ -85,15 +85,15 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 			  PutGFX (0, 0, 48, 48, Icon_GFX_Over,
 				  (60 * IconPositionX - 48),
 				  (60 * IconPositionY - 48 + 5));
-			  PutTextFont (5, 260, wallpapericonname[i], WHITE);
-			  PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), wallitem[i], WHITE);	//added 24th of dec
+			  PutTextFont (5, 260, wallpapericonname[i], WallpaperTextTBC);
+			  PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), wallitem[i], WallpaperTextHLC);	//added 24th of dec
 			  PutTextFont ((cursorPosition.x + 15),
 				       cursorPosition.y, wallpapericonname[i],
-				       BLUE);
+				       WallpaperTextOverC);
 			}
 		      else
 			{
-			  PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), wallitem[i], BLACK);	//added 24th of dec
+			  PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), wallitem[i], WallpaperTextC);	//added 24th of dec
 			  PutGFX (0, 0, 48, 48, Icon_GFX,
 				  (60 * IconPositionX - 48),
 				  (60 * IconPositionY - 48 + 5));
@@ -135,7 +135,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 		  && cursorPosition.y > 250 && cursorPosition.y < 272)
 		{
 		  PutGFX (0, 0, 40, 25, FBLeft, 190, 247);
-		  PutText (5, 260, "Previous Page", BLACK);	//Displays the name of the item in the Start Menu
+		  PutText (5, 260, PreviousPageT, PreviousPageC);	//Displays the name of the item in the Start Menu				
 		}
 	      else
 		{
@@ -161,7 +161,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 		  && cursorPosition.y > 250 && cursorPosition.y < 272)
 		{
 		  PutGFX (0, 0, 40, 25, FBRight, 250, 247);
-		  PutText (5, 260, "Next Page", BLACK);	//Displays the name of the item in the Start Menu
+		  PutText (5, 260, NextPageT, NextPageC);	//Displays the name of the item in the Start Menu
 		}
 	      else
 		{
@@ -243,7 +243,7 @@ BrowseSkins ()
       while (1)
 	{
 
-	  DrawFullscreenWindow ("Theme manager");
+	  DrawFullscreenWindow (FSThemeT);
 	  findIcon ();
 	  GetUserInput ();
 
@@ -263,17 +263,17 @@ BrowseSkins ()
 		      PutGFX (0, 0, 48, 48, Icon_Themes_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, skinsiconname[i], WHITE);
-		      PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), skinitem[i], WHITE);	//added 24th of dec
+		      PutTextFont (5, 260, skinsiconname[i], SkinTextTBC);
+		      PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), skinitem[i], SkinTextHLC);	//added 24th of dec
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   skinsiconname[i], BLUE);
+				   skinsiconname[i], SkinTextOverC);
 		    }
 		  else
 		    {
 		      PutGFX (0, 0, 48, 48, Icon_Themes,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), skinitem[i], BLACK);	//added 24th of dec
+		      PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), skinitem[i], SkinTextC);	//added 24th of dec
 		    }
 
 		  if (pad.Buttons & PSP_CTRL_CONFIRM
@@ -307,7 +307,7 @@ BrowseSkins ()
 		  && cursorPosition.y > 250 && cursorPosition.y < 272)
 		{
 		  PutGFX (0, 0, 40, 25, FBLeft, 190, 247);
-		  PutText (5, 260, "Previous Page", BLACK);	//Displays the name of the item in the Start Menu
+		  PutText (5, 260, PreviousPageT, PreviousPageC);	//Displays the name of the item in the Start Menu
 		}
 	      else
 		{
@@ -333,7 +333,7 @@ BrowseSkins ()
 		  && cursorPosition.y > 250 && cursorPosition.y < 272)
 		{
 		  PutGFX (0, 0, 40, 25, FBRight, 250, 247);
-		  PutText (5, 260, "Next Page", BLACK);	//Displays the name of the item in the Start Menu
+		  PutText (5, 260, NextPageT, NextPageC);	//Displays the name of the item in the Start Menu
 		}
 	      else
 		{
@@ -454,10 +454,10 @@ loo:
 	      strncpy (iconitem[i], iconname[i], 6);
 	      iconitem[i][6] = '\0';
 	      PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 6),
-		       iconitem[i], BLACK);
+		       iconitem[i], FileBrowserTextC);
 	      //added 24th of dec      
 
-	      if (isdir[i] == 1)
+	      if (isdir[i] == 1|| suffix != 0)
 		{
 		  if (iconSelected.row == IconPositionX
 		      && iconSelected.col == IconPositionY)
@@ -465,9 +465,9 @@ loo:
 		      PutGFX (0, 0, 48, 48, Icon_Folder_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, "Directory", BLACK);
+		      PutTextFont (5, 260, DirectoryT, DirectoryC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], BLUE);
+				   iconname[i], FileBrowserTextOverC);
 		    }
 		  else
 		    {
@@ -488,9 +488,9 @@ loo:
 		      PutGFX (0, 0, 48, 48, Icon_GFX_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, "Graphics", BLACK);
+		      PutTextFont (5, 260, GraphicT, GraphicC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], BLUE);
+				   iconname[i], FileBrowserTextOverC);				 
 		    }
 		  else
 		    {
@@ -510,9 +510,9 @@ loo:
 		      PutGFX (0, 0, 48, 48, Icon_Audio_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, "Music", BLACK);
+		      PutTextFont (5, 260, MusicT, MusicC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], BLUE);
+				   iconname[i], FileBrowserTextOverC);
 		    }
 		  else
 		    {
@@ -532,9 +532,9 @@ loo:
 		      PutGFX (0, 0, 48, 48, Icon_Eboot_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, "Executable", BLACK);
+		      PutTextFont (5, 260, ExecutableT, ExecutableC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], BLUE);
+				   iconname[i], FileBrowserTextOverC);
 		    }
 		  else
 		    {
@@ -553,9 +553,9 @@ loo:
 		      PutGFX (0, 0, 48, 48, Icon_Eboot_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, "LUA Script", BLACK);
+		      PutTextFont (5, 260, LUAT, LUAC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], BLUE);
+				   iconname[i], FileBrowserTextOverC);			
 		    }
 		  else
 		    {
@@ -575,9 +575,9 @@ loo:
 		      PutGFX (0, 0, 48, 48, Icon_QuickLink_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, "QuickLink", BLACK);
+		      PutTextFont (5, 260, QuickLinkT, QuickLinkC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], BLUE);
+				   iconname[i], FileBrowserTextOverC);
 		    }
 		  else
 		    {
@@ -596,9 +596,9 @@ loo:
 		      PutGFX (0, 0, 48, 48, Icon_Unknown_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, "Unknown", BLACK);
+		      PutTextFont (5, 260, UnknownT, UnknownC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], BLUE);
+				   iconname[i], FileBrowserTextOverC);
 		    }
 		  else
 		    {
@@ -718,7 +718,7 @@ loo:
 	      && cursorPosition.y > 250 && cursorPosition.y < 272)
 	    {
 	      PutGFX (0, 0, 40, 25, FBLeft, 190, 247);
-	      PutText (5, 260, "Previous Page", BLACK);	//Displays the name of the item in the Start Menu
+	      PutText (5, 260, PreviousPageT, PreviousPageC);	//Displays the name of the item in the Start Menu
 	    }
 	  else
 	    {
@@ -743,7 +743,7 @@ loo:
 	      && cursorPosition.y > 250 && cursorPosition.y < 272)
 	    {
 	      PutGFX (0, 0, 40, 25, FBRight, 250, 247);
-	      PutText (5, 260, "Next Page", BLACK);	//Displays the name of the item in the Start Menu
+	      PutText (5, 260, NextPageT, NextPageC);	//Displays the name of the item in the Start Menu			
 	    }
 	  else
 	    {

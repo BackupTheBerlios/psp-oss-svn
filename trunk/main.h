@@ -219,3 +219,193 @@ int DesktopEffect;
 int toggle_wallpapers;
 int mousespeed;
 int mstart;
+
+char skin[20];
+char fontcolour[20];
+//Custom Text Colours
+float StartMenuC;		// Text Colour
+float StartSubMenuC;		// Text Colour
+float StartSubMenuOverC;		// Text Colour
+float StartSubMenuTypeC;		// Text Colour
+float StartSubMenuEmptyC;		// Text Colour
+float BrowseC;
+float GamesC;
+float MusicC;
+float PicturesC;
+float SystemC;
+float QuitC;
+
+//Image Related
+float FSImageUseC;
+float OpenC;
+float CopyC;
+float PasteC;
+float RenameC;
+float DeleteC;
+float MakeQLC;
+
+//Desktop Right Click Menu Related
+float BackgrC;
+float ThemeC;
+float DesktopTextC;
+float DesktopTextOverC;
+
+//Settings
+float WallpaperTextTBC;
+float WallpaperTextC;
+float WallpaperTextHLC;
+float WallpaperTextOverC;
+float SkinTextTBC;
+float SkinTextC;
+float SkinTextHLC;
+float SkinTextOverC;
+float FileBrowserTextC;
+float FileBrowserTextOverC;
+
+//Desktop
+float OSSVersionC;
+float BatteryC;
+float TimeC;
+float ExitOSSC;
+float StartUMDC;
+float NoUMDC;
+float SettingsC;
+float USBC;
+
+//Music
+float PlayC;
+float PauseC;
+float StopC;
+
+//General
+float DirectoryC;
+float GraphicC;
+float MusicC;
+float ExecutableC;
+float QuickLinkC;
+float LUAC;
+float UnknownC;
+float PreviousPageC;
+float NextPageC;
+float KeyboardC;
+float Keyboard2C;
+
+//Settings
+float LanguageC;
+float CPUC;
+float ConfirmC;
+float ToggleWallpaperC;
+float DeasktopEffectC;
+float MouseSpeedC;
+float SettingsC;
+float Settings2C;
+
+//Windows
+float OKC;
+float ShutdownC;
+float Shutdown2C;
+float RebootC;
+float QuestionC;
+float WindowHeaderC;
+float WindowMessageC;
+float FSChangeSkinC;
+float FSChangeWallC;
+float FSWindowHeaderC;
+
+//Custom Language Text
+//UMD Related
+char UMDLoadT[50];
+char UMDLoad2T[50];
+char NoUMDT[50];
+char NoUMD2T[50];				
+
+//Skin Related
+char ReloadSkinT[50];
+char ReloadSkin2T[50];
+
+//Lua Related
+
+char LUALoadT[50];
+char LUALoad2T[50];
+
+//Full Sceen Window
+char FSImageT[50];
+char FSImageUseT[50];
+char FSWallpaperT[50];
+char FSThemeT[50];
+char FSConfigurationT[50];
+char FSChangeWallT[50];
+char FSChangeSkinT[50];
+
+//Right Click Menu Related
+char OpenT[50];
+char CopyT[50];
+char PasteT[50];
+char RenameT[50];
+char DeleteT[50];
+char MakeQLT[50];
+
+//Desktop Right Click Menu Related
+char BackgrT[50];
+char ThemeT[50];
+
+//Desktop
+char USBT[50];
+char UsingACT[50];
+char ExitOSST[50];
+char StartUMDT[50];
+char NoUMDT[50];
+char SettingsT[50];
+
+//Music
+char PlayT[50];
+char PauseT[50];
+char StopT[50];
+
+//General
+char WaitT[50];
+char DirectoryT[50];
+char GraphicT[50];
+char MusicT[50];
+char ExecutableT[50];
+char QuickLinkT[50];
+char LUAT[50];
+char UnknownT[50];
+char PreviousPageT[50];
+char NextPageT[50];
+char UnknownQLT[50];
+char UnknownQL2T[50];
+char CrashT[50];
+char Crash2T[50];
+
+//Settings
+char LanguageT[50];
+char CPUT[50];
+char ConfirmT[50];
+char ToggleWallpaperT[50];
+char DeasktopEffectT[50];
+char MouseSpeedT[50];
+
+//Start Menu
+char BrowseT[50];
+char GamesT[50];
+char MusicT[50];
+char PicturesT[50];
+char SystemT[50];
+char QuitT[50];
+char MoreT[50];
+char EmptyT[50];
+char SMWallpapersT[50];
+char SMSettingsT[50];
+char SMThemesT[50];
+      
+//USB
+char USBModeT[50];
+char USBActiveT[50];
+char USBCableT[50];
+
+//Windows
+char OKT[50];
+char ShutdownT[50];
+char RebootT[50];
+char QuestionT[50];

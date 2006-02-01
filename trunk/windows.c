@@ -63,8 +63,8 @@ MessageWindow (int MessageWindowHeader, int MessageWindowMessage)
 		  (MessageWindowY + 63));
 	}
 
-      PutTextFont ((MessageWindowX + 143), (MessageWindowY + 70), "OK",
-		   0x00000000);
+      PutTextFont ((MessageWindowX + 143), (MessageWindowY + 70), OKT,
+		   OKC);
 
       //Move window
       if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > MessageWindowX
@@ -94,9 +94,9 @@ MessageWindow (int MessageWindowHeader, int MessageWindowMessage)
 	}
 
       PutTextFont ((MessageWindowX + 5), (MessageWindowY + 5),
-		   MessageWindowHeader, 0xFFFFFFFF);
+		   MessageWindowHeader, WindowHeaderC);
       PutTextFont ((MessageWindowX + 5), (MessageWindowY + 20),
-		   MessageWindowMessage, 0x00000000);
+		   MessageWindowMessage, WindowMessageC);
 
       //Close window
       if (pad.Buttons & PSP_CTRL_CONFIRM
@@ -176,8 +176,8 @@ ShutDown_Prompt (int PowerWindowHeader)
 		  (MessageWindowY + 65));
 	}
 
-      PutTextFont ((MessageWindowX + 70), (MessageWindowY + 70), "Shutdown",
-		   BLACK);
+      PutTextFont ((MessageWindowX + 70), (MessageWindowY + 70), ShutdownT,
+		   ShutdownC);
 
       //Reboot button
       if (cursorPosition.x > (MessageWindowX + 160)
@@ -194,8 +194,8 @@ ShutDown_Prompt (int PowerWindowHeader)
 		  (MessageWindowY + 65));
 	}
 
-      PutTextFont ((MessageWindowX + 165), (MessageWindowY + 70), " Reboot",
-		   BLACK);
+      PutTextFont ((MessageWindowX + 165), (MessageWindowY + 70), RebootT,
+		   RebootC);
 
       if (cursorPosition.x > (MessageWindowX + 285)
 	  && cursorPosition.x < (MessageWindowX + 295)
@@ -211,10 +211,10 @@ ShutDown_Prompt (int PowerWindowHeader)
 		  (MessageWindowY + 3));
 	}
 
-      PutTextFont ((MessageWindowX + 5), (MessageWindowY + 5), "Shutdown",
-		   WHITE);
+      PutTextFont ((MessageWindowX + 5), (MessageWindowY + 5), ShutdownT,
+		   Shutdown2C);
       PutTextFont ((MessageWindowX + 20), (MessageWindowY + 20),
-		   "What do you want to do?", BLACK);
+		   QuestionT, QuestionC);
 
       //Close window                        
       if (pad.Buttons & PSP_CTRL_CONFIRM
@@ -282,7 +282,7 @@ Configuration ()
     {
       GetUserInput ();
       findIcon ();
-      DrawFullscreenWindow ("Configuration");
+      DrawFullscreenWindow (FSConfigurationT);
 
       if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 465
 	  && cursorPosition.x < 475 && cursorPosition.y > 3
@@ -294,7 +294,7 @@ Configuration ()
       //Change wallpaper           
       if (iconSelected.row == 1 && iconSelected.col == 1)
 	{
-	  PutTextFont (5, 260, "Change wallpaper", WHITE);
+	  PutTextFont (5, 260, FSChangeWallT, FSChangeWallC);
 	  PutGFX (0, 0, 48, 48, Icon_Wallpapers_Over, (IconXSize * 1 - 48),
 		  (IconYSize * 1 - 48 + 5));
 	}
@@ -308,7 +308,7 @@ Configuration ()
       //Change theme
       if (iconSelected.row == 2 && iconSelected.col == 1)
 	{
-	  PutTextFont (5, 260, "Change theme", WHITE);
+	  PutTextFont (5, 260, FSChangeSkinT, FSChangeSkinC);
 	  PutGFX (0, 0, 48, 48, Icon_Themes_Over, (IconXSize * 2 - 48),
 		  (IconYSize * 1 - 48 + 5));
 	}
@@ -369,6 +369,6 @@ DrawFullscreenWindow (int FullscreenWindowHeader)
       cursorPosition.y = 10;
     }
 
-  PutTextFont (5, 5, FullscreenWindowHeader, DARK_RED);
+  PutTextFont (5, 5, FullscreenWindowHeader, FSWindowHeaderC);		         
 
 }

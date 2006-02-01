@@ -85,7 +85,6 @@ StartUp (void)
      What SKIN do we use? Let's check...
    */
   file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg", PSP_O_RDONLY, 0);
-  char skin[20];
   sceIoRead (file, skin, 20);
   filesize = sceIoLseek (file, 0, SEEK_END);
   sceIoClose (file);
@@ -335,7 +334,10 @@ StartUp (void)
   sprintf (buffer,
 	   "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenubottomright.png", skin);
   SubMenuBottomRight = LoadGFX (buffer);
-
+  
+	textlang();
+	textcolour();
+	
   /*
      Initialize some stuff...
    */
@@ -448,30 +450,29 @@ StartUp (void)
 
   if (strcmp (Mspeed, "1") == 0)
     {
-      mousespeed = 1;
+      mousespeed = 2;
     }
   else if (strcmp (Mspeed, "2") == 0)
     {
-      mousespeed = 2;
+      mousespeed = 3;
     }
   else if (strcmp (Mspeed, "3") == 0)
     {
-      mousespeed = 3;
+      mousespeed = 4;
     }
   else if (strcmp (Mspeed, "4") == 0)
     {
-      mousespeed = 4;
+      mousespeed = 5;
     }
   else if (strcmp (Mspeed, "5") == 0)
     {
-      mousespeed = 5;
+      mousespeed = 6;
     }
   else if (strcmp (Mspeed, "6") == 0)
     {
-      mousespeed = 6;
+      mousespeed = 7;
     }
 
-    
     
   //Place cursor in the middle of the screen
   cursorPosition.x = 208;

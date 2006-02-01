@@ -34,19 +34,19 @@ USB_Mode ()
       //USB active
       if (usbState & PSP_USB_CONNECTION_ESTABLISHED)
 	{
-	  FadeScreenMessage ("USB Mode", "USB active.", "", "");
+	  FadeScreenMessage (USBModeT, USBActiveT, "", "");
 	}
 
       //Cable connected, but USB not active
       else if (usbState & PSP_USB_CABLE_CONNECTED)
 	{
-	  FadeScreenMessage ("USB Mode", "Please wait...", "", "");
+	  FadeScreenMessage (USBModeT, WaitT, "", "");
 	}
 
       //USB not active. most likely because of no USB cable connected.
       else
 	{
-	  FadeScreenMessage ("USB Mode", "Please connect an USB cable.", "",
+	  FadeScreenMessage (USBModeT, USBCableT, "",
 			     "");
 	}
 

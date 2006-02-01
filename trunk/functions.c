@@ -190,7 +190,7 @@ OpenFile (const char *filename)
 	}
       
          else {
-         MessageWindow("Unknown", "Unknown filetype");
+         MessageWindow(UnknownQLT, UnknownQL2T);		   				     			   //Unknown Shortcut
          }
        
     }

@@ -44,4 +44,3 @@ int FilebrowserRightclickPosY;
 int RCMdir;
 const char *FilebrowserRightclickFilepath;
 const char *FilebrowserRightclickFilename;
-
