@@ -23,4 +23,5 @@ WriteTxtFile (const char *filename, const char *texttowrite);
 //Random Number
 int Random (int low, int high);
 
+void PMP_Run (const char *filename);
 

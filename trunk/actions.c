@@ -652,6 +652,21 @@ Shortcut_Run (const char *filename)
 
 }
 
+void PMP_Run(const char * filename)
+{
+
+   struct SceKernelLoadExecParam execParam;
+   const u32 total_length = ( strlen( filename ) + 1 );
+   
+   execParam.args = total_length;
+   execParam.argp = (const char *)filename;
+   execParam.key = NULL;
+   execParam.size = sizeof( execParam ) + total_length;
+ 
+   pspAudioEnd();
+   sceKernelLoadExec( filename, &execParam );
+}
+
 //Api Stuff
 //Write a txt file
 void
