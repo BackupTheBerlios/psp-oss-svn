@@ -1,6 +1,6 @@
-void textcolour();
-void findcolour();
-void textlang();
+void textcolour ();
+void findcolour ();
+void textlang ();
 
 char skinpath[256];
-float Tbuffer; 
+float Tbuffer;

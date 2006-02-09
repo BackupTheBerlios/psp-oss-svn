@@ -63,8 +63,7 @@ MessageWindow (int MessageWindowHeader, int MessageWindowMessage)
 		  (MessageWindowY + 63));
 	}
 
-      PutTextFont ((MessageWindowX + 143), (MessageWindowY + 70), OKT,
-		   OKC);
+      PutTextFont ((MessageWindowX + 143), (MessageWindowY + 70), OKT, OKC);
 
       //Move window
       if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > MessageWindowX
@@ -369,6 +368,6 @@ DrawFullscreenWindow (int FullscreenWindowHeader)
       cursorPosition.y = 10;
     }
 
-  PutTextFont (5, 5, FullscreenWindowHeader, FSWindowHeaderC);		         
+  PutTextFont (5, 5, FullscreenWindowHeader, FSWindowHeaderC);
 
 }

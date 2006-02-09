@@ -107,7 +107,9 @@ osLoop ()
 
 
 	  //Toggle wallpapers
-	  if (toggle_wallpapers == "LRT")
+      	
+    	
+	  if (toggle_wallpapers == "LRT" && MediaStatus == "stop")
 	    {
 	      if (pad.Buttons & PSP_CTRL_RTRIGGER)
 		{
@@ -120,15 +122,39 @@ osLoop ()
 	    }
 	  else if (toggle_wallpapers == "SEL")
 	    {
-		  if (pad.Buttons & PSP_CTRL_SELECT && pad.Buttons & PSP_CTRL_RTRIGGER)
-		    {
-		      Toggle_Wallpapers ("R");
-		    }
-		  else if (pad.Buttons & PSP_CTRL_SELECT && pad.Buttons & PSP_CTRL_LTRIGGER)
-		    {
-		      Toggle_Wallpapers ("L");
-		    }
-	    }
+	      if (pad.Buttons & PSP_CTRL_SELECT
+		  && pad.Buttons & PSP_CTRL_RTRIGGER)
+		{
+		  Toggle_Wallpapers ("R");
+		}
+	      else if (pad.Buttons & PSP_CTRL_SELECT
+		       && pad.Buttons & PSP_CTRL_LTRIGGER)
+		{
+		  Toggle_Wallpapers ("L");
+		}
+			else if (MediaStatus != "stop")
+    {
+	      if (pad.Buttons & PSP_CTRL_RTRIGGER)
+		{
+		  Toggle_MP3 ("R");
+		}
+	      else if (pad.Buttons & PSP_CTRL_LTRIGGER)
+		{
+		  Toggle_MP3 ("L");
+		}
+	    } 
+	  }
+	   else if (MediaStatus != "stop")
+    {
+	      if (pad.Buttons & PSP_CTRL_RTRIGGER)
+		{
+		  Toggle_MP3 ("R");
+		}
+	      else if (pad.Buttons & PSP_CTRL_LTRIGGER)
+		{
+		  Toggle_MP3 ("L");
+		}
+	    } 
 	}
       //Display our cursor.
       //Remember to display the cursor last, so it'll get at top.
@@ -152,24 +178,25 @@ main (int argc, char *argv[])
 
   //In case something goes wrong, we got an error message to display
   pspDebugInstallErrorHandler (BlueScreen);
-  
+
   SceUID file;
-  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/CALLBACK.cfg", PSP_O_RDONLY, 0);
+  file =
+    sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/CALLBACK.cfg", PSP_O_RDONLY, 0);
   char callback[1];
   sceIoRead (file, callback, 1);
   callback[1] = 0x00;
   sceIoClose (file);
-  
+
   if (strcmp (callback, "1") == 0)
     {
-		Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/CALLBACK.cfg", "0");
-  	Reboot ();
-  }
+      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/CALLBACK.cfg", "0");
+      Reboot ();
+    }
   else
-  {
-  	//Startup code. Display bootup screen, load images, init gfx.
-  	StartUp ();
-  }
+    {
+      //Startup code. Display bootup screen, load images, init gfx.
+      StartUp ();
+    }
 
   //Wlan drivers
   nlhLoadDrivers (&module_info);
@@ -179,7 +206,7 @@ main (int argc, char *argv[])
   if (check == 1)
     {
       sceIoRemove ("ms0:/PSP-OSS/CRASHED");
-      MessageWindow (CrashT, Crash2T);  
+      MessageWindow (CrashT, Crash2T);
     }
 
   //Our main loop

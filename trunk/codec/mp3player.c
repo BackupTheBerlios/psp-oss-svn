@@ -636,6 +636,10 @@ void MP3_GetTimeString(char *dest)
 int MP3_EndOfStream()
 {
     if (eos == 1)
-	return 1;
-    return 0;
+    {
+    Toggle_MP3 ("SHUFFLE");
+    }
+
+    	/*return 1;
+    return 0;*/
 }

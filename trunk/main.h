@@ -20,6 +20,7 @@
 #include <pspusbstor.h>
 #include <pspthreadman.h>
 #include <pspsdk.h>
+#include <psputils.h>
 #include <psprtc.h>
 #include <time.h>
 #include <pspaudiolib.h>
@@ -64,6 +65,8 @@ Image *Keyboard_ButtonOver;
 Image *Message_Window_Top1;
 Image *Message_Window_Top2;
 Image *Message_Window_Body;
+Image *Loadingbar;
+Image *Loadingbar2;
 Image *Settings_Window;
 Image *Settings_Window_Over;
 Image *Settings_Window_Bottom;
@@ -112,6 +115,10 @@ Image *Icon_No_UMD;
 Image *Icon_No_UMD_Over;
 Image *Icon_QuickLink;
 Image *Icon_QuickLink_Over;
+Image *Icon_Video;
+Image *Icon_Video_Over;
+Image *Icon_Lua;
+Image *Icon_Lua_Over;
 
 // Dialog Button Images
 Image *Button1;
@@ -201,6 +208,12 @@ int LR_Wallpapers_ran;
 char *LR_Wallpapers[256];
 int LR_Wallpapers_amount;
 int LR_Wallpapers_current;
+int LR_Wallpapers_previous;
+
+int LR_MUSIC_ran;
+char *LR_MUSIC[256];
+int LR_MUSIC_amount;
+int LR_MUSIC_current;
 
 SceIoDirent dir;
 
@@ -225,9 +238,9 @@ char fontcolour[20];
 //Custom Text Colours
 float StartMenuC;		// Text Colour
 float StartSubMenuC;		// Text Colour
-float StartSubMenuOverC;		// Text Colour
-float StartSubMenuTypeC;		// Text Colour
-float StartSubMenuEmptyC;		// Text Colour
+float StartSubMenuOverC;	// Text Colour
+float StartSubMenuTypeC;	// Text Colour
+float StartSubMenuEmptyC;	// Text Colour
 float BrowseC;
 float GamesC;
 float MusicC;
@@ -317,7 +330,7 @@ float FSWindowHeaderC;
 char UMDLoadT[50];
 char UMDLoad2T[50];
 char NoUMDT[50];
-char NoUMD2T[50];				
+char NoUMD2T[50];
 
 //Skin Related
 char ReloadSkinT[50];
@@ -398,7 +411,7 @@ char EmptyT[50];
 char SMWallpapersT[50];
 char SMSettingsT[50];
 char SMThemesT[50];
-      
+
 //USB
 char USBModeT[50];
 char USBActiveT[50];

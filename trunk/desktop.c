@@ -33,7 +33,8 @@ DoActiveDesktop ()
 
   PutGFX (0, 0, 480, 15, taskbar, 0, 257);	//Taskbar
   PutGFX (0, 0, 480, 15, TopBar, 0, 0);	//Top Bar
-	PutTextFont (5, 5, OSSVersion, OSSVersionC);	//Version
+
+  PutTextFont (5, 5, OSSVersion, OSSVersionC);	//Version
 
   //Draw the start menu
   DrawStartMenu ();
@@ -52,11 +53,11 @@ DoActiveDesktop ()
 
   //Is the cursor over a icon?
   findIcon ();
-  
+
   if (pad.Buttons & PSP_CTRL_START && pad.Buttons & PSP_CTRL_LTRIGGER)
     {
       USB_Mode ();
-    }    
+    }
 
   if (pad.Buttons & PSP_CTRL_LTRIGGER && pad.Buttons & PSP_CTRL_RTRIGGER)
     {
@@ -77,10 +78,10 @@ void
 DoDesktopEffects ()
 {
   if (DesktopEffect == "None")
-     {
-     //Do nothing?
-     }
-     
+    {
+      //Do nothing?
+    }
+
   else if (DesktopEffect == "Lines")
     {
       char *startX[100];
@@ -99,7 +100,7 @@ DoDesktopEffects ()
       while (b != 30)
 	{
 	  startY[b] = Random (0, 242);
-	  startY[b]+=15;
+	  startY[b] += 15;
 	  b++;
 	}
 
@@ -108,10 +109,11 @@ DoDesktopEffects ()
       while (c != 30)
 	{
 	  int templine = 0;
-	  while(templine < 20){
-                     PutPixel ((startX[c]+templine), startY[c], WHITE);
-                     templine++;
-                     }
+	  while (templine < 20)
+	    {
+	      PutPixel ((startX[c] + templine), startY[c], WHITE);
+	      templine++;
+	    }
 	  c++;
 	}
     }
@@ -135,12 +137,14 @@ void
 DrawBattery ()
 {
 
-  if (scePowerGetBatteryLifePercent () > 65 && scePowerGetBatteryLifePercent () > 35)
+  if (scePowerGetBatteryLifePercent () > 65
+      && scePowerGetBatteryLifePercent () > 35)
     {
       PutGFX (0, 0, 23, 11, Battery_full, 385, 1);
     }
 
-  else if (scePowerGetBatteryLifePercent () > 35 && scePowerGetBatteryLifePercent () <= 65)
+  else if (scePowerGetBatteryLifePercent () > 35
+	   && scePowerGetBatteryLifePercent () <= 65)
     {
       PutGFX (0, 0, 23, 11, Battery_half, 385, 1);
     }
@@ -163,52 +167,63 @@ DrawBattery ()
   if (cursorPosition.x > 385 && cursorPosition.x < 408 && cursorPosition.y > 1
       && cursorPosition.y < 12)
     {
-        long BatteryVolt = scePowerGetBatteryVolt (); // Voltage: 5000 = 5.000 Volts 	
-        long BatteryCharging = scePowerIsBatteryCharging (); // 	    	
-        int BatteryLifePercent = scePowerGetBatteryLifePercent (); //  	
-        int BatteryLifeTime = scePowerGetBatteryLifeTime (); // Estimated number of minutes the battery will last        
+      long BatteryVolt = scePowerGetBatteryVolt ();	// Voltage: 5000 = 5.000 Volts    
+      long BatteryCharging = scePowerIsBatteryCharging ();	//                 
+      int BatteryLifePercent = scePowerGetBatteryLifePercent ();	//   
+      int BatteryLifeTime = scePowerGetBatteryLifeTime ();	// Estimated number of minutes the battery will last        
 
-        char message [256]; 	
-        char BatteryVolt_ret_text [16]; 	
-        char BatteryCharge_percent [16];
-        
-        if (BatteryLifePercent < 100) { 	
-                sprintf (BatteryCharge_percent, "%d%%", BatteryLifePercent); 	
-        } else { 		
-                strcpy (BatteryCharge_percent, "100%"); 	
-        } 	
-	
-	
-        // Running on AC power... 	
-        if (BatteryLifePercent > 100)
-        {
-                        sprintf (message, UsingACT); 	
-        } 	
-	
-        // Battery is being used... 	
-        else if (BatteryCharging == 0) { 	
-                if (BatteryLifeTime > 0 && BatteryLifeTime < 330 /* 5:30 */) { 	
-                        sprintf (message, "%s %01d:%02d", BatteryCharge_percent,  	
-                                                                            BatteryLifeTime / 60, BatteryLifeTime % 60); 	
-                } else { 	
-                        sprintf (message, "%s", BatteryCharge_percent); 	
-                } 	
-        } 	
-	
-        // Battery is being charged... 	
-        else { 	
-                long BatteryTemp = scePowerGetBatteryTemp (); 	
-                // If the battery temp. is > 38C (100F), display the temp. 	
-                if ((BatteryTemp > 38) && (BatteryTemp < 100)) { 	
-                        sprintf (message, "AC: %s - %d° F", BatteryCharge_percent, 	
-                                                                       (int)((9.0f/5.0f) * (float)BatteryTemp) + 32); 	
-                } else { 	
-                        sprintf (message, "AC: %s", BatteryCharge_percent); 	
-                } 	
-        }
-      PutTextFont(380,260,message,BatteryC);    //Battery stuff       
-    }   
-}        
+      char message[256];
+      char BatteryVolt_ret_text[16];
+      char BatteryCharge_percent[16];
+
+      if (BatteryLifePercent < 100)
+	{
+	  sprintf (BatteryCharge_percent, "%d%%", BatteryLifePercent);
+	}
+      else
+	{
+	  strcpy (BatteryCharge_percent, "100%");
+	}
+
+
+      // Running on AC power...       
+      if (BatteryLifePercent > 100)
+	{
+	  sprintf (message, UsingACT);
+	}
+
+      // Battery is being used...     
+      else if (BatteryCharging == 0)
+	{
+	  if (BatteryLifeTime > 0 && BatteryLifeTime < 330 /* 5:30 */ )
+	    {
+	      sprintf (message, "%s %01d:%02d", BatteryCharge_percent,
+		       BatteryLifeTime / 60, BatteryLifeTime % 60);
+	    }
+	  else
+	    {
+	      sprintf (message, "%s", BatteryCharge_percent);
+	    }
+	}
+
+      // Battery is being charged...  
+      else
+	{
+	  long BatteryTemp = scePowerGetBatteryTemp ();
+	  // If the battery temp. is > 38C (100F), display the temp.      
+	  if ((BatteryTemp > 38) && (BatteryTemp < 100))
+	    {
+	      sprintf (message, "AC: %s - %d° F", BatteryCharge_percent,
+		       (int) ((9.0f / 5.0f) * (float) BatteryTemp) + 32);
+	    }
+	  else
+	    {
+	      sprintf (message, "AC: %s", BatteryCharge_percent);
+	    }
+	}
+      PutTextFont (380, 260, message, BatteryC);	//Battery stuff       
+    }
+}
 
 void
 DrawStartMenu ()
@@ -238,7 +253,7 @@ drawtime ()
   sprintf (buff, "%02d%c%02d",
 	   (tsys->tm_hour > 12 ? tsys->tm_hour - 12 : tsys->tm_hour),
 	   (tsys->tm_sec & 1 ? ':' : ' '), tsys->tm_min);
-  PutTextFont (440, 4, buff, TimeC); //current Time
+  PutTextFont (440, 4, buff, TimeC);	//current Time
 
 }
 
@@ -261,6 +276,7 @@ DrawMediaStatus ()
 {
   if (MediaStatus != "stop")
     {
+     MP3_EndOfStream();
 
       PutGFX (0, 0, 135, 15, Audio_Player, 240, 0);	//257
 
@@ -273,7 +289,7 @@ DrawMediaStatus ()
 	      PutGFX (0, 0, 15, 15, Music_pause2, 315, 0);
 	      if (DesktopActive == 1)
 		{
-		  PutTextFont (380, 260, PauseT, PauseC); //Audio
+		  PutTextFont (380, 260, PauseT, PauseC);	//Audio
 		}
 	    }
 	  else
@@ -306,7 +322,7 @@ DrawMediaStatus ()
 	  PutGFX (0, 0, 15, 15, Music_stop2, 345, 0);
 	  if (DesktopActive == 1)
 	    {
-	      PutTextFont (380, 260, StopT, StopC);	
+	      PutTextFont (380, 260, StopT, StopC);
 	    }
 	}
       else
@@ -358,11 +374,11 @@ DoDesktopIcons ()
 	  else
 	    {
 	      desktopisdir[i] = 0;
-				suffix = strrchr(desktopiconname[i], '.');   	  	      
-			   if (stricmp (suffix, ".qli") == 0)
-			   {
-			   	i--;
-			  }	    				
+	      suffix = strrchr (desktopiconname[i], '.');
+	      if (stricmp (suffix, ".qli") == 0)
+		{
+		  i--;
+		}
 	    }
 	  i++;
 	}
@@ -378,37 +394,38 @@ DoDesktopIcons ()
       while (numberoffilesondesktop > i)
 	{
 
-           //Get file extension          
-          char deskitem[i][32];       
-           char deskitemrs[i][32];   
-               
-           if (desktopisdir[i] != 1)
-           {
-             int size;
-             int size2;        	
-	           suffix = strrchr(desktopiconname[i], '.');           
-	           size = strlen (desktopiconname[i]);
-	           size2 = strlen (suffix);           
-	           strncpy (deskitemrs[i],desktopiconname[i],(size-size2));
-	           deskitemrs[i][(size-size2)]='\0';     
-	                 
-	           if (size <=10)
-		           {
-			           	strncpy (deskitem[i],deskitemrs[i],(size-size2));
-			           	deskitem[i][(size-size2)]='\0';
-		           }
-		           else
-		           {
-			            strncpy (deskitem[i],deskitemrs[i],6);
-			            deskitem[i][6]='\0';
-		           }		        	       	
-	          }
-	          else
-	          {
-	          	strncpy (deskitem[i], desktopiconname[i], 6);
-		  				deskitem[i][6] = '\0';     	     
-          }
-           PutText((60*IconPositionX-46),(60*IconPositionY+7),deskitem[i],DesktopTextC); 
+	  //Get file extension          
+	  char deskitem[i][32];
+	  char deskitemrs[i][32];
+
+	  if (desktopisdir[i] != 1)
+	    {
+	      int size;
+	      int size2;
+	      suffix = strrchr (desktopiconname[i], '.');
+	      size = strlen (desktopiconname[i]);
+	      size2 = strlen (suffix);
+	      strncpy (deskitemrs[i], desktopiconname[i], (size - size2));
+	      deskitemrs[i][(size - size2)] = '\0';
+
+	      if (size <= 10)
+		{
+		  strncpy (deskitem[i], deskitemrs[i], (size - size2));
+		  deskitem[i][(size - size2)] = '\0';
+		}
+	      else
+		{
+		  strncpy (deskitem[i], deskitemrs[i], 6);
+		  deskitem[i][6] = '\0';
+		}
+	    }
+	  else
+	    {
+	      strncpy (deskitem[i], desktopiconname[i], 6);
+	      deskitem[i][6] = '\0';
+	    }
+	  PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7),
+		   deskitem[i], DesktopTextC);
 
 
 	  if (desktopisdir[i] == 1)
@@ -420,11 +437,11 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, DirectoryT, DirectoryC);
-				if (DesktopIconsActive==1)
-					{
-		  		 PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], DesktopTextOverC);
-					}
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
 		}
 	      else
 		{
@@ -447,11 +464,11 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, GraphicT, GraphicC);
-				if (DesktopIconsActive==1)
-					{		  
-		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], DesktopTextOverC);
-			     }
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
 		}
 	      else
 		{
@@ -471,11 +488,11 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, MusicT, MusicC);
-				if (DesktopIconsActive==1)
-					{		  
-		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], DesktopTextOverC);
-			     }
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
 		}
 	      else
 		{
@@ -484,10 +501,33 @@ DoDesktopIcons ()
 		}
 	    }
 
+	  //Video      
+	  else if (stricmp (suffix, ".pmp") == 0
+		   || stricmp (suffix, ".pos") == 0)
+	    {
+	      if (iconSelected.row == IconPositionX
+		  && iconSelected.col == IconPositionY)
+		{
+		  PutGFX (0, 0, 48, 48, Icon_Video_Over,
+			  (60 * IconPositionX - 48),
+			  (60 * IconPositionY - 48 + 5));
+		  PutTextFont (380, 260, MusicT, MusicC);
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
+		}
+	      else
+		{
+		  PutGFX (0, 0, 48, 48, Icon_Video, (60 * IconPositionX - 48),
+			  (60 * IconPositionY - 48 + 5));
+		}
+	    }
+
 	  //Application/game
 	  else if (stricmp (suffix, ".pbp") == 0
-		   || stricmp (suffix, ".elf") == 0
-		   || stricmp (suffix, ".lua") == 0)
+		   || stricmp (suffix, ".elf") == 0)
 	    {
 	      if (iconSelected.row == IconPositionX
 		  && iconSelected.col == IconPositionY)
@@ -496,15 +536,38 @@ DoDesktopIcons ()
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		  PutTextFont (380, 260, ExecutableT, ExecutableC);
-				if (DesktopIconsActive==1)
-					{		  
-		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], DesktopTextOverC);
-			     }
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
 		}
 	      else
 		{
 		  PutGFX (0, 0, 48, 48, Icon_Eboot, (60 * IconPositionX - 48),
+			  (60 * IconPositionY - 48 + 5));
+		}
+	    }
+
+	  //Lua Apps
+	  else if (stricmp (suffix, ".lua") == 0)
+	    {
+	      if (iconSelected.row == IconPositionX
+		  && iconSelected.col == IconPositionY)
+		{
+		  PutGFX (0, 0, 48, 48, Icon_Lua_Over,
+			  (60 * IconPositionX - 48),
+			  (60 * IconPositionY - 48 + 5));
+		  PutTextFont (380, 260, ExecutableT, ExecutableC);
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
+		}
+	      else
+		{
+		  PutGFX (0, 0, 48, 48, Icon_Lua, (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
 		}
 	    }
@@ -516,55 +579,56 @@ DoDesktopIcons ()
 	      if (iconSelected.row == IconPositionX
 		  && iconSelected.col == IconPositionY)
 		{
-		  	if (qlcheck[i] == 1) 
-		  	{ 
-	  		  PutGFX (0, 0, 48, 48, ShortcutIcon[i],
-					(60 * IconPositionX - 48),
-			 		(60 * IconPositionY - 48 + 5));
-			   }
-			   else
-			   {
-			   	 PutGFX (0, 0, 48, 48, Icon_QuickLink_Over,
-					  (60 * IconPositionX - 48),
-					  (60 * IconPositionY - 48 + 5));
-				}			
-		  	PutTextFont (380, 260, QuickLinkT, QuickLinkC);
-				if (DesktopIconsActive==1)
-					{		  	
-		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], DesktopTextOverC);
-			    }
+		  if (qlcheck[i] == 1)
+		    {
+		      PutGFX (0, 0, 48, 48, ShortcutIcon[i],
+			      (60 * IconPositionX - 48),
+			      (60 * IconPositionY - 48 + 5));
+		    }
+		  else
+		    {
+		      PutGFX (0, 0, 48, 48, Icon_QuickLink_Over,
+			      (60 * IconPositionX - 48),
+			      (60 * IconPositionY - 48 + 5));
+		    }
+		  PutTextFont (380, 260, QuickLinkT, QuickLinkC);
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
 		}
 	      else
-		{		  
-				if (qlcheck[i] == 0)
-				{
-					 char qlpath[500];
-					 FILE *File=NULL;
-					 sprintf (qlpath, "ms0:/PSP-OSS/DESKTOP/%s.qli", deskitemrs[i]);
-			  	 File=fopen(qlpath,"r");                     // Check To See If The File Exists		
-					 fclose(File); 			  	 		
-			   
-			   if (File)                                 // Does The File Exist?
-				   {					
-	  					ShortcutIcon[i] = LoadGFX (qlpath);
-	  					qlcheck[i] = 1;		
-			  		}
-		  	}
-		  		
-		  	if (qlcheck[i] == 1) 
-		  	{ 
-	  		  PutGFX (0, 0, 48, 48, ShortcutIcon[i],
-					(60 * IconPositionX - 48),
-			 		(60 * IconPositionY - 48 + 5));
-			   }
-			   else
-			   {
-			   	 PutGFX (0, 0, 48, 48, Icon_QuickLink,
-					  (60 * IconPositionX - 48),
-					  (60 * IconPositionY - 48 + 5));
-				}
+		{
+		  if (qlcheck[i] == 0)
+		    {
+		      char qlpath[500];
+		      FILE *File = NULL;
+		      sprintf (qlpath, "ms0:/PSP-OSS/DESKTOP/%s.qli",
+			       deskitemrs[i]);
+		      File = fopen (qlpath, "r");	// Check To See If The File Exists         
+		      fclose (File);
+
+		      if (File)	// Does The File Exist?
+			{
+			  ShortcutIcon[i] = LoadGFX (qlpath);
+			  qlcheck[i] = 1;
 			}
+		    }
+
+		  if (qlcheck[i] == 1)
+		    {
+		      PutGFX (0, 0, 48, 48, ShortcutIcon[i],
+			      (60 * IconPositionX - 48),
+			      (60 * IconPositionY - 48 + 5));
+		    }
+		  else
+		    {
+		      PutGFX (0, 0, 48, 48, Icon_QuickLink,
+			      (60 * IconPositionX - 48),
+			      (60 * IconPositionY - 48 + 5));
+		    }
+		}
 	    }
 
 	  //Unknown files
@@ -576,12 +640,12 @@ DoDesktopIcons ()
 		  PutGFX (0, 0, 48, 48, Icon_Unknown_Over,
 			  (60 * IconPositionX - 48),
 			  (60 * IconPositionY - 48 + 5));
-		  PutTextFont (380, 260, UnknownT, UnknownC);	
-				if (DesktopIconsActive==1)
-					{		  
-		  			PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-			       desktopiconname[i], DesktopTextOverC);
-					}			       
+		  PutTextFont (380, 260, UnknownT, UnknownC);
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
 		}
 	      else
 		{
@@ -601,7 +665,7 @@ DoDesktopIcons ()
 		  char buffer[200];
 
 		  if (desktopisdir[i] == 1)
-		    { 		    	
+		    {
 		      sprintf (buffer, "ms0:/PSP-OSS/DESKTOP/%s/",
 			       desktopiconname[i]);
 		      BrowseDirectory (buffer);
@@ -609,7 +673,7 @@ DoDesktopIcons ()
 		    }
 
 		  else
-		    {   	
+		    {
 		      sprintf (buffer, "ms0:/PSP-OSS/DESKTOP/%s",
 			       desktopiconname[i]);
 		      OpenFile (buffer);
@@ -621,7 +685,7 @@ DoDesktopIcons ()
 		  && iconSelected.col == IconPositionY)
 		{
 		  if (desktopisdir[i] != 1)
-		    {  		    	
+		    {
 		      RightClick_Icon_Desktop (cursorPosition.x,
 					       cursorPosition.y,
 					       "ms0:/PSP-OSS/DESKTOP/",
@@ -629,9 +693,9 @@ DoDesktopIcons ()
 		    }
 		}
 	    }
-			else
-			{
-			}
+	  else
+	    {
+	    }
 	  //+ everything that needs to be +'ed =D
 	  if (IconPositionY > 3)
 	    {
@@ -671,7 +735,7 @@ drawIcons ()
     {
       if (iconSelected.row == 8 && iconSelected.col == 3)
 	{			//Cursor is over the UMD icon
-	  PutTextFont (380, 260, StartUMDT, StartUMDC);	
+	  PutTextFont (380, 260, StartUMDT, StartUMDC);
 	  PutGFX (0, 0, 48, 48, Icon_UMD_Over, (IconXSize * 8 - 48),
 		  (IconYSize * 3 - 48));
 	}
@@ -701,7 +765,7 @@ drawIcons ()
   //Settings Icon
   if (iconSelected.row == 8 && iconSelected.col == 2)
     {
-      PutTextFont (380, 260, SettingsT, SettingsC);	
+      PutTextFont (380, 260, SettingsT, SettingsC);
       PutGFX (0, 0, 48, 48, Icon_Settings_Over, (IconXSize * 8 - 48),
 	      (IconYSize * 2 - 48));
     }

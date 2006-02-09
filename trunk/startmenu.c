@@ -40,7 +40,7 @@ char *selectmenu;
 void
 StartMenu ()
 {
-  	
+
   DesktopIconsActive = 0;
   PauseVbl (10);
   stopmenu = 0;
@@ -174,7 +174,7 @@ StartMenu ()
 void
 findStartMenu ()
 {
-	DesktopIconsActive = 0;
+  DesktopIconsActive = 0;
 
   //Defines the Rows
   //fourcolums will adjust the colums appropriately when there are 4 colums on the sceen.
@@ -446,12 +446,12 @@ StartListMenu ()
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 227);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 237);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 247);
-		  PutText (5, 197, BrowseT, BrowseC);
-		  PutText (5, 207, GamesT, GamesC);
-		  PutText (5, 217, MusicT, MusicC);
-		  PutText (5, 227, PicturesT, PicturesC);
-		  PutText (5, 237, SystemT, SystemC);
-		  PutText (5, 247, QuitT, QuitC);     
+      PutText (5, 197, BrowseT, BrowseC);
+      PutText (5, 207, GamesT, GamesC);
+      PutText (5, 217, MusicT, MusicC);
+      PutText (5, 227, PicturesT, PicturesC);
+      PutText (5, 237, SystemT, SystemC);
+      PutText (5, 247, QuitT, QuitC);
 
       findStartMenu ();
       GetUserInput ();
@@ -514,7 +514,7 @@ StartListMenu ()
 	      char Startitem[i][13];
 	      int size;
 	      size = strlen (startitemname[i]);
-	
+
 	      if (isdir[i] != 1)
 		{
 		  if (size <= 12)
@@ -535,7 +535,7 @@ StartListMenu ()
 		  Startitem[i][12] = '\0';
 		}
 
-			PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], StartSubMenuC);	//Displays the name of the item in the Start Menu
+	      PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], StartSubMenuC);	//Displays the name of the item in the Start Menu
 	      //Used to check is an item is a Directory
 	      if (isdir[i] == 1)
 		{
@@ -544,8 +544,8 @@ StartListMenu ()
 		  if (MenuSelected.row1 == MenuPositionX
 		      && MenuSelected.col1 == MenuPositionY)
 		    {
-		      PutGFX (0, 0, 100, 15, SubMenuSelect, (100 * MenuPositionX - fourcolumns - 19), (15 * MenuPositionY + 7));	//Puts an overlay over the Text if the mouse cursor is over the item.		      
-								PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);	//Displays the name of the item in the Start Menu
+		      PutGFX (0, 0, 100, 15, SubMenuSelect, (100 * MenuPositionX - fourcolumns - 19), (15 * MenuPositionY + 7));	//Puts an overlay over the Text if the mouse cursor is over the item.                 
+		      PutText ((100 * MenuPositionX - fourcolumns - 17), (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);	//Displays the name of the item in the Start Menu
 		      if (selectmenu == "ms0:/PSP/GAME/")
 			{
 			  PutText (380, 260, ExecutableT, StartSubMenuTypeC);	//Display the type of file type in the Status Bar e.g Executable
@@ -570,7 +570,8 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+			       (15 * MenuPositionY + 9), Startitem[i],
+			       StartSubMenuOverC);
 		      PutText (380, 260, GraphicT, StartSubMenuTypeC);
 		    }
 
@@ -588,16 +589,15 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+			       (15 * MenuPositionY + 9), Startitem[i],
+			       StartSubMenuOverC);
 		      PutText (380, 260, MusicT, StartSubMenuTypeC);
 		    }
 
 		}
-
-
-	      //Used to check is an item is a Application/game
-	      else if (stricmp (suffix, ".PBP") == 0
-		       || stricmp (suffix, ".elf") == 0 || stricmp (suffix, ".lua") == 0)
+         //Used to check is an item is an Video file
+	      else if (stricmp (suffix, ".pmp") == 0
+		       || stricmp (suffix, ".pos") == 0)
 		{
 		  if (MenuSelected.row1 == MenuPositionX
 		      && MenuSelected.col1 == MenuPositionY)
@@ -606,11 +606,45 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+			       (15 * MenuPositionY + 9), Startitem[i],
+			       StartSubMenuOverC);
+		      PutText (380, 260, MusicT, StartSubMenuTypeC);
+		    }
+
+		}
+
+	      //Used to check is an item is a Application/game
+	      else if (stricmp (suffix, ".PBP") == 0
+		       || stricmp (suffix, ".elf") == 0)
+		{
+		  if (MenuSelected.row1 == MenuPositionX
+		      && MenuSelected.col1 == MenuPositionY)
+		    {
+		      PutGFX (0, 0, 100, 15, SubMenuSelect,
+			      (100 * MenuPositionX - fourcolumns - 19),
+			      (15 * MenuPositionY + 7));
+		      PutText ((100 * MenuPositionX - fourcolumns - 17),
+			       (15 * MenuPositionY + 9), Startitem[i],
+			       StartSubMenuOverC);
 		      PutText (380, 260, ExecutableT, StartSubMenuTypeC);
 		    }
 		}
-
+	      
+	      //Lua Apps
+          else if (stricmp (suffix, ".lua") == 0)
+		{
+		  if (MenuSelected.row1 == MenuPositionX
+		      && MenuSelected.col1 == MenuPositionY)
+		    {
+		      PutGFX (0, 0, 100, 15, SubMenuSelect,
+			      (100 * MenuPositionX - fourcolumns - 19),
+			      (15 * MenuPositionY + 7));
+		      PutText ((100 * MenuPositionX - fourcolumns - 17),
+			       (15 * MenuPositionY + 9), Startitem[i],
+			       StartSubMenuOverC);
+		      PutText (380, 260, ExecutableT, StartSubMenuTypeC);
+		    }
+		}
 	      //Used to check is an item is a Shortcut
 	      else if (stricmp (suffix, ".ql") == 0
 		       || stricmp (suffix, ".pol") == 0)
@@ -622,7 +656,8 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+			       (15 * MenuPositionY + 9), Startitem[i],
+			       StartSubMenuOverC);
 		      PutText (380, 260, QuickLinkT, StartSubMenuTypeC);
 		    }
 
@@ -638,7 +673,8 @@ StartListMenu ()
 			      (100 * MenuPositionX - fourcolumns - 19),
 			      (15 * MenuPositionY + 7));
 		      PutText ((100 * MenuPositionX - fourcolumns - 17),
-			       (15 * MenuPositionY + 9), Startitem[i], StartSubMenuOverC);
+			       (15 * MenuPositionY + 9), Startitem[i],
+			       StartSubMenuOverC);
 		      PutText (380, 260, UnknownT, StartSubMenuTypeC);
 		    }
 		}
@@ -676,16 +712,16 @@ StartListMenu ()
 				}
 			      else
 				{
-					DesktopIconsActive = 1;	
-					stopmenu = 1;
+				  DesktopIconsActive = 1;
+				  stopmenu = 1;
 				  sprintf (buffer, "%s%s/", selectmenu, startitemname[i]);	//This line works out the directory and folder name e.g ms0:/PSP-OSS/GAMES/
-				  BrowseDirectory (buffer);	//This line lunches the file Browser				  
+				  BrowseDirectory (buffer);	//This line lunches the file Browser                              
 				}
 			    }
 			  //If the folder is not a directory it will try to open it.
 			  else
 			    {
-			    	DesktopIconsActive = 1;	
+			      DesktopIconsActive = 1;
 			      sprintf (buffer, "%s%s", selectmenu, startitemname[i]);	//This line works out the directory and item name e.g ms0:/PSP-OSS/WALLPAPER/XWING.PNG
 			      OpenFile (buffer);	//Sends the File to be opend by the appropriate app
 			      stopmenu = 1;
@@ -696,18 +732,18 @@ StartListMenu ()
 			  && MenuSelected.row1 == MenuPositionX
 			  && MenuSelected.col1 == MenuPositionY)
 			{
-			    if (cursorPosition.y > 200)
-			      {
-				Init_RightClick_Icon_Filebrowser
-				  (cursorPosition.x, cursorPosition.y - 60,
-				   selectmenu, startitemname[i]),isdir[i];
-			      }
-			    else
-			      {
-				Init_RightClick_Icon_Filebrowser
-				  (cursorPosition.x, cursorPosition.y,
-				   selectmenu, startitemname[i]);
-			      }
+			  if (cursorPosition.y > 200)
+			    {
+			      Init_RightClick_Icon_Filebrowser
+				(cursorPosition.x, cursorPosition.y - 60,
+				 selectmenu, startitemname[i]), isdir[i];
+			    }
+			  else
+			    {
+			      Init_RightClick_Icon_Filebrowser
+				(cursorPosition.x, cursorPosition.y,
+				 selectmenu, startitemname[i]);
+			    }
 			}
 		    }
 		}
@@ -846,7 +882,7 @@ StartListMenu ()
 	{
 	  PutText ((100 * 1 - fourcolumns - 6), (15 * 14 + 9), EmptyT, StartSubMenuEmptyC);	//Displays the name of the item in the Start Menu       
 	  PutText ((100 * 1 - fourcolumns - 6), (15 * 15 + 9), DirectoryT, StartSubMenuEmptyC);	//Displays the name of the item in the Start Menu   
-	  	}
+	}
 
       if (FilebrowserRightclickActive != 1)
 	{
@@ -854,7 +890,8 @@ StartListMenu ()
 	  if (pad.Buttons & PSP_CTRL_CONFIRM || pad.Buttons & PSP_CTRL_BACK)
 	    {
 	      //uses to close the start menu if the cross is not pressed on an icon
-	      if (cursorPosition.x < 80 - fourcolumns && cursorPosition.y < 180)
+	      if (cursorPosition.x < 80 - fourcolumns
+		  && cursorPosition.y < 180)
 		{
 		  //mstart required to disable the start menu
 		  mstart = 0;
@@ -863,14 +900,14 @@ StartListMenu ()
 		  stopmenu = 1;
 		  break;
 		}
-	   else if (cursorPosition.x > (MenuSelected.row1 + startcounter))
+	      else if (cursorPosition.x > (MenuSelected.row1 + startcounter))
 		{
 		  //mstart required to disable the start menu
 		  mstart = 0;
 		  fourcolumns = 0;
 		  stopmenu = 1;
 		  break;
-		}		
+		}
 	    }
 	  /*used to close the start menu if the triangle button is pressed
 	     if(pad.Buttons & PSP_CTRL_TRIANGLE)
@@ -920,7 +957,7 @@ StartListMenu ()
 void
 drawSettings ()
 {
-  DesktopIconsActive =0;
+  DesktopIconsActive = 0;
   int Themes = 13;
   int Wallpapers = 14;
   int Setmenu = 15;
@@ -1002,7 +1039,7 @@ drawSettings ()
 void
 Startmenulistover ()
 {
-	DesktopIconsActive = 0;
+  DesktopIconsActive = 0;
   if (cursorPosition.x > 0 && cursorPosition.x < 70 && cursorPosition.y > 197
       && cursorPosition.y < 207)
     {
@@ -1033,19 +1070,19 @@ Startmenulistover ()
     {
       PutGFX (0, 0, 70, 10, Start_Menu_Body_Over, 0, 247);
     }
-		  PutText (5, 197, BrowseT, BrowseC);
-		  PutText (5, 207, GamesT, GamesC);
-		  PutText (5, 217, MusicT, MusicC);
-		  PutText (5, 227, PicturesT, PicturesC);
-		  PutText (5, 237, SystemT, SystemC);
-		  PutText (5, 247, QuitT, QuitC);       
+  PutText (5, 197, BrowseT, BrowseC);
+  PutText (5, 207, GamesT, GamesC);
+  PutText (5, 217, MusicT, MusicC);
+  PutText (5, 227, PicturesT, PicturesC);
+  PutText (5, 237, SystemT, SystemC);
+  PutText (5, 247, QuitT, QuitC);
 
 }
 
 void
 Startmenulist ()
 {
-	DesktopIconsActive = 0;
+  DesktopIconsActive = 0;
   right = 0;
   if (pad.Buttons & PSP_CTRL_RIGHT)
     {
@@ -1071,7 +1108,7 @@ Startmenulist ()
 	  DPad_PositionY = 1;
 	  smpage = 1;
 	  selectmenu = "ms0:/PSP/GAME/";
-	  DesktopIconsActive = 0;	
+	  DesktopIconsActive = 0;
 	  StartListMenu ();
 	}
       //Music
@@ -1085,7 +1122,7 @@ Startmenulist ()
 	  DPad_PositionY = 1;
 	  smpage = 1;
 	  selectmenu = "ms0:/PSP/MUSIC/";
-	  DesktopIconsActive = 0;	
+	  DesktopIconsActive = 0;
 	  StartListMenu ();
 	}
       //Pictures
@@ -1099,7 +1136,7 @@ Startmenulist ()
 	  DPad_PositionY = 1;
 	  smpage = 1;
 	  selectmenu = "ms0:/PSP/PHOTO/";
-	  DesktopIconsActive = 0;	
+	  DesktopIconsActive = 0;
 	  StartListMenu ();
 	}
       //System
@@ -1114,7 +1151,7 @@ Startmenulist ()
 	  smpage = 1;
 	  selectmenu = "ms0:/NOTREALFOROURUSEONLY";
 	  settings = 3;		//System is used to define how may items we have in this folder
-	  DesktopIconsActive = 0;	
+	  DesktopIconsActive = 0;
 	  StartListMenu ();
 	}
 
@@ -1133,7 +1170,7 @@ Startmenulist ()
 void
 SubmenuDPad ()
 {
-  DesktopIconsActive =0;
+  DesktopIconsActive = 0;
   if (substart == 0 && empty != 1 && right == 1)
     {
       cursorPosition.x = 130 - fourcolumns;

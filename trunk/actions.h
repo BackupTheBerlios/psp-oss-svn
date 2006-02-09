@@ -24,4 +24,3 @@ WriteTxtFile (const char *filename, const char *texttowrite);
 int Random (int low, int high);
 
 void PMP_Run (const char *filename);
-

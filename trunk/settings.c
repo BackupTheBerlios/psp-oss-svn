@@ -75,7 +75,8 @@ SettingsScreen ()
 	      scePowerSetClockFrequency (266, 266, 133);
 	    }
 	  //If its at 266mHz, set it to 333mHz.
-	  else if (strcmp (CPU_Speed, "265") == 0 || strcmp (CPU_Speed, "266") == 0)
+	  else if (strcmp (CPU_Speed, "265") == 0
+		   || strcmp (CPU_Speed, "266") == 0)
 	    {
 	      sceIoWrite (file, "333", 3);
 
@@ -156,21 +157,23 @@ SettingsScreen ()
 	  && cursorPosition.y > windowy + 90
 	  && cursorPosition.y < windowy + 105)
 	{
-	     if(DesktopEffect=="None"){
-	     //Lines
-         Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/EFFECT.CFG","Lines");
+	  if (DesktopEffect == "None")
+	    {
+	      //Lines
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/EFFECT.CFG", "Lines");
 
-	     DesktopEffect="Lines";
-	     }
-	     else if(DesktopEffect=="Lines"){
-	     //Nothing
-	     Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/EFFECT.CFG","None");
+	      DesktopEffect = "Lines";
+	    }
+	  else if (DesktopEffect == "Lines")
+	    {
+	      //Nothing
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/EFFECT.CFG", "None");
 
-	     DesktopEffect="None";
-	     }
+	      DesktopEffect = "None";
+	    }
 
-	     checkkey=1;
-	     PauseVbl(30);
+	  checkkey = 1;
+	  PauseVbl (30);
 
 	}
 
@@ -182,14 +185,14 @@ SettingsScreen ()
 	{
 	  SettingsScreen_MouseSpeed ();
 	}
- /* //Theme
-      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > optionx + 150
-	  && cursorPosition.x < optionx + 250
-	  && cursorPosition.y > windowy + 135
-	  && cursorPosition.y < windowy + 150)
-	{
-	  BrowseSkins ();
-	}*/
+      /* //Theme
+         if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > optionx + 150
+         && cursorPosition.x < optionx + 250
+         && cursorPosition.y > windowy + 135
+         && cursorPosition.y < windowy + 150)
+         {
+         BrowseSkins ();
+         } */
 
       //Move cursor over close button
       if (pad.Buttons & PSP_CTRL_UP)
@@ -251,32 +254,32 @@ DrawSettingsScreenGUI ()
 	{
 	  sprintf (toggle_wallpapers_text, "Off");
 	}
-	
-	    //Mouse Speed
-  if (mousespeed == 2)
-    {
-      sprintf (mouse_speed_text, "1");
-    }
-  else if (mousespeed == 3)
-    {
-      sprintf (mouse_speed_text, "2");
-    }
-  else if (mousespeed == 4)
-    {
-      sprintf (mouse_speed_text, "3");
-    }
-  else if (mousespeed == 5)
-    {
-      sprintf (mouse_speed_text, "4");
-    }
-  else if (mousespeed == 6)
-    {
-      sprintf (mouse_speed_text, "5");
-    }
-  else if (mousespeed == 7)
-    {
-       sprintf (mouse_speed_text, "6");
-    }
+
+      //Mouse Speed
+      if (mousespeed == 2)
+	{
+	  sprintf (mouse_speed_text, "1");
+	}
+      else if (mousespeed == 3)
+	{
+	  sprintf (mouse_speed_text, "2");
+	}
+      else if (mousespeed == 4)
+	{
+	  sprintf (mouse_speed_text, "3");
+	}
+      else if (mousespeed == 5)
+	{
+	  sprintf (mouse_speed_text, "4");
+	}
+      else if (mousespeed == 6)
+	{
+	  sprintf (mouse_speed_text, "5");
+	}
+      else if (mousespeed == 7)
+	{
+	  sprintf (mouse_speed_text, "6");
+	}
 
       //CPU speed
       sprintf (CPU_Speed, "%d mHz", scePowerGetCpuClockFrequency ());
@@ -297,7 +300,7 @@ DrawSettingsScreenGUI ()
   PutGFX (0, 0, 300, 15, Settings_Window, windowx, windowy + 135);
   PutGFX (0, 0, 300, 15, Settings_Window_Bottom, windowx, windowy + 150);
 
-	PutTextFont (itemx + 5, windowy + 17, LanguageT, LanguageC);
+  PutTextFont (itemx + 5, windowy + 17, LanguageT, LanguageC);
   PutTextFont (optionx + 150, windowy + 17, "English", SettingsC);
 
   PutTextFont (itemx + 5, windowy + 32, CPUT, CPUC);
@@ -307,16 +310,17 @@ DrawSettingsScreenGUI ()
   PutTextFont (optionx + 150, windowy + 47, currentkey, SettingsC);
 
   PutTextFont (itemx + 5, windowy + 77, ToggleWallpaperT, ToggleWallpaperC);
-  PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text, SettingsC);
+  PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text,
+	       SettingsC);
 
   PutTextFont (itemx + 5, windowy + 92, DeasktopEffectT, DeasktopEffectC);
   PutTextFont (optionx + 150, windowy + 92, DesktopEffect, SettingsC);
 
   PutTextFont (itemx + 5, windowy + 122, MouseSpeedT, MouseSpeedC);
-	PutTextFont (optionx + 160, windowy + 122, mouse_speed_text, SettingsC);
+  PutTextFont (optionx + 160, windowy + 122, mouse_speed_text, SettingsC);
 
   /*PutTextFont (itemx + 5, windowy + 137, "Theme:", BLACK);
-  PutTextFont (optionx + 150, windowy + 137, "Change", RED);
+     PutTextFont (optionx + 150, windowy + 137, "Change", RED);
    */
 
   /*
@@ -342,7 +346,8 @@ DrawSettingsScreenGUI ()
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 75 && cursorPosition.y < windowy + 90)
     {
-      PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text, Settings2C);
+      PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text,
+		   Settings2C);
     }
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 90 && cursorPosition.y < windowy + 105)
@@ -352,7 +357,8 @@ DrawSettingsScreenGUI ()
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 120 && cursorPosition.y < windowy + 135)
     {
-      PutTextFont (optionx + 160, windowy + 122, mouse_speed_text, Settings2C);
+      PutTextFont (optionx + 160, windowy + 122, mouse_speed_text,
+		   Settings2C);
     }
 /*    
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
@@ -420,95 +426,147 @@ SettingsScreen_Language ()
 }
 
 
-void SettingsScreen_MouseSpeed ()
+void
+SettingsScreen_MouseSpeed ()
 {
   while (1)
     {
       GetUserInput ();
       DrawSettingsScreenGUI ();
-	    checkkey = 1;
-	    
+      checkkey = 1;
+
       PutGFX (0, 0, 70, 10, RightclickMenu_Top, optionx + 170, windowy + 65);
       PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170, windowy + 75);
       PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170, windowy + 85);
       PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170, windowy + 95);
-      PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170, windowy + 105);
-      PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170, windowy + 115);
-      PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170, windowy + 125);
-      PutGFX (0, 0, 70, 10, RightclickMenu_Bottom, optionx + 170, windowy + 135);
-      
+      PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170,
+	      windowy + 105);
+      PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170,
+	      windowy + 115);
+      PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 170,
+	      windowy + 125);
+      PutGFX (0, 0, 70, 10, RightclickMenu_Bottom, optionx + 170,
+	      windowy + 135);
+
       //Mouseover
-  if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 75 && cursorPosition.y < windowy + 85)
+      if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240
+	  && cursorPosition.y > windowy + 75
+	  && cursorPosition.y < windowy + 85)
 	{
-	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,  windowy + 75);
+	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,
+		  windowy + 75);
 	}
-  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 85 && cursorPosition.y < windowy + 95)
+      else if (cursorPosition.x > optionx + 170
+	       && cursorPosition.x < optionx + 240
+	       && cursorPosition.y > windowy + 85
+	       && cursorPosition.y < windowy + 95)
 	{
-	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,  windowy + 85);
-	}	
-  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 95 && cursorPosition.y < windowy + 105)
+	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,
+		  windowy + 85);
+	}
+      else if (cursorPosition.x > optionx + 170
+	       && cursorPosition.x < optionx + 240
+	       && cursorPosition.y > windowy + 95
+	       && cursorPosition.y < windowy + 105)
 	{
-	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,  windowy + 95);
-	}	
-  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 105 && cursorPosition.y < windowy + 115)
+	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,
+		  windowy + 95);
+	}
+      else if (cursorPosition.x > optionx + 170
+	       && cursorPosition.x < optionx + 240
+	       && cursorPosition.y > windowy + 105
+	       && cursorPosition.y < windowy + 115)
 	{
-	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,  windowy + 105);
-	}	
-  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 115 && cursorPosition.y < windowy + 125)
+	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,
+		  windowy + 105);
+	}
+      else if (cursorPosition.x > optionx + 170
+	       && cursorPosition.x < optionx + 240
+	       && cursorPosition.y > windowy + 115
+	       && cursorPosition.y < windowy + 125)
 	{
-	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,  windowy + 115);
-	}	
-  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 125 && cursorPosition.y < windowy + 135)
+	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,
+		  windowy + 115);
+	}
+      else if (cursorPosition.x > optionx + 170
+	       && cursorPosition.x < optionx + 240
+	       && cursorPosition.y > windowy + 125
+	       && cursorPosition.y < windowy + 135)
 	{
-	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,  windowy + 125);
-	}	
+	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 170,
+		  windowy + 125);
+	}
 
 
       //Confirm
-  if (pad.Buttons & PSP_CTRL_CONFIRM)
+      if (pad.Buttons & PSP_CTRL_CONFIRM)
 	{
-		  if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 75 && cursorPosition.y < windowy + 85)
-			{
-				mousespeed = 2;
-			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "1");
-			  DrawSettingsScreenGUI ();
-			  break;
-			}
-		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 85 && cursorPosition.y < windowy + 95)
-			{
-				mousespeed = 3;
-			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "2");
-			  DrawSettingsScreenGUI ();
-			  break;
-			}	
-		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 95 && cursorPosition.y < windowy + 105)
-			{
-				mousespeed = 4;
-			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "3");
-			  DrawSettingsScreenGUI ();
-			  break;
-			}	
-		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 105 && cursorPosition.y < windowy + 115)
-			{
-				mousespeed = 5;
-			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "4");
-			  DrawSettingsScreenGUI ();
-			  break;
-			}	
-		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 115 && cursorPosition.y < windowy + 125)
-			{
-				mousespeed = 6;
-			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "5");
-			  DrawSettingsScreenGUI ();
-			  break;
-			}	
-		  else if (cursorPosition.x > optionx + 170 && cursorPosition.x < optionx + 240 && cursorPosition.y > windowy + 125 && cursorPosition.y < windowy + 135)
-			{
-				mousespeed = 7;
-			  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", "6");
-			  DrawSettingsScreenGUI ();			  
-			  break;
-			}	
+	  if (cursorPosition.x > optionx + 170
+	      && cursorPosition.x < optionx + 240
+	      && cursorPosition.y > windowy + 75
+	      && cursorPosition.y < windowy + 85)
+	    {
+	      mousespeed = 2;
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg",
+			    "1");
+	      DrawSettingsScreenGUI ();
+	      break;
+	    }
+	  else if (cursorPosition.x > optionx + 170
+		   && cursorPosition.x < optionx + 240
+		   && cursorPosition.y > windowy + 85
+		   && cursorPosition.y < windowy + 95)
+	    {
+	      mousespeed = 3;
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg",
+			    "2");
+	      DrawSettingsScreenGUI ();
+	      break;
+	    }
+	  else if (cursorPosition.x > optionx + 170
+		   && cursorPosition.x < optionx + 240
+		   && cursorPosition.y > windowy + 95
+		   && cursorPosition.y < windowy + 105)
+	    {
+	      mousespeed = 4;
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg",
+			    "3");
+	      DrawSettingsScreenGUI ();
+	      break;
+	    }
+	  else if (cursorPosition.x > optionx + 170
+		   && cursorPosition.x < optionx + 240
+		   && cursorPosition.y > windowy + 105
+		   && cursorPosition.y < windowy + 115)
+	    {
+	      mousespeed = 5;
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg",
+			    "4");
+	      DrawSettingsScreenGUI ();
+	      break;
+	    }
+	  else if (cursorPosition.x > optionx + 170
+		   && cursorPosition.x < optionx + 240
+		   && cursorPosition.y > windowy + 115
+		   && cursorPosition.y < windowy + 125)
+	    {
+	      mousespeed = 6;
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg",
+			    "5");
+	      DrawSettingsScreenGUI ();
+	      break;
+	    }
+	  else if (cursorPosition.x > optionx + 170
+		   && cursorPosition.x < optionx + 240
+		   && cursorPosition.y > windowy + 125
+		   && cursorPosition.y < windowy + 135)
+	    {
+	      mousespeed = 7;
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg",
+			    "6");
+	      DrawSettingsScreenGUI ();
+	      break;
+	    }
 
 	  GetUserInput ();
 	}
@@ -524,4 +582,3 @@ void SettingsScreen_MouseSpeed ()
       PrintScreen ();
     }
 }
-

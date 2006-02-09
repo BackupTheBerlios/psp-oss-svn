@@ -52,7 +52,6 @@ int Audio_Stop(){
     
     if(MediaType=="mp3"){
          MP3_End();
-         scePowerSetClockFrequency(222, 222, 111);
          }
     else if(MediaType=="ogg"){
          OGG_End();

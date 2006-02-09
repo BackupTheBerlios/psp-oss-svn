@@ -24,20 +24,20 @@ Cursor Movement coded by Daurnimator
 #include "cursor.h"
 
 //Cursor Movement Coded my Daurnimator
-float distancemousemoves;
+double distancemousemoves;
 int rispressed = 0;
-void
+//void mousespeed;
 cursorHandler (int analogX, int analogY)
 {
   if (pad.Buttons & PSP_CTRL_RTRIGGER)
     {
       //Number of Times pressing R speeds moving the up by    
-      distancemousemoves = 3 + (0.5* mousespeed);
+      distancemousemoves = 3;//+ (0.5 * mousespeed);
       rispressed = 1;
     }
   else
     {
-      distancemousemoves =  0.5 * mousespeed;
+      distancemousemoves = 1;//+(0.5 * mousespeed);
       rispressed = 0;
     }
   //Left
@@ -161,7 +161,7 @@ cursorHandler (int analogX, int analogY)
 //Mechanism that finds which icon your'e over
 void
 findIcon ()
-{	
+{
   if (!(cursorPosition.y <= 15 || cursorPosition.y >= 272 - 15))
     {
       //Row
@@ -279,7 +279,7 @@ RightClick_Icon_Desktop (int PositionX, int PositionY, const char *filepath,
 		  (PositionY + 50));
 	  PutGFX (0, 0, 70, 10, RightclickMenu_Bottom, PositionX,
 		  (PositionY + 60));
-		PutTextFont ((PositionX + 5), (PositionY + 30), PasteT, PasteC);
+	  PutTextFont ((PositionX + 5), (PositionY + 30), PasteT, PasteC);
 	  PutTextFont ((PositionX + 5), (PositionY + 40), RenameT, RenameC);
 	  PutTextFont ((PositionX + 5), (PositionY + 50), DeleteT, DeleteC);
 	}
@@ -467,8 +467,8 @@ RightClick_Desktop (int PositionX, int PositionY)
       PutGFX (0, 0, 70, 10, RightclickMenu_Body, PositionX, (PositionY + 20));
 
 
-			PutTextFont ((PositionX + 5), (PositionY + 10), BackgrT, BackgrC);
-   		PutTextFont ((PositionX + 5), (PositionY + 20), ThemeT, ThemeC);
+      PutTextFont ((PositionX + 5), (PositionY + 10), BackgrT, BackgrC);
+      PutTextFont ((PositionX + 5), (PositionY + 20), ThemeT, ThemeC);
 
       if (Pastefile == 1)
 	{
@@ -563,14 +563,15 @@ RightClick_Desktop (int PositionX, int PositionY)
 
 void
 Init_RightClick_Icon_Filebrowser (int PositionX, int PositionY,
-				  const char *filepath, const char *filename, int RCMdir)
+				  const char *filepath, const char *filename,
+				  int RCMdir)
 {
   FilebrowserRightclickActive = 1;
 
   FilebrowserRightclickPosX = PositionX;
   FilebrowserRightclickPosY = PositionY;
   RCMisdir = RCMdir;
-  
+
   FilebrowserRightclickFilepath = filepath;
   FilebrowserRightclickFilename = filename;
 
@@ -591,10 +592,10 @@ RightClick_Icon_Filebrowser ()
   PutGFX (0, 0, 70, 10, RightclickMenu_Body, FilebrowserRightclickPosX,
 	  (FilebrowserRightclickPosY + 30));
 
-		PutTextFont ((FilebrowserRightclickPosX + 5), 
-								(FilebrowserRightclickPosY + 10), OpenT, OpenC);
-		PutTextFont ((FilebrowserRightclickPosX + 5), 
-								(FilebrowserRightclickPosY + 20), CopyT, CopyC);
+  PutTextFont ((FilebrowserRightclickPosX + 5),
+	       (FilebrowserRightclickPosY + 10), OpenT, OpenC);
+  PutTextFont ((FilebrowserRightclickPosX + 5),
+	       (FilebrowserRightclickPosY + 20), CopyT, CopyC);
 
   if (Pastefile == 1)
     {
@@ -606,14 +607,14 @@ RightClick_Icon_Filebrowser ()
 	      (FilebrowserRightclickPosY + 60));
       PutGFX (0, 0, 70, 10, RightclickMenu_Bottom, FilebrowserRightclickPosX,
 	      (FilebrowserRightclickPosY + 70));
-      PutTextFont ((FilebrowserRightclickPosX + 5), 
-					(FilebrowserRightclickPosY + 30), PasteT, PasteC);
-      PutTextFont ((FilebrowserRightclickPosX + 5), 
-					(FilebrowserRightclickPosY + 40), RenameT, RenameC);
-      PutTextFont ((FilebrowserRightclickPosX + 5), 
-					(FilebrowserRightclickPosY + 50), DeleteT, DeleteC);
-      PutTextFont ((FilebrowserRightclickPosX + 5), 
-					(FilebrowserRightclickPosY + 60), MakeQLT, MakeQLC);
+      PutTextFont ((FilebrowserRightclickPosX + 5),
+		   (FilebrowserRightclickPosY + 30), PasteT, PasteC);
+      PutTextFont ((FilebrowserRightclickPosX + 5),
+		   (FilebrowserRightclickPosY + 40), RenameT, RenameC);
+      PutTextFont ((FilebrowserRightclickPosX + 5),
+		   (FilebrowserRightclickPosY + 50), DeleteT, DeleteC);
+      PutTextFont ((FilebrowserRightclickPosX + 5),
+		   (FilebrowserRightclickPosY + 60), MakeQLT, MakeQLC);
     }
   else
     {
@@ -678,19 +679,19 @@ RightClick_Icon_Filebrowser ()
     {
       PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over,
 	      FilebrowserRightclickPosX, (FilebrowserRightclickPosY + 60));
-    }    
+    }
 
   PutGFX (0, 0, 32, 32, cursor, cursorPosition.x, cursorPosition.y);
   PrintScreen ();
 
-	if (RCMisdir ==1)
-   {
-   	isdirok=1;
-  }
-  else 
-  {
-  	isdirok=0;
-  }
+  if (RCMisdir == 1)
+    {
+      isdirok = 1;
+    }
+  else
+    {
+      isdirok = 0;
+    }
 
   if (pad.Buttons & PSP_CTRL_CONFIRM)
     {
@@ -701,18 +702,18 @@ RightClick_Icon_Filebrowser ()
 	  && cursorPosition.y > (FilebrowserRightclickPosY + 10)
 	  && cursorPosition.y < (FilebrowserRightclickPosY + 20))
 	{
-		if (RCMisdir == 1)
-		{
-		 // sprintf (buffer, "%s%s/", FilebrowserRightclickFilepath, FilebrowserRightclickFilename);
-		 // FilebrowserRightclickActive = 0;
-		 //BrowseDirectory (buffer);	
-		}
-		else
-		{
-	  	sprintf (buffer, "%s%s", FilebrowserRightclickFilepath,
-		  FilebrowserRightclickFilename);
-	  	OpenFile (buffer);
-	  }
+	  if (RCMisdir == 1)
+	    {
+	      // sprintf (buffer, "%s%s/", FilebrowserRightclickFilepath, FilebrowserRightclickFilename);
+	      // FilebrowserRightclickActive = 0;
+	      //BrowseDirectory (buffer);    
+	    }
+	  else
+	    {
+	      sprintf (buffer, "%s%s", FilebrowserRightclickFilepath,
+		       FilebrowserRightclickFilename);
+	      OpenFile (buffer);
+	    }
 	}
       //Copy
       else if (RCMisdir != 1 && cursorPosition.x > FilebrowserRightclickPosX
@@ -751,14 +752,15 @@ RightClick_Icon_Filebrowser ()
 	  sceIoRename (buffer, new_filename);
 	}
       //Delete
-      else if (RCMisdir != 1 && Pastefile == 0 && cursorPosition.x > FilebrowserRightclickPosX
+      else if (RCMisdir != 1 && Pastefile == 0
+	       && cursorPosition.x > FilebrowserRightclickPosX
 	       && cursorPosition.x < (FilebrowserRightclickPosX + 70)
 	       && cursorPosition.y > (FilebrowserRightclickPosY + 40)
 	       && cursorPosition.y < (FilebrowserRightclickPosY + 50))
 	{
-	  	sprintf (buffer, "%s%s", FilebrowserRightclickFilepath,
+	  sprintf (buffer, "%s%s", FilebrowserRightclickFilepath,
 		   FilebrowserRightclickFilename);
-	  	sceIoRemove (buffer);	 
+	  sceIoRemove (buffer);
 	}
       //Make Link
       else if (Pastefile == 0 && cursorPosition.x > FilebrowserRightclickPosX
@@ -767,33 +769,36 @@ RightClick_Icon_Filebrowser ()
 	       && cursorPosition.y < (FilebrowserRightclickPosY + 60))
 	{
 	  char buffer2[255];
-    char buffer3[255]; 
-    int size;
-    int size2;
-    char* suffix = strrchr(FilebrowserRightclickFilename, '.');   
-    char Createlink[255];
-   	char *new_filename;
-		if (isdirok == 0)
-		{
-		    size = strlen (FilebrowserRightclickFilename);
-		    size2 = strlen (suffix);           
-		    strncpy (Createlink,FilebrowserRightclickFilename,(size-size2));
-		    Createlink[(size-size2)]='\0'; 			
-			  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,FilebrowserRightclickFilename);
-			  new_filename = Keyboard (Createlink);
-		}
-		else
-		{
-		sprintf (buffer2, "%s%s/", FilebrowserRightclickFilepath,FilebrowserRightclickFilename);
-		new_filename = Keyboard (FilebrowserRightclickFilename);
-		}
-    sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.ql", new_filename);
-    Write_config (buffer3,buffer2);
-    frtd = 1;
-    DoDesktopIcons ();
+	  char buffer3[255];
+	  int size;
+	  int size2;
+	  char *suffix = strrchr (FilebrowserRightclickFilename, '.');
+	  char Createlink[255];
+	  char *new_filename;
+	  if (isdirok == 0)
+	    {
+	      size = strlen (FilebrowserRightclickFilename);
+	      size2 = strlen (suffix);
+	      strncpy (Createlink, FilebrowserRightclickFilename,
+		       (size - size2));
+	      Createlink[(size - size2)] = '\0';
+	      sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,
+		       FilebrowserRightclickFilename);
+	      new_filename = Keyboard (Createlink);
+	    }
+	  else
+	    {
+	      sprintf (buffer2, "%s%s/", FilebrowserRightclickFilepath,
+		       FilebrowserRightclickFilename);
+	      new_filename = Keyboard (FilebrowserRightclickFilename);
+	    }
+	  sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.ql", new_filename);
+	  Write_config (buffer3, buffer2);
+	  frtd = 1;
+	  DoDesktopIcons ();
 	}
-	
-	 else if (Pastefile == 1 && cursorPosition.x > FilebrowserRightclickPosX
+
+      else if (Pastefile == 1 && cursorPosition.x > FilebrowserRightclickPosX
 	       && cursorPosition.x < (FilebrowserRightclickPosX + 70)
 	       && cursorPosition.y > (FilebrowserRightclickPosY + 30)
 	       && cursorPosition.y < (FilebrowserRightclickPosY + 40))
@@ -838,38 +843,41 @@ RightClick_Icon_Filebrowser ()
 		   FilebrowserRightclickFilename);
 	  sceIoRemove (buffer);
 	}
-  		
-  		//Make Link
-  		else if (Pastefile == 1 && cursorPosition.x > FilebrowserRightclickPosX
+
+      //Make Link
+      else if (Pastefile == 1 && cursorPosition.x > FilebrowserRightclickPosX
 	       && cursorPosition.x < (FilebrowserRightclickPosX + 70)
 	       && cursorPosition.y > (FilebrowserRightclickPosY + 50)
 	       && cursorPosition.y < (FilebrowserRightclickPosY + 60))
 	{
 	  char buffer2[255];
-    char buffer3[255]; 
-    int size;
-    int size2;
-    char* suffix = strrchr(FilebrowserRightclickFilename, '.');   
-    char Createlink[255];
-   	char *new_filename;
-		if (isdirok == 0)
-		{
-		    size = strlen (FilebrowserRightclickFilename);
-		    size2 = strlen (suffix);           
-		    strncpy (Createlink,FilebrowserRightclickFilename,(size-size2));
-		    Createlink[(size-size2)]='\0'; 			
-			  sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,FilebrowserRightclickFilename);
-			  new_filename = Keyboard (Createlink);
-		}
-		else
-		{
-		sprintf (buffer2, "%s%s/", FilebrowserRightclickFilepath,FilebrowserRightclickFilename);
-		new_filename = Keyboard (FilebrowserRightclickFilename);
-		}
-    sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.ql", new_filename);
-    Write_config (buffer3,buffer2);
-    frtd = 1;
-    DoDesktopIcons ();
+	  char buffer3[255];
+	  int size;
+	  int size2;
+	  char *suffix = strrchr (FilebrowserRightclickFilename, '.');
+	  char Createlink[255];
+	  char *new_filename;
+	  if (isdirok == 0)
+	    {
+	      size = strlen (FilebrowserRightclickFilename);
+	      size2 = strlen (suffix);
+	      strncpy (Createlink, FilebrowserRightclickFilename,
+		       (size - size2));
+	      Createlink[(size - size2)] = '\0';
+	      sprintf (buffer2, "%s%s", FilebrowserRightclickFilepath,
+		       FilebrowserRightclickFilename);
+	      new_filename = Keyboard (Createlink);
+	    }
+	  else
+	    {
+	      sprintf (buffer2, "%s%s/", FilebrowserRightclickFilepath,
+		       FilebrowserRightclickFilename);
+	      new_filename = Keyboard (FilebrowserRightclickFilename);
+	    }
+	  sprintf (buffer3, "ms0:/PSP-OSS/DESKTOP/%s.ql", new_filename);
+	  Write_config (buffer3, buffer2);
+	  frtd = 1;
+	  DoDesktopIcons ();
 	}
 
 

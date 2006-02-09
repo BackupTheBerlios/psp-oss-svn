@@ -85,7 +85,8 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 			  PutGFX (0, 0, 48, 48, Icon_GFX_Over,
 				  (60 * IconPositionX - 48),
 				  (60 * IconPositionY - 48 + 5));
-			  PutTextFont (5, 260, wallpapericonname[i], WallpaperTextTBC);
+			  PutTextFont (5, 260, wallpapericonname[i],
+				       WallpaperTextTBC);
 			  PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), wallitem[i], WallpaperTextHLC);	//added 24th of dec
 			  PutTextFont ((cursorPosition.x + 15),
 				       cursorPosition.y, wallpapericonname[i],
@@ -135,7 +136,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 		  && cursorPosition.y > 250 && cursorPosition.y < 272)
 		{
 		  PutGFX (0, 0, 40, 25, FBLeft, 190, 247);
-		  PutText (5, 260, PreviousPageT, PreviousPageC);	//Displays the name of the item in the Start Menu				
+		  PutText (5, 260, PreviousPageT, PreviousPageC);	//Displays the name of the item in the Start Menu                               
 		}
 	      else
 		{
@@ -146,8 +147,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 
 	      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 190
 		  && cursorPosition.x < 230 && cursorPosition.y > 250
-		  && cursorPosition.y < 272
-		  || pad.Buttons & PSP_CTRL_LEFT)
+		  && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_LEFT)
 		{
 		  FBpage -= 1;
 		  PauseVbl (15);
@@ -172,8 +172,7 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 
 	      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 250
 		  && cursorPosition.x < 490 && cursorPosition.y > 250
-		  && cursorPosition.y < 272
-		  || pad.Buttons & PSP_CTRL_RIGHT)
+		  && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_RIGHT)
 		{
 		  FBpage += 1;
 		  PauseVbl (15);
@@ -318,8 +317,7 @@ BrowseSkins ()
 
 	      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 190
 		  && cursorPosition.x < 230 && cursorPosition.y > 250
-		  && cursorPosition.y < 272
-		  || pad.Buttons & PSP_CTRL_LEFT)
+		  && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_LEFT)
 		{
 		  FBpage -= 1;
 		  PauseVbl (15);
@@ -344,8 +342,7 @@ BrowseSkins ()
 
 	      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > 250
 		  && cursorPosition.x < 490 && cursorPosition.y > 250
-		  && cursorPosition.y < 272
-		  || pad.Buttons & PSP_CTRL_RIGHT)
+		  && cursorPosition.y < 272 || pad.Buttons & PSP_CTRL_RIGHT)
 		{
 		  FBpage += 1;
 		  PauseVbl (15);
@@ -395,7 +392,7 @@ loo:
   //SceIoDread 2 times, to skip the "." and ".." dir. We dont want to display those.
   sceIoDread (dfd, &dir);
   //sceIoDread(dfd, &dir);
-  if (strcmp(Dic ,"ms0:/") != 0)
+  if (strcmp (Dic, "ms0:/") != 0)
     {
       sceIoDread (dfd, &dir);
     }
@@ -457,7 +454,7 @@ loo:
 		       iconitem[i], FileBrowserTextC);
 	      //added 24th of dec      
 
-	      if (isdir[i] == 1|| suffix != 0)
+	      if (isdir[i] == 1 || suffix != 0)
 		{
 		  if (iconSelected.row == IconPositionX
 		      && iconSelected.col == IconPositionY)
@@ -490,7 +487,7 @@ loo:
 			      (60 * IconPositionY - 48 + 5));
 		      PutTextFont (5, 260, GraphicT, GraphicC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], FileBrowserTextOverC);				 
+				   iconname[i], FileBrowserTextOverC);
 		    }
 		  else
 		    {
@@ -522,6 +519,28 @@ loo:
 		    }
 		}
 
+	      //Video      
+	      else if (stricmp (suffix, ".pmp") == 0
+		       || stricmp (suffix, ".pos") == 0)
+		{
+		  if (iconSelected.row == IconPositionX
+		      && iconSelected.col == IconPositionY)
+		    {
+		      PutGFX (0, 0, 48, 48, Icon_Video_Over,
+			      (60 * IconPositionX - 48),
+			      (60 * IconPositionY - 48 + 5));
+		      PutTextFont (380, 260, MusicT, MusicC);
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   iconname[i], DesktopTextOverC);
+		    }
+		  else
+		    {
+		      PutGFX (0, 0, 48, 48, Icon_Video,
+			      (60 * IconPositionX - 48),
+			      (60 * IconPositionY - 48 + 5));
+		    }
+		}
+
 	      //Application/game
 	      else if (stricmp (suffix, ".pbp") == 0
 		       || stricmp (suffix, ".elf") == 0)
@@ -544,27 +563,26 @@ loo:
 		    }
 		}
 
-	      //LUA
+	      //Lua Apps
 	      else if (stricmp (suffix, ".lua") == 0)
 		{
 		  if (iconSelected.row == IconPositionX
 		      && iconSelected.col == IconPositionY)
 		    {
-		      PutGFX (0, 0, 48, 48, Icon_Eboot_Over,
+		      PutGFX (0, 0, 48, 48, Icon_Lua_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, LUAT, LUAC);
+		      PutTextFont (380, 260, ExecutableT, ExecutableC);
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   iconname[i], FileBrowserTextOverC);			
+				   iconname[i], DesktopTextOverC);
 		    }
 		  else
 		    {
-		      PutGFX (0, 0, 48, 48, Icon_Eboot,
+		      PutGFX (0, 0, 48, 48, Icon_Lua,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
 		    }
 		}
-
 	      //QuickLink
 	      else if (stricmp (suffix, ".ql") == 0
 		       || stricmp (suffix, ".pol") == 0)
@@ -636,9 +654,10 @@ loo:
 		      && iconSelected.row == IconPositionX
 		      && iconSelected.col == IconPositionY)
 		    {
-			  Init_RightClick_Icon_Filebrowser (cursorPosition.x,
-							    cursorPosition.y,
-							    Dic, iconname[i],isdir[i]);
+		      Init_RightClick_Icon_Filebrowser (cursorPosition.x,
+							cursorPosition.y,
+							Dic, iconname[i],
+							isdir[i]);
 		    }
 		}
 
@@ -743,7 +762,7 @@ loo:
 	      && cursorPosition.y > 250 && cursorPosition.y < 272)
 	    {
 	      PutGFX (0, 0, 40, 25, FBRight, 250, 247);
-	      PutText (5, 260, NextPageT, NextPageC);	//Displays the name of the item in the Start Menu			
+	      PutText (5, 260, NextPageT, NextPageC);	//Displays the name of the item in the Start Menu                       
 	    }
 	  else
 	    {
@@ -866,3 +885,87 @@ Toggle_Wallpapers (int mode)
       SetWallpaper (buffer);
     }
 }
+
+void
+Toggle_MP3 (int mode)
+{
+  if (LR_MUSIC_ran == 0)
+    {
+      int i = 0;
+      int dfd;
+      dfd = sceIoDopen ("ms0:/PSP/MUSIC/");
+      sceIoDread (dfd, &dir);
+      sceIoDread (dfd, &dir);
+
+      while (sceIoDread (dfd, &dir) > 0)
+	{
+	  //Make sure its a mp3 or ogg
+	  char *suffix = strrchr (strdup (dir.d_name), '.');
+	  if (stricmp (suffix, ".mp3") == 0 || stricmp (suffix, ".ogg") == 0)
+	    {
+	      LR_MUSIC[i] = strdup (dir.d_name);
+	      i++;
+	    }
+	}
+
+      //Close Dir Command
+      frtd = 0;
+      sceIoDclose (dfd);
+      LR_MUSIC_amount = i;
+      PauseVbl (20);
+    }
+
+  //Next SONG
+  if (mode == "R")
+    {    	
+      LR_MUSIC_current += 1;
+
+      if (LR_MUSIC_amount == LR_MUSIC_current)
+	{
+	  LR_MUSIC_current = 0;
+	}
+
+      char buffer[200];
+      sprintf (buffer, "ms0:/PSP/MUSIC/%s",LR_MUSIC[LR_MUSIC_current]);
+      Audio_Stop();
+      	  Audio_Play (buffer);
+				  PauseVbl (1 * 60);
+	       
+    }
+
+  if (mode == "L")
+    {
+      LR_MUSIC_current -= 1;
+
+      if (LR_MUSIC_current < 0)
+	{
+	  LR_MUSIC_current = (LR_MUSIC_amount - 1);
+	}
+
+      char buffer[200];
+      sprintf (buffer, "ms0:/PSP/MUSIC/%s",LR_MUSIC[LR_MUSIC_current]);
+      Audio_Stop();
+      	  Audio_Play (buffer);
+				  PauseVbl (1 * 60);
+    }
+ 
+  if (mode == "SHUFFLE")
+    {
+	 // Thanks to Raphael for posting this information http://forums.ps2dev.org/viewtopic.php?t=4836
+			SceKernelUtilsMt19937Context ctx;			
+			sceKernelUtilsMt19937Init(&ctx, time(NULL));			
+
+			u32 rand_val = sceKernelUtilsMt19937UInt(&ctx); 
+
+			rand_val = 1 + rand_val % LR_MUSIC_amount; 
+
+   		LR_MUSIC_current = rand_val;
+
+      char buffer[200];
+      sprintf (buffer, "ms0:/PSP/MUSIC/%s",LR_MUSIC[LR_MUSIC_current]);
+      Audio_Stop();
+      	  Audio_Play (buffer);
+				  PauseVbl (1 * 60);
+    }    
+}
+

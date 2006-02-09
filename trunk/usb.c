@@ -46,26 +46,25 @@ USB_Mode ()
       //USB not active. most likely because of no USB cable connected.
       else
 	{
-	  FadeScreenMessage (USBModeT, USBCableT, "",
-			     "");
+	  FadeScreenMessage (USBModeT, USBCableT, "", "");
 	}
 
       PrintScreen ();
 
       //Get key input
       GetUserInput ();
-if (pad.Buttons & PSP_CTRL_LTRIGGER)
-		{
-		}
-   else
-   {
-      if (pad.Buttons & PSP_CTRL_START || pad.Buttons & PSP_CTRL_BACK)
+      if (pad.Buttons & PSP_CTRL_LTRIGGER)
 	{
-	  sceUsbStop (PSP_USBSTOR_DRIVERNAME, 0, 0);
-	  sceUsbDeactivate ();
-	  frtd = 1;		//Update desktop
-	  break;
+	}
+      else
+	{
+	  if (pad.Buttons & PSP_CTRL_START || pad.Buttons & PSP_CTRL_BACK)
+	    {
+	      sceUsbStop (PSP_USBSTOR_DRIVERNAME, 0, 0);
+	      sceUsbDeactivate ();
+	      frtd = 1;		//Update desktop
+	      break;
+	    }
 	}
     }
-   }
 }

@@ -39,8 +39,7 @@ Execute ()
       int UMD_CHK = sceUmdCheckMedium (0);
       if (!UMD_CHK == 0)
 	{
-	  FadeScreenMessage (UMDLoadT, UMDLoad2T,
-	  		WaitT, "");
+	  FadeScreenMessage (UMDLoadT, UMDLoad2T, WaitT, "");
 	  PrintScreen ();
 	  UMD_Run ();
 	}
@@ -69,7 +68,7 @@ Execute ()
     {
       USB_Mode ();
     }
- 
+
 }
 
 // Set the Wallpaper
@@ -106,8 +105,7 @@ SetSkin (const char *NewSkin)
 void
 ReloadSkin ()
 {
-  FadeScreenMessage (ReloadSkinT, ReloadSkin2T, WaitT,
-  			 "");
+  FadeScreenMessage (ReloadSkinT, ReloadSkin2T, WaitT, "");
   PrintScreen ();
 
   freeImage (taskbar);
@@ -343,6 +341,15 @@ ReloadSkin ()
   Icon_Unknown = LoadGFX (buffer);
   sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/UNKNOWN2.png", skin);
   Icon_Unknown_Over = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Video1.png", skin);
+  Icon_Video = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Video2.png", skin);
+  Icon_Video_Over = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/LUA1.png", skin);
+  Icon_Lua = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/LUA2.png", skin);
+  Icon_Lua_Over = LoadGFX (buffer);
+
 
   sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/audio_player.png", skin);
   Audio_Player = LoadGFX (buffer);
@@ -582,7 +589,7 @@ Code from: http://forums.ps2dev.org/viewtopic.php?t=3792&highlight=scekernelload
 void
 ELF_Run (const char *filename)
 {
-	Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/CALLBACK.cfg", "1");
+  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/CALLBACK.cfg", "1");
   char tmp2[1000];
   char tmp3[1000];
 
@@ -613,15 +620,15 @@ ELF_Run (const char *filename)
 void
 LUA_Run (const char *filename)
 {
-  
-     Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/LUA_TEMP.CFG",filename);
 
-     FadeScreenMessage(LUALoadT,LUALoad2T,WaitT,"");
-     PrintScreen();
-     PauseVbl(10); // Pause
+  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/LUA_TEMP.CFG", filename);
 
-     ELF_Run("ms0:/PSP-OSS/SYSTEM/LUA.elf"); // Load the LUA Launcher
-   
+  FadeScreenMessage (LUALoadT, LUALoad2T, WaitT, "");
+  PrintScreen ();
+  PauseVbl (10);		// Pause
+
+  ELF_Run ("ms0:/PSP-OSS/SYSTEM/LUA.elf");	// Load the LUA Launcher
+
 }
 
 // Run Shorcut
@@ -629,42 +636,43 @@ void
 Shortcut_Run (const char *filename)
 {
   SceUID file;
-	char Temp_Shortcut[255];
-	file = sceIoOpen (filename, PSP_O_RDONLY, 0);	// Open the File
-	sceIoRead (file, Temp_Shortcut, 255);	// Read 255 Bytes from the File
-	int filesize = sceIoLseek (file, 0, SEEK_END);	// Determine the File's Size
-	sceIoClose (file);
-	Temp_Shortcut[filesize] = 0x00;	// Insert a Terminator Null at the End of the File (Cuts the String to the True Width)
+  char Temp_Shortcut[255];
+  file = sceIoOpen (filename, PSP_O_RDONLY, 0);	// Open the File
+  sceIoRead (file, Temp_Shortcut, 255);	// Read 255 Bytes from the File
+  int filesize = sceIoLseek (file, 0, SEEK_END);	// Determine the File's Size
+  sceIoClose (file);
+  Temp_Shortcut[filesize] = 0x00;	// Insert a Terminator Null at the End of the File (Cuts the String to the True Width)
 
-	PauseVbl (10);		// Pause  
-	
-   char *suffix = strrchr(Temp_Shortcut, '/');   
-   		    
-   if (stricmp (suffix, "/") == 0)
-   	  {
-   			BrowseDirectory (Temp_Shortcut);
-	    }	    
-	  else
-	    {
-				OpenFile (Temp_Shortcut);	// Open the Short Cut
-	    } 
-   	
+  PauseVbl (10);		// Pause  
+
+  char *suffix = strrchr (Temp_Shortcut, '/');
+
+  if (stricmp (suffix, "/") == 0)
+    {
+      BrowseDirectory (Temp_Shortcut);
+    }
+  else
+    {
+      OpenFile (Temp_Shortcut);	// Open the Short Cut
+    }
+
 
 }
 
-void PMP_Run(const char * filename)
+void
+PMP_Run (const char *filename)
 {
 
-   struct SceKernelLoadExecParam execParam;
-   const u32 total_length = ( strlen( filename ) + 1 );
-   
-   execParam.args = total_length;
-   execParam.argp = (const char *)filename;
-   execParam.key = NULL;
-   execParam.size = sizeof( execParam ) + total_length;
- 
-   pspAudioEnd();
-   sceKernelLoadExec( filename, &execParam );
+  struct SceKernelLoadExecParam execParam;
+  const u32 total_length = (strlen (filename) + 1);
+
+  execParam.args = total_length;
+  execParam.argp = (const char *) filename;
+  execParam.key = NULL;
+  execParam.size = sizeof (execParam) + total_length;
+
+  pspAudioEnd ();
+  sceKernelLoadExec (filename, &execParam);
 }
 
 //Api Stuff
@@ -673,7 +681,7 @@ void
 WriteTxtFile (const char *filename, const char *texttowrite)
 {
   SceUID file;
-  file = sceIoOpen (filename,PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC, 0777);
+  file = sceIoOpen (filename, PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC, 0777);
   sceIoWrite (file, texttowrite, strlen (texttowrite));
   sceIoClose (file);
 }

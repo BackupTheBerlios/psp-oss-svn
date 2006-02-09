@@ -183,16 +183,22 @@ OpenFile (const char *filename)
 	{
 	  LUA_Run (filename);
 	}
+      else if (stricmp (suffix, ".pmp") == 0|| stricmp (suffix, ".pos") == 0)
+	{
+		Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/PMP.cfg", filename);
+	  PMP_Run ("ms0:/PSP-OSS/SYSTEM/PMP.elf");
+	}	
       //Shortcut
       else if (stricmp (suffix, ".pol") == 0 || stricmp (suffix, ".ql") == 0)
 	{
 	  Shortcut_Run (filename);
 	}
-      
-         else {
-         MessageWindow(UnknownQLT, UnknownQL2T);		   				     			   //Unknown Shortcut
-         }
-       
+
+      else
+	{
+	  MessageWindow (UnknownQLT, UnknownQL2T);	//Unknown Shortcut
+	}
+
     }
 }
 

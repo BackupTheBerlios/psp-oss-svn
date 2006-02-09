@@ -50,26 +50,8 @@ StartUp (void)
   int filesize;
   SceUID file;
   char buffer[200];
-
-  //Run at 333mHz?
-  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/CPU.CFG", PSP_O_RDONLY, 0);
-  char CPU[3];
-  sceIoRead (file, CPU, 3);
-  CPU[3] = 0x00;
-  sceIoClose (file);
-
-  if (strcmp (CPU, "333") == 0)
-    {
-      scePowerSetClockFrequency (333, 333, 166);
-    }
-  else if (strcmp (CPU, "222") == 0)
-    {
-      scePowerSetClockFrequency (222, 222, 133);
-    }
-  else if (strcmp (CPU, "265") == 0 || strcmp (CPU, "266") == 0)
-    {
-      scePowerSetClockFrequency (266, 266, 133);
-    } 
+	scePowerSetClockFrequency (333, 333, 166);
+  
   /*
      Load Wallpaper
    */
@@ -112,6 +94,10 @@ StartUp (void)
   Message_Window_Top2 = LoadGFX (buffer);
   sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Message_body.png", skin);
   Message_Window_Body = LoadGFX (buffer);
+    sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Loadingbar.png", skin);
+  Loadingbar = LoadGFX (buffer);
+    sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Loadingbar2.png", skin);
+  Loadingbar2 = LoadGFX (buffer);
 
   //Fade
   sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/fade.png", skin);
@@ -124,8 +110,9 @@ StartUp (void)
   initGraphics ();
   FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
-  PrintScreen ();
-
+		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
+  PrintScreen (); 
+  
   /*
      Load the rest of the images
    */
@@ -250,6 +237,15 @@ StartUp (void)
   Icon_Unknown = LoadGFX (buffer);
   sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/UNKNOWN2.png", skin);
   Icon_Unknown_Over = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Video1.png", skin);
+  Icon_Video = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Video2.png", skin);
+  Icon_Video_Over = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/LUA1.png", skin);
+  Icon_Lua = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/LUA2.png", skin);
+  Icon_Lua_Over = LoadGFX (buffer);
+
 
   sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/audio_player.png", skin);
   Audio_Player = LoadGFX (buffer);
@@ -335,9 +331,46 @@ StartUp (void)
 	   "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenubottomright.png", skin);
   SubMenuBottomRight = LoadGFX (buffer);
   
-	textlang();
-	textcolour();
-	
+  textlang ();
+  
+	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
+		     "Please wait...", "");
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 162, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 172, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 182, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 192, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 202, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 212, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 222, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 232, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 242, 159);	//Loading
+		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
+  PrintScreen ();        		     
+    
+  textcolour ();
+  
+  //Run at 333mHz?
+  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/CPU.CFG", PSP_O_RDONLY, 0);
+  char CPU[3];
+  sceIoRead (file, CPU, 3);
+  sceIoClose (file);
+  CPU[3] = 0x00;  
+
+  if (strcmp (CPU, "222") == 0)
+    {
+      scePowerSetClockFrequency (222, 222, 133);
+    }
+  else if (strcmp (CPU, "265") == 0 || strcmp (CPU, "266") == 0)
+    {
+      scePowerSetClockFrequency (266, 266, 133);
+    }  
+    
+    else if (strcmp (CPU, "333") == 0)
+    {
+      scePowerSetClockFrequency (333, 333, 166);
+    }
+
   /*
      Initialize some stuff...
    */
@@ -355,6 +388,7 @@ StartUp (void)
   LoadStartModule ("flash0:/kd/usbstormgr.prx");
   LoadStartModule ("flash0:/kd/usbstorms.prx");
   LoadStartModule ("flash0:/kd/usbstorboot.prx");
+
 
 
   file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/KEYS.cfg", PSP_O_RDONLY, 0);
@@ -442,7 +476,8 @@ StartUp (void)
     }
 
   //Mouse Speed
-  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", PSP_O_RDONLY, 0);
+  file =
+    sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/MOUSE_SPEED.cfg", PSP_O_RDONLY, 0);
   char Mspeed[1];
   sceIoRead (file, Mspeed, 1);
   sceIoClose (file);
@@ -473,7 +508,7 @@ StartUp (void)
       mousespeed = 7;
     }
 
-    
+
   //Place cursor in the middle of the screen
   cursorPosition.x = 208;
   cursorPosition.y = 104;
