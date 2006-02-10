@@ -373,13 +373,17 @@ DoDesktopIcons ()
 	    }
 	  else
 	    {
-	      desktopisdir[i] = 0;
-	      suffix = strrchr (desktopiconname[i], '.');
-	      if (stricmp (suffix, ".qli") == 0)
-		{
-		  i--;
-		}
+	      desktopisdir[i] = 0;	      
+			 suffix = strrchr (desktopiconname[i], '.');
+		   if (suffix)		   
+		    {
+		      if (stricmp (suffix, ".qli") == 0)
+					{
+					  i--;
+					}
+				}
 	    }
+	    
 	  i++;
 	}
 
@@ -397,12 +401,12 @@ DoDesktopIcons ()
 	  //Get file extension          
 	  char deskitem[i][32];
 	  char deskitemrs[i][32];
-
-	  if (desktopisdir[i] != 1)
+	  suffix = strrchr (desktopiconname[i], '.');
+	  
+	  if (desktopisdir[i] != 1 && suffix)
 	    {
 	      int size;
 	      int size2;
-	      suffix = strrchr (desktopiconname[i], '.');
 	      size = strlen (desktopiconname[i]);
 	      size2 = strlen (suffix);
 	      strncpy (deskitemrs[i], desktopiconname[i], (size - size2));
@@ -450,6 +454,30 @@ DoDesktopIcons ()
 			  (60 * IconPositionY - 48 + 5));
 		}
 	    }
+	    
+	  //No file extension so Unknown files
+	  else if (!suffix)
+	    {
+	      if (iconSelected.row == IconPositionX
+		  && iconSelected.col == IconPositionY)
+		{
+		  PutGFX (0, 0, 48, 48, Icon_Unknown_Over,
+			  (60 * IconPositionX - 48),
+			  (60 * IconPositionY - 48 + 5));
+		  PutTextFont (380, 260, UnknownT, UnknownC);
+		  if (DesktopIconsActive == 1)
+		    {
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   desktopiconname[i], DesktopTextOverC);
+		    }
+		}
+	      else
+		{
+		  PutGFX (0, 0, 48, 48, Icon_Unknown,
+			  (60 * IconPositionX - 48),
+			  (60 * IconPositionY - 48 + 5));
+		}
+	    }	    
 
 	  //Images
 	  else if (stricmp (suffix, ".png") == 0

@@ -558,6 +558,22 @@ StartListMenu ()
 		    }
 
 		}
+		
+	      //No Suffix so Unknown
+	      else if (!suffix)
+		{
+		  if (MenuSelected.row1 == MenuPositionX
+		      && MenuSelected.col1 == MenuPositionY)
+		    {
+		      PutGFX (0, 0, 100, 15, SubMenuSelect,
+			      (100 * MenuPositionX - fourcolumns - 19),
+			      (15 * MenuPositionY + 7));
+		      PutText ((100 * MenuPositionX - fourcolumns - 17),
+			       (15 * MenuPositionY + 9), Startitem[i],
+			       StartSubMenuOverC);
+		      PutText (380, 260, UnknownT, StartSubMenuTypeC);
+		    }
+		}				
 
 	      //Used to check is an item is an Image
 	      else if (stricmp (suffix, ".png") == 0

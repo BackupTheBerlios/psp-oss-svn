@@ -221,11 +221,12 @@ BrowseSkins ()
 
       while (sceIoDread (dfd, &dir) > 0)
 	{
+	  skinsiconname[i] = strdup (dir.d_name);
 	  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
 	    {
-	      skinsiconname[i] = strdup (dir.d_name);
-	      i++;
+	      i--;
 	    }
+	  i++;
 	}
 
       //Close Dir Command
@@ -250,11 +251,26 @@ BrowseSkins ()
 	    {
 	      if (i >= (32 * (FBpage - 1)) && i < (32 * FBpage))
 		{
-		  char skinitem[i][13];
-		  //added 24th of dec           
-		  strncpy (skinitem[i], skinsiconname[i], 6);
-		  skinitem[i][6] = '\0';
-		  //added 24th of dec 
+	      char *suffix = strrchr (skinsiconname[i], '.');
+	      char skinitem[i][6];
+	      char skinitemtxt[i][52];
+	      int size;
+	      int size2;
+	      size = strlen (skinsiconname[i]);
+	      size2 = strlen (suffix);
+
+		  if (size <= 12)
+		    {
+		    	strncpy (skinitem[i], skinsiconname[i], (size - size2));
+		      skinitem[i][(size - size2)] = '\0';
+		    }
+		    else
+		    {	      	
+	      	strncpy (skinitem[i], skinitem[i], 6);
+	      	skinitem[i][6] = '\0';
+	      }    
+		    	strncpy (skinitemtxt[i], skinsiconname[i], (size - size2));
+		      skinitemtxt[i][(size - size2)] = '\0';	      
 
 		  if (iconSelected.row == IconPositionX
 		      && iconSelected.col == IconPositionY)
@@ -262,10 +278,10 @@ BrowseSkins ()
 		      PutGFX (0, 0, 48, 48, Icon_Themes_Over,
 			      (60 * IconPositionX - 48),
 			      (60 * IconPositionY - 48 + 5));
-		      PutTextFont (5, 260, skinsiconname[i], SkinTextTBC);
+		      PutTextFont (5, 260, skinitemtxt[i], SkinTextTBC);
 		      PutText ((60 * IconPositionX - 46), (60 * IconPositionY + 7), skinitem[i], SkinTextHLC);	//added 24th of dec
 		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
-				   skinsiconname[i], SkinTextOverC);
+				   skinitemtxt[i], SkinTextOverC);
 		    }
 		  else
 		    {
@@ -473,6 +489,26 @@ loo:
 			      (60 * IconPositionY - 48 + 5));
 		    }
 		}
+	      //No Suffix so Unknown
+	      else if (!suffix)
+		{
+		  if (iconSelected.row == IconPositionX
+		      && iconSelected.col == IconPositionY)
+		    {
+		      PutGFX (0, 0, 48, 48, Icon_Unknown_Over,
+			      (60 * IconPositionX - 48),
+			      (60 * IconPositionY - 48 + 5));
+		      PutTextFont (5, 260, UnknownT, UnknownC);
+		      PutTextFont ((cursorPosition.x + 15), cursorPosition.y,
+				   iconname[i], FileBrowserTextOverC);
+		    }
+		  else
+		    {
+		      PutGFX (0, 0, 48, 48, Icon_Unknown,
+			      (60 * IconPositionX - 48),
+			      (60 * IconPositionY - 48 + 5));
+		    }
+		}		
 	      //Images
 	      else if (stricmp (suffix, ".png") == 0
 		       || stricmp (suffix, ".jpg") == 0

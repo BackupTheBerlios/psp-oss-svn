@@ -83,7 +83,7 @@ StartUp (void)
   //sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/taskbar.png", skin);
   //taskbar = LoadGFX (buffer);
   
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s.rar", skin);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s", skin);
   taskbar = LoadGFX_RAR (buffer, "SYSTEM/taskbar.png");
   TopBar = LoadGFX_RAR (buffer, "SYSTEM/top_bar.png");
   cursor = LoadGFX_RAR (buffer, "SYSTEM/cursor.png");
@@ -250,9 +250,7 @@ StartUp (void)
   SubMenuBottomLeft = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomleft.png");
   SubMenuBottomRight = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomright.png");
   
-  textlang ();
-   		     
-    
+  textlang ();   		         
   textcolour ();
   
   //Run at 333mHz?

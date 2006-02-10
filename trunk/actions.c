@@ -206,7 +206,7 @@ ReloadSkin ()
      Load the images we need for the startup screen
    */
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s.rar", skin);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s", skin);
   taskbar = LoadGFX_RAR (buffer, "SYSTEM/taskbar.png");
   TopBar = LoadGFX_RAR (buffer, "SYSTEM/top_bar.png");
   cursor = LoadGFX_RAR (buffer, "SYSTEM/cursor.png");
@@ -217,6 +217,9 @@ ReloadSkin ()
   Message_Window_Body = LoadGFX_RAR (buffer, "WINDOWS/Message_body.png");
   Loadingbar = LoadGFX_RAR (buffer, "WINDOWS/Loadingbar.png");
   Loadingbar2 = LoadGFX_RAR (buffer, "WINDOWS/Loadingbar2.png");   
+  
+  //Fade
+  Fade = LoadGFX_RAR (buffer, "SYSTEM/fade.png");  
 
   //Keyboard layout
   Keyboard_Output = LoadGFX_RAR (buffer, "SYSTEM/keyboard_output.png");

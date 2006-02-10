@@ -184,24 +184,20 @@ textcolour ()
 {
   // Read configuration
 
-/*  
+ 
   char            *data_ptr;
   unsigned long   data_size;
   int             ch;
-[8:53pm]«% Wil » sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s.rar", skin);
-[8:53pm]«% Wil » fp = fopen(skinpath, "rb");
-[8:53pm]«% Wil » urarlib_get(&data_ptr, &data_size, "config.cfg", fp, NULL); 	
-[8:53pm]«% Wil » fclose(fp);
-[8:53pm]«% Wil » fp = fopen("temp/tempconfig.cfg", "wb");
-[8:53pm]«% Wil » fwrite(data_ptr, 1, data_size, fp);
-[8:54pm]«% Wil » fclose(fp);
-[8:54pm]«% Wil » 	
-[8:54pm]«% Wil » configLoad ("temp/tempconfig.cfg");*/
-
-  
-  sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s/config.cfg", skin);
+sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s", skin);
+fp = fopen(skinpath, "rb");
+urarlib_get(&data_ptr, &data_size, "config.cfg", fp, NULL); 	
+fclose(fp);
+fp = fopen("ms0:/PSP-OSS/SYSTEM/CONFIG/skinc.cfg", "wb");
+fwrite(data_ptr, 1, data_size, fp);
+fclose(fp);
 	
-	configLoad (skinpath);
+	configLoad ("ms0:/PSP-OSS/SYSTEM/CONFIG/skinc.cfg");
+
   configRead ("TextColor", "Start_Menu", fontcolour, NULL, NULL);
   findcolour ();
   StartMenuC = Tbuffer;
@@ -663,10 +659,10 @@ textcolour ()
   configRead ("TextColor", "FS_Window_Header", fontcolour, NULL, NULL);
   findcolour ();
   FSWindowHeaderC = Tbuffer;   
-  PrintScreen ();  
+  PrintScreen ();     
   
 // Read configuration
-  configClose ();
+  configClose ();  
 
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
@@ -690,7 +686,9 @@ textcolour ()
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 322, 159);	//Loading	
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 332, 159);	//Loading	
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 342, 159);	//Loading	
-		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		  
+		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		   
+
+  PrintScreen ();   		  
   
 }
 
