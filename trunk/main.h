@@ -425,3 +425,8 @@ char QuestionT[50];
 
 //MP3
  char Audiofolder[255];
+ //Ram
+ char ramfer[255];
+//Go back to filebrowser after viewing an image from it
+int fbimager;
+char imageDic[500];

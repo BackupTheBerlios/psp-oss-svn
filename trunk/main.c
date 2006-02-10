@@ -27,6 +27,7 @@ WwW.PsP-OsS.CoM
 #include "settings.h"
 #include "config.h"
 #include "customskin.h"
+#include "Ram.h"
 
 PSP_MODULE_INFO ("PSP-OSS", 0x1000, 1, 1);	// 0x1000 = Kernel MODE
 PSP_MAIN_THREAD_ATTR (0);	// 0 for kernel mode too

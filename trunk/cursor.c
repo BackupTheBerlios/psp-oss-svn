@@ -22,12 +22,14 @@ Cursor Movement coded by Daurnimator
 #include "main.h"
 #include "filebrowser.h"
 #include "cursor.h"
+#include "Ram.h"
 
 //Cursor Movement Coded my Daurnimator
 double distancemousemoves;
 int rispressed = 0;
 //void mousespeed;
 cursorHandler (int analogX, int analogY)
+
 {
   if (pad.Buttons & PSP_CTRL_RTRIGGER)
     {
@@ -57,6 +59,10 @@ cursorHandler (int analogX, int analogY)
 	    }
 	}
     }
+
+//u32 RAMsize = ramAvailable();
+//sprintf(ramfer, "RAM :%u bytes", RAMsize);    
+    
   //Right
   if ((cursorPosition.x < 479) && (analogX >= 154))
     {
@@ -155,7 +161,7 @@ cursorHandler (int analogX, int analogY)
 	{
 	  cursorPosition.y = 0;
 	}
-    }
+    }    
 }
 
 //Mechanism that finds which icon your'e over

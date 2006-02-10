@@ -682,6 +682,8 @@ loo:
 		      else
 			{
 			  sprintf (buffer, "%s%s", Dic, iconname[i]);
+			  fbimager = 1;
+			  strcpy (imageDic, Dic);
 			  OpenFile (buffer);
 			}
 		    }
@@ -970,7 +972,7 @@ Toggle_MP3 (int mode)
 	}
 
       char buffer[200];
-      sprintf (buffer, "ms0:/PSP/MUSIC/%s",LR_MUSIC[LR_MUSIC_current]);
+      sprintf (buffer, "%s%s",Audiofolder,LR_MUSIC[LR_MUSIC_current]);
       Audio_Stop();
       	  Audio_Play (buffer);
 				  PauseVbl (1 * 60);
@@ -987,7 +989,7 @@ Toggle_MP3 (int mode)
 	}
 
       char buffer[200];
-      sprintf (buffer, "ms0:/PSP/MUSIC/%s",LR_MUSIC[LR_MUSIC_current]);
+      sprintf (buffer, "%s%s",Audiofolder,LR_MUSIC[LR_MUSIC_current]);
       Audio_Stop();
       	  Audio_Play (buffer);
 				  PauseVbl (1 * 60);
@@ -1006,7 +1008,7 @@ Toggle_MP3 (int mode)
    		LR_MUSIC_current = rand_val;
 
       char buffer[200];
-      sprintf (buffer, "ms0:/PSP/MUSIC/%s",LR_MUSIC[LR_MUSIC_current]);
+      sprintf (buffer, "%s%s",Audiofolder,LR_MUSIC[LR_MUSIC_current]);
       Audio_Stop();
       	  Audio_Play (buffer);
 				  PauseVbl (1 * 60);

@@ -171,6 +171,7 @@ OpenFile (const char *filename)
 	}
       else if (stricmp (suffix, ".mp3") == 0 || stricmp (suffix, ".ogg") == 0)
 	{
+		fbimager = 0;
 	  int size;
 	  int size2;
 	  char *suffix = strrchr (filename, '/');
@@ -178,32 +179,36 @@ OpenFile (const char *filename)
 	      size2 = strlen (suffix);
 	      strncpy (Audiofolder, filename,(1+size-size2));
 	      Audiofolder[1+size-size2] = '\0';
-	      LR_MUSIC_ran = 0;
 	  Audio_Play (filename);
 	  PauseVbl (1 * 60);
 	}
       else if (stricmp (suffix, ".pbp") == 0 || stricmp (suffix, ".elf") == 0
 	       || stricmp (suffix, ".psp") == 0)
 	{
+		fbimager = 0;
 	  ELF_Run (filename);
 	}
       else if (stricmp (suffix, ".lua") == 0)
 	{
+		fbimager = 0;
 	  LUA_Run (filename);
 	}
       else if (stricmp (suffix, ".pmp") == 0|| stricmp (suffix, ".pos") == 0)
 	{
+		fbimager = 0;
 		Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/PMP.cfg", filename);
 	  PMP_Run ("ms0:/PSP-OSS/SYSTEM/PMP.elf");
 	}	
       //Shortcut
       else if (stricmp (suffix, ".pol") == 0 || stricmp (suffix, ".ql") == 0)
 	{
+		fbimager = 0;
 	  Shortcut_Run (filename);
 	}
 
       else
 	{
+		fbimager = 0;
 	  MessageWindow (UnknownQLT, UnknownQL2T);	//Unknown Shortcut
 	}
 
