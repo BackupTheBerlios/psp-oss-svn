@@ -433,7 +433,15 @@ ViewImage (const char *filename)
 	  && cursorPosition.x < 475 && cursorPosition.y > 3
 	  && cursorPosition.y < 13)
 	{
+		if (fbimager == 1)
+		{
+			fbimager = 0;
+			BrowseDirectory (imageDic);
+		}
+		else
+		{
 	  break;
+		}	
 	}
 
       //Use as wallpaper
