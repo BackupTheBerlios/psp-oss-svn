@@ -125,6 +125,12 @@ StartUp (void)
 
   Settings_Window = LoadGFX_RAR (buffer, "WINDOWS/Settings_Window.png");
   Settings_Window_Bottom = LoadGFX_RAR (buffer, "WINDOWS/Settings_Window_Bottom.png");
+  
+    FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
+		     "Please wait...", "");
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
+		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
+  PrintScreen (); 	
 
 
   //Window icons
@@ -159,6 +165,14 @@ StartUp (void)
   Icon_UMD = LoadGFX_RAR (buffer, "ICONS/UMD1.png");
   Icon_UMD_Over = LoadGFX_RAR (buffer, "ICONS/UMD2.png");
   Icon_Quit = LoadGFX_RAR (buffer, "ICONS/Quit1.png");
+  
+  FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
+		     "Please wait...", "");
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 162, 159);	//Loading
+		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
+  PrintScreen ();  
+  
   Icon_Quit_Over = LoadGFX_RAR (buffer, "ICONS/Quit2.png");
   Icon_No_UMD = LoadGFX_RAR (buffer, "ICONS/No_UMD1.png");
   Icon_No_UMD_Over = LoadGFX_RAR (buffer, "ICONS/No_UMD2.png");
@@ -178,20 +192,24 @@ StartUp (void)
   Icon_Unknown_Over = LoadGFX_RAR (buffer, "ICONS/UNKNOWN2.png");
   Icon_Video = LoadGFX_RAR (buffer, "ICONS/Video1.png");
   Icon_Video_Over = LoadGFX_RAR (buffer, "ICONS/Video2.png");
+  
+	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
+		     "Please wait...", "");
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 162, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 172, 159);	//Loading
+		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
+  PrintScreen ();     
+  
   Icon_Lua = LoadGFX_RAR (buffer, "ICONS/LUA1.png");
   Icon_Lua_Over = LoadGFX_RAR (buffer, "ICONS/LUA2.png");
-
-
   Audio_Player = LoadGFX_RAR (buffer, "SYSTEM/audio_player.png");
   Music_stop1 = LoadGFX_RAR (buffer, "SYSTEM/music_stop1.png");
   Music_stop2 = LoadGFX_RAR (buffer, "SYSTEM/music_stop2.png");
-
   Icon_Folder = LoadGFX_RAR (buffer, "ICONS/Folder1.png");
   Icon_Folder_Over = LoadGFX_RAR (buffer, "ICONS/Folder2.png");
-
   Icon_QuickLink = LoadGFX_RAR (buffer, "ICONS/QuickLink1.png");
   Icon_QuickLink_Over = LoadGFX_RAR (buffer, "ICONS/QuickLink2.png");
-
   Back = LoadGFX_RAR (buffer, "WINDOWS/Back1.png");
   Back_Over = LoadGFX_RAR (buffer, "WINDOWS/Back2.png");
   FBRight = LoadGFX_RAR (buffer, "WINDOWS/right.png");
@@ -203,11 +221,19 @@ StartUp (void)
   RightclickMenu_Body = LoadGFX_RAR (buffer, "SYSTEM/rightclick_body1.png");
   RightclickMenu_Body_Over = LoadGFX_RAR (buffer, "SYSTEM/rightclick_body2.png");
   RightclickMenu_Bottom = LoadGFX_RAR (buffer, "SYSTEM/rightclick_bot.png");
-
   Start_menu = LoadGFX_RAR (buffer, "SYSTEM/Start1.png");
   Start_menu_Over = LoadGFX_RAR (buffer, "SYSTEM/Start2.png");
+  
+	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
+		     "Please wait...", "");
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 162, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 172, 159);	//Loading
+		     PutGFX (0, 0, 10, 11, Loadingbar2, 182, 159);	//Loading
+		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
+  PrintScreen ();  
+    
   Start_menu_Open = LoadGFX_RAR (buffer, "SYSTEM/Start3.png");
-
   Start_Menu_Body = LoadGFX_RAR (buffer, "SYSTEM/startmenu_body1.png");
   Start_Menu_Body_Over = LoadGFX_RAR (buffer, "SYSTEM/startmenu_body2.png");
   Start_Menu_Top = LoadGFX_RAR (buffer, "SYSTEM/startmenu_top.png");
@@ -225,21 +251,7 @@ StartUp (void)
   SubMenuBottomRight = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomright.png");
   
   textlang ();
-  
-	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
-		     "Please wait...", "");
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 162, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 172, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 182, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 192, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 202, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 212, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 222, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 232, 159);	//Loading
-		     PutGFX (0, 0, 10, 11, Loadingbar2, 242, 159);	//Loading
-		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
-  PrintScreen ();        		     
+   		     
     
   textcolour ();
   
