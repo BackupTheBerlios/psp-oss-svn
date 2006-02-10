@@ -171,6 +171,14 @@ OpenFile (const char *filename)
 	}
       else if (stricmp (suffix, ".mp3") == 0 || stricmp (suffix, ".ogg") == 0)
 	{
+	  int size;
+	  int size2;
+	  char *suffix = strrchr (filename, '/');
+	      size = strlen (filename);
+	      size2 = strlen (suffix);
+	      strncpy (Audiofolder, filename,(1+size-size2));
+	      Audiofolder[1+size-size2] = '\0';
+	      LR_MUSIC_ran = 0;
 	  Audio_Play (filename);
 	  PauseVbl (1 * 60);
 	}

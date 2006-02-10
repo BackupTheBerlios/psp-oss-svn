@@ -54,7 +54,7 @@ DoActiveDesktop ()
   //Is the cursor over a icon?
   findIcon ();
 
-  if (pad.Buttons & PSP_CTRL_START && pad.Buttons & PSP_CTRL_LTRIGGER)
+  if (pad.Buttons & PSP_CTRL_START && pad.Buttons & PSP_CTRL_SELECT)
     {
       USB_Mode ();
     }

@@ -183,7 +183,7 @@ SettingsScreen ()
 	  && cursorPosition.y > windowy + 120
 	  && cursorPosition.y < windowy + 135)
 	{
-	  SettingsScreen_MouseSpeed ();
+	  //SettingsScreen_MouseSpeed ();
 	}
       /* //Theme
          if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > optionx + 150

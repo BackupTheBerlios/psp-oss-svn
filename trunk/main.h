@@ -422,3 +422,6 @@ char OKT[50];
 char ShutdownT[50];
 char RebootT[50];
 char QuestionT[50];
+
+//MP3
+ char Audiofolder[255];

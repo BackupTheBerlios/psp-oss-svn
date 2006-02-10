@@ -1,5 +1,5 @@
 TARGET = PSP-OSS
-OBJS = main.o desktop.o startup.o customskin.o cursor.o config.o actions.o functions.o keyboard.o windows.o filebrowser.o startmenu.o irda.o usb.o wlan.o settings.o \
+OBJS = main.o desktop.o startup.o customskin.o cursor.o unrarlib.o config.o actions.o functions.o keyboard.o windows.o filebrowser.o startmenu.o irda.o usb.o wlan.o settings.o \
 	lib/OSSgraphics.o lib/OSSframebuffer.o codec/audio.o codec/mp3player.o codec/oggplayer.o codec/mikmodplayer.o \
 	 lib/nlh.o lib/loadutil.o lib/stubs.o \
 

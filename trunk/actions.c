@@ -206,230 +206,130 @@ ReloadSkin ()
      Load the images we need for the startup screen
    */
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Settings_Window.png", skin);
-  Settings_Window = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Settings_Window_Bottom.png",
-	   skin);
-  Settings_Window_Bottom = LoadGFX (buffer);
-
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/taskbar.png", skin);
-  taskbar = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/top_bar.png", skin);
-  TopBar = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/cursor.png", skin);
-  cursor = LoadGFX (buffer);
+  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s.rar", skin);
+  taskbar = LoadGFX_RAR (buffer, "SYSTEM/taskbar.png");
+  TopBar = LoadGFX_RAR (buffer, "SYSTEM/top_bar.png");
+  cursor = LoadGFX_RAR (buffer, "SYSTEM/cursor.png");
 
   //Messagebox
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Message_top1.png", skin);
-  Message_Window_Top1 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Message_top2.png", skin);
-  Message_Window_Top2 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Message_body.png", skin);
-  Message_Window_Body = LoadGFX (buffer);
-
-  //Fade
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/fade.png", skin);
-  Fade = LoadGFX (buffer);
+  Message_Window_Top1 = LoadGFX_RAR (buffer, "WINDOWS/Message_top1.png");
+  Message_Window_Top2 = LoadGFX_RAR (buffer, "WINDOWS/Message_top2.png");
+  Message_Window_Body = LoadGFX_RAR (buffer, "WINDOWS/Message_body.png");
+  Loadingbar = LoadGFX_RAR (buffer, "WINDOWS/Loadingbar.png");
+  Loadingbar2 = LoadGFX_RAR (buffer, "WINDOWS/Loadingbar2.png");   
 
   //Keyboard layout
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/keyboard_output.png", skin);
-  Keyboard_Output = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/keyboard_button1.png", skin);
-  Keyboard_Button1 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/keyboard_button2.png", skin);
-  Keyboard_Button2 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/keyboard_buttonOver.png",
-	   skin);
-  Keyboard_ButtonOver = LoadGFX (buffer);
+  Keyboard_Output = LoadGFX_RAR (buffer, "SYSTEM/keyboard_output.png");
+  Keyboard_Button1 = LoadGFX_RAR (buffer, "SYSTEM/keyboard_button1.png");
+  Keyboard_Button2 = LoadGFX_RAR (buffer, "SYSTEM/keyboard_button2.png");
+  Keyboard_ButtonOver = LoadGFX_RAR (buffer, "SYSTEM/keyboard_buttonOver.png");
 
   //Fullscreen window
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Fullscreen_top1.png", skin);
-  Fullscreen_Window_Top1 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Fullscreen_top2.png", skin);
-  Fullscreen_Window_Top2 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Fullscreen_body.png", skin);
-  Fullscreen_Window_Body = LoadGFX (buffer);
+  Fullscreen_Window_Top1 = LoadGFX_RAR (buffer, "WINDOWS/Fullscreen_top1.png");
+  Fullscreen_Window_Top2 = LoadGFX_RAR (buffer, "WINDOWS/Fullscreen_top2.png");
+  Fullscreen_Window_Body = LoadGFX_RAR (buffer, "WINDOWS/Fullscreen_body.png");
+
+  Settings_Window = LoadGFX_RAR (buffer, "WINDOWS/Settings_Window.png");
+  Settings_Window_Bottom = LoadGFX_RAR (buffer, "WINDOWS/Settings_Window_Bottom.png");
+
 
   //Window icons
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Exit1.png", skin);
-  Window_Exit1 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Exit2.png", skin);
-  Window_Exit2 = LoadGFX (buffer);
+  Window_Exit1 = LoadGFX_RAR (buffer, "WINDOWS/Exit1.png");
+  Window_Exit2 = LoadGFX_RAR (buffer, "WINDOWS/Exit2.png");
 
   //Buttons
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/button1.png", skin);
-  Button1 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/button2.png", skin);
-  Button2 = LoadGFX (buffer);
+  Button1 = LoadGFX_RAR (buffer, "SYSTEM/button1.png");
+  Button2 = LoadGFX_RAR (buffer, "SYSTEM/button2.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/usb.png", skin);
-  USB_Icon = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/usb2.png", skin);
-  No_USB_Icon = LoadGFX (buffer);
+  USB_Icon = LoadGFX_RAR (buffer, "SYSTEM/usb.png");
+  No_USB_Icon = LoadGFX_RAR (buffer, "SYSTEM/usb2.png");
 
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/wlan.png", skin);
-  WLAN_Icon = LoadGFX (buffer);
+  WLAN_Icon = LoadGFX_RAR (buffer, "SYSTEM/wlan.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/music_play1.png", skin);
-  Music_play1 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/music_play2.png", skin);
-  Music_play2 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/music_pause1.png", skin);
-  Music_pause1 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/music_pause2.png", skin);
-  Music_pause2 = LoadGFX (buffer);
+  Music_play1 = LoadGFX_RAR (buffer, "SYSTEM/music_play1.png");
+  Music_play2 = LoadGFX_RAR (buffer, "SYSTEM/music_play2.png");
+  Music_pause1 = LoadGFX_RAR (buffer, "SYSTEM/music_pause1.png");
+  Music_pause2 = LoadGFX_RAR (buffer, "SYSTEM/music_pause2.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/battery_full.PNG", skin);
-  Battery_full = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/battery_half.png", skin);
-  Battery_half = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/battery_almost_empty.png",
-	   skin);
-  Battery_low = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/battery_empty.png", skin);
-  Battery_empty = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/battery_charge.png", skin);
-  Battery_charging = LoadGFX (buffer);
+  Battery_full = LoadGFX_RAR (buffer, "SYSTEM/battery_full.PNG");
+  Battery_half = LoadGFX_RAR (buffer, "SYSTEM/battery_half.png");
+  Battery_low = LoadGFX_RAR (buffer, "SYSTEM/battery_almost_empty.png");
+  Battery_empty = LoadGFX_RAR (buffer, "SYSTEM/battery_empty.png");
+  Battery_charging = LoadGFX_RAR (buffer, "SYSTEM/battery_charge.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/WLAN_background.png", skin);
-  WLANBackground = LoadGFX (buffer);
+  //WLANBackground = LoadGFX_RAR (buffer, "SYSTEM/WLAN_background.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/Progressbar.png", skin);
-  Progressbar = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/Progressbar_fill.png", skin);
-  Progressbar_fill = LoadGFX (buffer);
 
   //Icons
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/UMD1.png", skin);
-  Icon_UMD = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/UMD2.png", skin);
-  Icon_UMD_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Quit1.png", skin);
-  Icon_Quit = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Quit2.png", skin);
-  Icon_Quit_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/No_UMD1.png", skin);
-  Icon_No_UMD = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/No_UMD2.png", skin);
-  Icon_No_UMD_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/GFX1.png", skin);
-  Icon_GFX = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/GFX2.png", skin);
-  Icon_GFX_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Audio1.png", skin);
-  Icon_Audio = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Audio2.png", skin);
-  Icon_Audio_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/SETTINGS1.PNG", skin);
-  Icon_Settings = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/SETTINGS2.PNG", skin);
-  Icon_Settings_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/THEMES1.png", skin);
-  Icon_Themes = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/THEMES2.png", skin);
-  Icon_Themes_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/WALLPAPERS1.png", skin);
-  Icon_Wallpapers = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/WALLPAPERS2.png", skin);
-  Icon_Wallpapers_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/EBOOT1.png", skin);
-  Icon_Eboot = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/EBOOT2.png", skin);
-  Icon_Eboot_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/UNKNOWN1.png", skin);
-  Icon_Unknown = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/UNKNOWN2.png", skin);
-  Icon_Unknown_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Video1.png", skin);
-  Icon_Video = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Video2.png", skin);
-  Icon_Video_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/LUA1.png", skin);
-  Icon_Lua = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/LUA2.png", skin);
-  Icon_Lua_Over = LoadGFX (buffer);
+  Icon_UMD = LoadGFX_RAR (buffer, "ICONS/UMD1.png");
+  Icon_UMD_Over = LoadGFX_RAR (buffer, "ICONS/UMD2.png");
+  Icon_Quit = LoadGFX_RAR (buffer, "ICONS/Quit1.png");
+  Icon_Quit_Over = LoadGFX_RAR (buffer, "ICONS/Quit2.png");
+  Icon_No_UMD = LoadGFX_RAR (buffer, "ICONS/No_UMD1.png");
+  Icon_No_UMD_Over = LoadGFX_RAR (buffer, "ICONS/No_UMD2.png");
+  Icon_GFX = LoadGFX_RAR (buffer, "ICONS/GFX1.png");
+  Icon_GFX_Over = LoadGFX_RAR (buffer, "ICONS/GFX2.png");
+  Icon_Audio = LoadGFX_RAR (buffer, "ICONS/Audio1.png");
+  Icon_Audio_Over = LoadGFX_RAR (buffer, "ICONS/Audio2.png");
+  Icon_Settings = LoadGFX_RAR (buffer, "ICONS/SETTINGS1.PNG");
+  Icon_Settings_Over = LoadGFX_RAR (buffer, "ICONS/SETTINGS2.PNG");
+  Icon_Themes = LoadGFX_RAR (buffer, "ICONS/THEMES1.png");
+  Icon_Themes_Over = LoadGFX_RAR (buffer, "ICONS/THEMES2.png");
+  Icon_Wallpapers = LoadGFX_RAR (buffer, "ICONS/WALLPAPERS1.png");
+  Icon_Wallpapers_Over = LoadGFX_RAR (buffer, "ICONS/WALLPAPERS2.png");
+  Icon_Eboot = LoadGFX_RAR (buffer, "ICONS/EBOOT1.png");
+  Icon_Eboot_Over = LoadGFX_RAR (buffer, "ICONS/EBOOT2.png");
+  Icon_Unknown = LoadGFX_RAR (buffer, "ICONS/UNKNOWN1.png");
+  Icon_Unknown_Over = LoadGFX_RAR (buffer, "ICONS/UNKNOWN2.png");
+  Icon_Video = LoadGFX_RAR (buffer, "ICONS/Video1.png");
+  Icon_Video_Over = LoadGFX_RAR (buffer, "ICONS/Video2.png");
+  Icon_Lua = LoadGFX_RAR (buffer, "ICONS/LUA1.png");
+  Icon_Lua_Over = LoadGFX_RAR (buffer, "ICONS/LUA2.png");
 
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/audio_player.png", skin);
-  Audio_Player = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/music_stop1.png", skin);
-  Music_stop1 = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/music_stop2.png", skin);
-  Music_stop2 = LoadGFX (buffer);
+  Audio_Player = LoadGFX_RAR (buffer, "SYSTEM/audio_player.png");
+  Music_stop1 = LoadGFX_RAR (buffer, "SYSTEM/music_stop1.png");
+  Music_stop2 = LoadGFX_RAR (buffer, "SYSTEM/music_stop2.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Folder1.png", skin);
-  Icon_Folder = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/Folder2.png", skin);
-  Icon_Folder_Over = LoadGFX (buffer);
+  Icon_Folder = LoadGFX_RAR (buffer, "ICONS/Folder1.png");
+  Icon_Folder_Over = LoadGFX_RAR (buffer, "ICONS/Folder2.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/QuickLink1.png", skin);
-  Icon_QuickLink = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/ICONS/QuickLink2.png", skin);
-  Icon_QuickLink_Over = LoadGFX (buffer);
+  Icon_QuickLink = LoadGFX_RAR (buffer, "ICONS/QuickLink1.png");
+  Icon_QuickLink_Over = LoadGFX_RAR (buffer, "ICONS/QuickLink2.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Back1.png", skin);
-  Back = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/Back2.png", skin);
-  Back_Over = LoadGFX (buffer);
+  Back = LoadGFX_RAR (buffer, "WINDOWS/Back1.png");
+  Back_Over = LoadGFX_RAR (buffer, "WINDOWS/Back2.png");
+  FBRight = LoadGFX_RAR (buffer, "WINDOWS/right.png");
+  FBLeft = LoadGFX_RAR (buffer, "WINDOWS/left.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/WINDOWS/power_buttons.png", skin);
-  PowerButtons = LoadGFX (buffer);
+  //PowerButtons = LoadGFX_RAR (buffer, "WINDOWS/power_buttons.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/rightclick_top.png", skin);
-  RightclickMenu_Top = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/rightclick_body1.png", skin);
-  RightclickMenu_Body = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/rightclick_body2.png", skin);
-  RightclickMenu_Body_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/rightclick_bot.png", skin);
-  RightclickMenu_Bottom = LoadGFX (buffer);
+  RightclickMenu_Top = LoadGFX_RAR (buffer, "SYSTEM/rightclick_top.png");
+  RightclickMenu_Body = LoadGFX_RAR (buffer, "SYSTEM/rightclick_body1.png");
+  RightclickMenu_Body_Over = LoadGFX_RAR (buffer, "SYSTEM/rightclick_body2.png");
+  RightclickMenu_Bottom = LoadGFX_RAR (buffer, "SYSTEM/rightclick_bot.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/Start1.png", skin);
-  Start_menu = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/Start2.png", skin);
-  Start_menu_Over = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/Start3.png", skin);
-  Start_menu_Open = LoadGFX (buffer);
+  Start_menu = LoadGFX_RAR (buffer, "SYSTEM/Start1.png");
+  Start_menu_Over = LoadGFX_RAR (buffer, "SYSTEM/Start2.png");
+  Start_menu_Open = LoadGFX_RAR (buffer, "SYSTEM/Start3.png");
 
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/startmenu_body1.png", skin);
-  Start_Menu_Body = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/startmenu_body2.png", skin);
-  Start_Menu_Body_Over = LoadGFX (buffer);
-
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/startmenu_top.png", skin);
-  Start_Menu_Top = LoadGFX (buffer);
+  Start_Menu_Body = LoadGFX_RAR (buffer, "SYSTEM/startmenu_body1.png");
+  Start_Menu_Body_Over = LoadGFX_RAR (buffer, "SYSTEM/startmenu_body2.png");
+  Start_Menu_Top = LoadGFX_RAR (buffer, "SYSTEM/startmenu_top.png");
 
   //Start Menu Pics
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenu_select.png",
-	   skin);
-  SubMenuSelect = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenutop.png", skin);
-  SubMenuTop = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenutopleft.png",
-	   skin);
-  SubMenuTopLeft = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenutopright.png",
-	   skin);
-  SubMenuTopRight = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenumiddle.png",
-	   skin);
-  SubMenuMiddle = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenusideleft.png",
-	   skin);
-  SubMenuSideLeft = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenusideright.png",
-	   skin);
-  SubMenuSideRight = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenubottom.png",
-	   skin);
-  SubMenuBottom = LoadGFX (buffer);
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenubottomleft.png",
-	   skin);
-  SubMenuBottomLeft = LoadGFX (buffer);
-  sprintf (buffer,
-	   "ms0:/PSP-OSS/SKINS/%s/SYSTEM/START/submenubottomright.png", skin);
-  SubMenuBottomRight = LoadGFX (buffer);
+  SubMenuSelect = LoadGFX_RAR (buffer, "SYSTEM/START/submenu_select.png");
+  SubMenuTop = LoadGFX_RAR (buffer, "SYSTEM/START/submenutop.png");
+  SubMenuTopLeft = LoadGFX_RAR (buffer, "SYSTEM/START/submenutopleft.png");
+  SubMenuTopRight = LoadGFX_RAR (buffer, "SYSTEM/START/submenutopright.png");
+  SubMenuMiddle = LoadGFX_RAR (buffer, "SYSTEM/START/submenumiddle.png");
+  SubMenuSideLeft = LoadGFX_RAR (buffer, "SYSTEM/START/submenusideleft.png");
+  SubMenuSideRight = LoadGFX_RAR (buffer, "SYSTEM/START/submenusideright.png");
+  SubMenuBottom = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottom.png");
+  SubMenuBottomLeft = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomleft.png");
+  SubMenuBottomRight = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomright.png");
+ 
 
 }
 
@@ -644,17 +544,27 @@ Shortcut_Run (const char *filename)
   Temp_Shortcut[filesize] = 0x00;	// Insert a Terminator Null at the End of the File (Cuts the String to the True Width)
 
   PauseVbl (10);		// Pause  
+ 	char *suffix = strrchr (Temp_Shortcut, '/');
+ 	
+				  if (stricmp (suffix, "/") == 0)
+				    {
+				      BrowseDirectory (Temp_Shortcut);
+				    }
+				    else
+				    { 
+							//should check to see if the shortcut exitsts				
+					      FILE *File = NULL;
+					      File = fopen (Temp_Shortcut, "r");	// Check To See If The File Exists         
+					      fclose (File);
+			
+					      if (File)	// Does The File Exist?
+								{
+									  OpenFile (Temp_Shortcut);	// Open the Short Cut
+								}
+						}
+	
 
-  char *suffix = strrchr (Temp_Shortcut, '/');
 
-  if (stricmp (suffix, "/") == 0)
-    {
-      BrowseDirectory (Temp_Shortcut);
-    }
-  else
-    {
-      OpenFile (Temp_Shortcut);	// Open the Short Cut
-    }
 
 
 }

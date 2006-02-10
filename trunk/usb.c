@@ -53,12 +53,12 @@ USB_Mode ()
 
       //Get key input
       GetUserInput ();
-      if (pad.Buttons & PSP_CTRL_LTRIGGER)
+      if (pad.Buttons & PSP_CTRL_SELECT)
 	{
 	}
       else
 	{
-	  if (pad.Buttons & PSP_CTRL_START || pad.Buttons & PSP_CTRL_BACK)
+	  if (pad.Buttons & PSP_CTRL_CONFIRM || pad.Buttons & PSP_CTRL_BACK)
 	    {
 	      sceUsbStop (PSP_USBSTOR_DRIVERNAME, 0, 0);
 	      sceUsbDeactivate ();

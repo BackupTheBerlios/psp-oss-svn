@@ -454,7 +454,7 @@ loo:
 		       iconitem[i], FileBrowserTextC);
 	      //added 24th of dec      
 
-	      if (isdir[i] == 1 || suffix != 0)
+	      if (isdir[i] == 1)
 		{
 		  if (iconSelected.row == IconPositionX
 		      && iconSelected.col == IconPositionY)
@@ -893,19 +893,27 @@ Toggle_MP3 (int mode)
     {
       int i = 0;
       int dfd;
-      dfd = sceIoDopen ("ms0:/PSP/MUSIC/");
+      dfd = sceIoDopen (Audiofolder);
       sceIoDread (dfd, &dir);
       sceIoDread (dfd, &dir);
 
       while (sceIoDread (dfd, &dir) > 0)
 	{
+		  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
+			{
+			  isdir[i] = 1;
+			}
+
 	  //Make sure its a mp3 or ogg
-	  char *suffix = strrchr (strdup (dir.d_name), '.');
-	  if (stricmp (suffix, ".mp3") == 0 || stricmp (suffix, ".ogg") == 0)
-	    {
-	      LR_MUSIC[i] = strdup (dir.d_name);
-	      i++;
-	    }
+	  if (isdir[i] != 1)
+		{			
+	  	char *suffix = strrchr (strdup (dir.d_name), '.');
+	  	if (stricmp (suffix, ".mp3") == 0 || stricmp (suffix, ".ogg") == 0)
+	    	{
+	     		LR_MUSIC[i] = strdup (dir.d_name);	      	
+	     		i++;
+				}
+	  }	 
 	}
 
       //Close Dir Command

@@ -33,6 +33,7 @@ int subdpad = 0;
 int right = 0;
 int smpage;
 int more;
+int musicmenu;
 
 //Select menu is very important.  It is used to define which folder the start menu reads from. e.g selectmenu = "ms0:/PSP-OSS/APPS/"; 
 char *selectmenu;
@@ -64,7 +65,7 @@ StartMenu ()
       Startmenulistover ();
       Startmenulist ();
 
-      if (smpage > 1)
+      if (smpage > 1 || musicmenu == 1)
 	{
 	  StartListMenu ();
 	}
@@ -707,13 +708,23 @@ StartListMenu ()
 			      if (selectmenu == "ms0:/PSP/GAME/")
 				{
 				  stopmenu = 1;
+				  musicmenu = 0;
 				  sprintf (buffer, "%s%s/EBOOT.PBP", selectmenu, startitemname[i]);	//Uncomment these lines to have EBOOTS lunch from inside folders.  Comment the two lines above
 				  ELF_Run (buffer);
 				}
+			      else if (selectmenu == "ms0:/PSP/MUSIC/")
+			      {
+			    stopmenu = 0;
+				  sprintf (buffer, "%s%s/", selectmenu, startitemname[i]);	//Uncomment these lines to have EBOOTS lunch from inside folders.  Comment the two lines above
+				  selectmenu = buffer;
+				  musicmenu = 1;
+				  StartMenu ();
+			      }
 			      else
 				{
 				  DesktopIconsActive = 1;
 				  stopmenu = 1;
+				  musicmenu = 0;
 				  sprintf (buffer, "%s%s/", selectmenu, startitemname[i]);	//This line works out the directory and folder name e.g ms0:/PSP-OSS/GAMES/
 				  BrowseDirectory (buffer);	//This line lunches the file Browser                              
 				}
@@ -722,6 +733,7 @@ StartListMenu ()
 			  else
 			    {
 			      DesktopIconsActive = 1;
+			      musicmenu = 0;
 			      sprintf (buffer, "%s%s", selectmenu, startitemname[i]);	//This line works out the directory and item name e.g ms0:/PSP-OSS/WALLPAPER/XWING.PNG
 			      OpenFile (buffer);	//Sends the File to be opend by the appropriate app
 			      stopmenu = 1;
@@ -898,6 +910,7 @@ StartListMenu ()
 		  fourcolumns = 0;
 		  DesktopIconsActive = 1;
 		  stopmenu = 1;
+		  musicmenu = 0;
 		  break;
 		}
 	      else if (cursorPosition.x > (MenuSelected.row1 + startcounter))
@@ -906,6 +919,7 @@ StartListMenu ()
 		  mstart = 0;
 		  fourcolumns = 0;
 		  stopmenu = 1;
+		  musicmenu = 0;
 		  break;
 		}
 	    }
@@ -925,6 +939,7 @@ StartListMenu ()
 	      mstart = 0;
 	      fourcolumns = 0;
 	      DesktopIconsActive = 1;
+	      musicmenu = 0;
 	      break;
 	    }
 	}
