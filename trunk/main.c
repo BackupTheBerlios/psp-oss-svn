@@ -129,34 +129,44 @@ osLoop ()
 		  Toggle_Wallpapers ("R");
 		}
 	      else if (pad.Buttons & PSP_CTRL_SELECT
-		       && pad.Buttons & PSP_CTRL_LTRIGGER)
+		  && pad.Buttons & PSP_CTRL_LTRIGGER)
 		{
 		  Toggle_Wallpapers ("L");
+		}		
 		}
-			else if (MediaStatus != "stop")
-    {
-	      if (pad.Buttons & PSP_CTRL_RTRIGGER)
-		{
-		  Toggle_MP3 ("R");
+		
+		  //Toggle MP3
+		
+			if (MediaStatus != "stop")
+			{
+			  if (toggle_MP3 == "LRT")
+			    {
+			      if (pad.Buttons & PSP_CTRL_RTRIGGER)
+				{
+				  Toggle_MP3 ("R");
+				}
+			      else if (pad.Buttons & PSP_CTRL_LTRIGGER)
+				{
+				  Toggle_MP3 ("L");
+				}
+			    }
+			  else if (toggle_MP3 == "STA")
+			    {
+			      if (pad.Buttons & PSP_CTRL_START
+				  && pad.Buttons & PSP_CTRL_RTRIGGER)
+				{
+				  Toggle_MP3 ("R");
+				}
+			      else if (pad.Buttons & PSP_CTRL_START
+				  && pad.Buttons & PSP_CTRL_RTRIGGER)
+				{
+				  Toggle_MP3 ("L");
+				}						
+			}
+				
+		 }
 		}
-	      else if (pad.Buttons & PSP_CTRL_LTRIGGER)
-		{
-		  Toggle_MP3 ("L");
-		}
-	    } 
-	  }
-	   else if (MediaStatus != "stop")
-    {
-	      if (pad.Buttons & PSP_CTRL_RTRIGGER)
-		{
-		  Toggle_MP3 ("R");
-		}
-	      else if (pad.Buttons & PSP_CTRL_LTRIGGER)
-		{
-		  Toggle_MP3 ("L");
-		}
-	    } 
-	}
+	
       //Display our cursor.
       //Remember to display the cursor last, so it'll get at top.
       PutGFX (0, 0, 32, 32, cursor, cursorPosition.x, cursorPosition.y);
@@ -195,7 +205,7 @@ main (int argc, char *argv[])
     }
   else
     {
-      //Startup code. Display bootup screen, load images, init gfx.
+      //Startup code. Display bootup screen, load images, init gfx.      
       StartUp ();
     }
 
@@ -208,7 +218,7 @@ main (int argc, char *argv[])
     {
       sceIoRemove ("ms0:/PSP-OSS/CRASHED");
       MessageWindow (CrashT, Crash2T);
-    }
+    }    
 
   //Our main loop
   osLoop ();

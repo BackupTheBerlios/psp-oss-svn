@@ -54,7 +54,8 @@ StartMenu ()
       DoActiveDesktop ();
       PutGFX (0, 0, 70, 15, Start_menu_Over, 0, 257);
       PutGFX (0, 0, 70, 15, Start_menu_Open, 0, 257);
-      PutGFX (0, 0, 70, 10, Start_Menu_Top, 0, 187);
+      PutGFX (0, 0, 70, 10, Start_Menu_Top, 0, 177);
+      PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 187);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 197);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 207);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 217);
@@ -79,31 +80,35 @@ StartMenu ()
 	{
 	  cursorPosition.x = 35;
 	  DPad_Position++;
-	  if (DPad_Position > 6)
+	  if (DPad_Position > 7)
 	    {
-	      DPad_Position = 6;
+	      DPad_Position = 7;
 	    }
 	  if (DPad_Position == 1)
 	    {
-	      cursorPosition.y = 200;
+	      cursorPosition.y = 190;
 	    }
 	  else if (DPad_Position == 2)
 	    {
-	      cursorPosition.y = 210;
-	    }
+	      cursorPosition.y = 200;
+	    }	    
 	  else if (DPad_Position == 3)
 	    {
-	      cursorPosition.y = 220;
+	      cursorPosition.y = 210;
 	    }
 	  else if (DPad_Position == 4)
 	    {
-	      cursorPosition.y = 230;
+	      cursorPosition.y = 220;
 	    }
 	  else if (DPad_Position == 5)
 	    {
-	      cursorPosition.y = 240;
+	      cursorPosition.y = 230;
 	    }
 	  else if (DPad_Position == 6)
+	    {
+	      cursorPosition.y = 240;
+	    }
+	  else if (DPad_Position == 7)
 	    {
 	      cursorPosition.y = 250;
 	    }
@@ -121,25 +126,29 @@ StartMenu ()
 	    }
 	  if (DPad_Position == 1)
 	    {
-	      cursorPosition.y = 200;
+	      cursorPosition.y = 190;
 	    }
 	  else if (DPad_Position == 2)
 	    {
-	      cursorPosition.y = 210;
+	      cursorPosition.y = 200;
 	    }
 	  else if (DPad_Position == 3)
 	    {
-	      cursorPosition.y = 220;
+	      cursorPosition.y = 210;
 	    }
 	  else if (DPad_Position == 4)
 	    {
-	      cursorPosition.y = 230;
+	      cursorPosition.y = 220;
 	    }
 	  else if (DPad_Position == 5)
 	    {
-	      cursorPosition.y = 240;
+	      cursorPosition.y = 230;
 	    }
 	  else if (DPad_Position == 6)
+	    {
+	      cursorPosition.y = 240;
+	    }
+	  else if (DPad_Position == 7)
 	    {
 	      cursorPosition.y = 250;
 	    }
@@ -440,16 +449,18 @@ StartListMenu ()
       DoActiveDesktop ();
       PutGFX (0, 0, 70, 15, Start_menu_Over, 0, 257);
       PutGFX (0, 0, 70, 15, Start_menu_Open, 0, 257);
-      PutGFX (0, 0, 70, 10, Start_Menu_Top, 0, 187);
+      PutGFX (0, 0, 70, 10, Start_Menu_Top, 0, 177);
+      PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 187);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 197);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 207);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 217);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 227);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 237);
       PutGFX (0, 0, 70, 10, Start_Menu_Body, 0, 247);
-      PutText (5, 197, BrowseT, BrowseC);
-      PutText (5, 207, GamesT, GamesC);
-      PutText (5, 217, MusicT, MusicC);
+		  PutText (5, 187, BrowseT, BrowseC);
+		  PutText (5, 197, GamesT, GamesC);
+		  PutText (5, 207, MusicT, MusicC);
+		  PutText (5, 217, "Videos", MusicC);
       PutText (5, 227, PicturesT, PicturesC);
       PutText (5, 237, SystemT, SystemC);
       PutText (5, 247, QuitT, QuitC);
@@ -728,7 +739,7 @@ StartListMenu ()
 				  sprintf (buffer, "%s%s/EBOOT.PBP", selectmenu, startitemname[i]);	//Uncomment these lines to have EBOOTS lunch from inside folders.  Comment the two lines above
 				  ELF_Run (buffer);
 				}
-			      else if (selectmenu == "ms0:/PSP/MUSIC/")
+			      else if (selectmenu == "ms0:/PSP/MUSIC/" || selectmenu == "ms0:/PSP/VIDEO/" )
 			      {
 			    stopmenu = 0;
 				  sprintf (buffer, "%s%s/", selectmenu, startitemname[i]);	//Uncomment these lines to have EBOOTS lunch from inside folders.  Comment the two lines above
@@ -1071,8 +1082,13 @@ void
 Startmenulistover ()
 {
   DesktopIconsActive = 0;
-  if (cursorPosition.x > 0 && cursorPosition.x < 70 && cursorPosition.y > 197
-      && cursorPosition.y < 207)
+  if (cursorPosition.x > 0 && cursorPosition.x < 70 && cursorPosition.y > 187
+      && cursorPosition.y < 197)
+    {
+      PutGFX (0, 0, 70, 10, Start_Menu_Body_Over, 0, 187);
+    }
+  else if (cursorPosition.x > 0 && cursorPosition.x < 70
+	   && cursorPosition.y > 197 && cursorPosition.y < 207)
     {
       PutGFX (0, 0, 70, 10, Start_Menu_Body_Over, 0, 197);
     }
@@ -1101,9 +1117,10 @@ Startmenulistover ()
     {
       PutGFX (0, 0, 70, 10, Start_Menu_Body_Over, 0, 247);
     }
-  PutText (5, 197, BrowseT, BrowseC);
-  PutText (5, 207, GamesT, GamesC);
-  PutText (5, 217, MusicT, MusicC);
+  PutText (5, 187, BrowseT, BrowseC);
+  PutText (5, 197, GamesT, GamesC);
+  PutText (5, 207, MusicT, MusicC);
+  PutText (5, 217, "Videos", MusicC);
   PutText (5, 227, PicturesT, PicturesC);
   PutText (5, 237, SystemT, SystemC);
   PutText (5, 247, QuitT, QuitC);
@@ -1123,14 +1140,14 @@ Startmenulist ()
     {
       //Browse
       if (cursorPosition.x > 0 && cursorPosition.x < 70
-	  && cursorPosition.y > 197 && cursorPosition.y < 207)
+	  && cursorPosition.y > 187 && cursorPosition.y < 197)
 	{
 	  mstart = 1;
 	  BrowseDirectory ("ms0:/PSP/");
 	}
       //Games
       else if (cursorPosition.x > 0 && cursorPosition.x < 70
-	       && cursorPosition.y > 207 && cursorPosition.y < 217)
+	       && cursorPosition.y > 197 && cursorPosition.y < 207)
 	{
 	  mstart = 1;
 	  substart = 0;
@@ -1144,7 +1161,7 @@ Startmenulist ()
 	}
       //Music
       else if (cursorPosition.x > 0 && cursorPosition.x < 70
-	       && cursorPosition.y > 217 && cursorPosition.y < 227)
+	       && cursorPosition.y > 207 && cursorPosition.y < 217)
 	{
 	  mstart = 1;
 	  substart = 0;
@@ -1156,6 +1173,20 @@ Startmenulist ()
 	  DesktopIconsActive = 0;
 	  StartListMenu ();
 	}
+      //Videos
+      else if (cursorPosition.x > 0 && cursorPosition.x < 70
+	       && cursorPosition.y > 217 && cursorPosition.y < 227)
+	{
+	  mstart = 1;
+	  substart = 0;
+	  stopmenu = 0;
+	  DPad_PositionX = 1;
+	  DPad_PositionY = 1;
+	  smpage = 1;
+	  selectmenu = "ms0:/PSP/VIDEO/";
+	  DesktopIconsActive = 0;
+	  StartListMenu ();
+	}	
       //Pictures
       else if (cursorPosition.x > 0 && cursorPosition.x < 70
 	       && cursorPosition.y > 227 && cursorPosition.y < 237)

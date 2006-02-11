@@ -1,4 +1,4 @@
-#define OSSVersion "PSP-OSS_0,2c"
+#define OSSVersion "PSP-OSS_0,3 Dev"
 #include <ctype.h>
 #include <pspumd.h>
 #include <pspkernel.h>
@@ -210,6 +210,13 @@ int LR_Wallpapers_amount;
 int LR_Wallpapers_current;
 int LR_Wallpapers_previous;
 
+int language_ran;
+char *LR_language[256];
+int LR_language_amount;
+int LR_language_current;
+
+//MP3
+char Audiofolder[255];
 int LR_MUSIC_ran;
 char *LR_MUSIC[256];
 int LR_MUSIC_amount;
@@ -230,11 +237,18 @@ int PSP_CTRL_BACK;
 
 int DesktopEffect;
 int toggle_wallpapers;
+int toggle_MP3;
 int mousespeed;
 int mstart;
+int loadingdone;
 
 char skin[20];
+char skinpath[256];
 char fontcolour[20];
+
+//Skin Version
+char VersionT[20];		// Text Colour
+
 //Custom Text Colours
 float StartMenuC;		// Text Colour
 float StartSubMenuC;		// Text Colour
@@ -326,6 +340,8 @@ float FSChangeWallC;
 float FSWindowHeaderC;
 
 //Custom Language Text
+char LangT[50];
+
 //UMD Related
 char UMDLoadT[50];
 char UMDLoad2T[50];
@@ -423,8 +439,6 @@ char ShutdownT[50];
 char RebootT[50];
 char QuestionT[50];
 
-//MP3
- char Audiofolder[255];
  //Ram
  char ramfer[255];
 //Go back to filebrowser after viewing an image from it

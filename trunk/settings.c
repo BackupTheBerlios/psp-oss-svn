@@ -41,8 +41,25 @@ SettingsScreen ()
 	  && cursorPosition.y > windowy + 15
 	  && cursorPosition.y < windowy + 30)
 	{
-	  PauseVbl (30);
-	  SettingsScreen_Language ();
+	  //SettingsScreen_Language ();
+	  Toggle_Lang ("NEXT");
+	  
+  SceUID file;
+  char Langfile[255];
+  char *Langfile2[255];
+  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/LANG.cfg", PSP_O_RDONLY, 0);	// Open the File
+  sceIoRead (file, Langfile, 255);	// Read 255 Bytes from the File
+  int filesize = sceIoLseek (file, 0, SEEK_END);	// Determine the File's Size
+  sceIoClose (file);
+  Langfile[filesize] = 0x00;	// Insert a Terminator Null at the End of the File (Cuts the String to the True Width)
+	
+	sprintf (Langfile2, "ms0:/PSP-OSS/SYSTEM/LANG/%s", Langfile);
+  configLoad (Langfile2);
+
+  configRead ("Language", "Current_Language", LangT, NULL, NULL);
+  configClose ();
+  checkkey = 1;
+	  
 	}
 
       //Change CPU Speed
@@ -148,7 +165,35 @@ SettingsScreen ()
 	    }
 
 	  checkkey = 1;
-	  PauseVbl (30);
+	}
+      //Toggle MP3
+      if (pad.Buttons & PSP_CTRL_CONFIRM && cursorPosition.x > optionx + 150
+	  && cursorPosition.x < optionx + 250
+	  && cursorPosition.y > windowy + 60
+	  && cursorPosition.y < windowy + 75)
+	{
+ if (toggle_MP3 == "LRT")
+	    {
+	      //Make it select
+	      Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/TOGGLE_MP3.cfg", "STA");
+	      toggle_MP3 = "STA";
+	    }
+
+	  else if (toggle_MP3 == "STA")
+	    {
+	      //turn off
+	      Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/TOGGLE_MP3.cfg", "OFF");
+	      toggle_MP3 = "OFF";
+	    }
+
+	  else if (toggle_MP3 == "OFF")
+	    {
+	      //Make it LR-Trigger
+	      Write_config("ms0:/PSP-OSS/SYSTEM/CONFIG/TOGGLE_MP3.cfg", "LRT");
+	      toggle_MP3 = "LRT";
+	    }
+
+	  checkkey = 1;
 	}
 
       //Desktop effect
@@ -255,6 +300,20 @@ DrawSettingsScreenGUI ()
 	  sprintf (toggle_wallpapers_text, "Off");
 	}
 
+      //Toggle wallpapers
+      if (toggle_MP3 == "LRT")
+	{
+	  sprintf (toggle_MP3_text, "with L and R");
+	}
+      else if (toggle_MP3 == "STA")
+	{
+	  sprintf (toggle_MP3_text, "with start");
+	}
+      else if (toggle_MP3 == "OFF")
+	{
+	  sprintf (toggle_MP3_text, "Off");
+	}	
+
       //Mouse Speed
       if (mousespeed == 2)
 	{
@@ -301,13 +360,17 @@ DrawSettingsScreenGUI ()
   PutGFX (0, 0, 300, 15, Settings_Window_Bottom, windowx, windowy + 150);
 
   PutTextFont (itemx + 5, windowy + 17, LanguageT, LanguageC);
-  PutTextFont (optionx + 150, windowy + 17, "English", SettingsC);
+  PutTextFont (optionx + 150, windowy + 17, LangT, SettingsC);
 
   PutTextFont (itemx + 5, windowy + 32, CPUT, CPUC);
   PutTextFont (optionx + 150, windowy + 32, CPU_Speed, SettingsC);
 
   PutTextFont (itemx + 5, windowy + 47, ConfirmT, ConfirmC);
   PutTextFont (optionx + 150, windowy + 47, currentkey, SettingsC);
+  
+  PutTextFont (itemx + 5, windowy + 62, "Toggle MP3 Mode", ToggleWallpaperC);
+  PutTextFont (optionx + 150, windowy + 62, toggle_MP3_text,
+	       SettingsC);  
 
   PutTextFont (itemx + 5, windowy + 77, ToggleWallpaperT, ToggleWallpaperC);
   PutTextFont (optionx + 150, windowy + 77, toggle_wallpapers_text,
@@ -331,7 +394,7 @@ DrawSettingsScreenGUI ()
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 15 && cursorPosition.y < windowy + 30)
     {
-      PutTextFont (optionx + 150, windowy + 17, "English", Settings2C);
+      PutTextFont (optionx + 150, windowy + 17, LangT, Settings2C);
     }
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 30 && cursorPosition.y < windowy + 45)
@@ -343,6 +406,12 @@ DrawSettingsScreenGUI ()
     {
       PutTextFont (optionx + 150, windowy + 47, currentkey, Settings2C);
     }
+  if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
+      && cursorPosition.y > windowy + 60 && cursorPosition.y < windowy + 75)
+    {
+      PutTextFont (optionx + 150, windowy + 62, toggle_MP3_text,
+		   Settings2C);
+    }    
   if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 250
       && cursorPosition.y > windowy + 75 && cursorPosition.y < windowy + 90)
     {
@@ -379,28 +448,60 @@ DrawSettingsScreenGUI ()
     }
 }
 
-
+int i = 0;
 void
 SettingsScreen_Language ()
 {
+  if (language_ran == 0)
+    {
+      int dfd;
+      dfd = sceIoDopen ("ms0:/PSP-OSS/SYSTEM/LANG/");
+      sceIoDread (dfd, &dir);
+      sceIoDread (dfd, &dir);
+
+      while (sceIoDread (dfd, &dir) > 0)
+	{
+	      LR_language[i] = strdup (dir.d_name); 
+	      i++;
+	}
+
+      //Close Dir Command
+      frtd = 0;
+      sceIoDclose (dfd);
+      LR_language_amount = i;
+      language_ran =1;
+      PauseVbl (20);
+    }
+   
+    
   while (1)
     {
       GetUserInput ();
       DrawSettingsScreenGUI ();
-
+    
       PutGFX (0, 0, 70, 10, RightclickMenu_Top, optionx + 150, windowy + 15);
-      PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 150, windowy + 25);
-      PutGFX (0, 0, 70, 10, RightclickMenu_Bottom, optionx + 150,
-	      windowy + 35);
+      for (i = 1; i <= LR_language_amount; i++ ) 
+      {
+      	PutGFX (0, 0, 70, 10, RightclickMenu_Body, optionx + 150, windowy + 15 + (i*10));  		            	
+      	char Langfiles[i][10];      	
+			  int size;
+	      size = strlen (LR_language[i]);
+	     // strncpy (Langfiles[i], LR_language[i],(7));
+	      //Langfiles[i][7] = '\0';
+	      //PutText (optionx + 155, windowy + 25+(i*10), Langfiles[i], SettingsC);   	      
+	       
+	    }
+    	PutGFX (0, 0, 70, 10, RightclickMenu_Bottom, optionx + 150,windowy + 25+(LR_language_amount*10));
 
       //Mouseover
       if (cursorPosition.x > optionx + 150 && cursorPosition.x < optionx + 220
-	  && cursorPosition.y > windowy + 25
-	  && cursorPosition.y < windowy + 35)
+	  && cursorPosition.y > windowy + 15+ (i*10)
+	  && cursorPosition.y < windowy + 25+ (i*10))
 	{
 	  PutGFX (0, 0, 70, 10, RightclickMenu_Body_Over, optionx + 150,
-		  windowy + 25);
-	}
+		  windowy + 15 + (i*10));
+	}	      
+
 
       //Confirm
       if (pad.Buttons & PSP_CTRL_CONFIRM)
@@ -418,11 +519,11 @@ SettingsScreen_Language ()
 	  break;
 	}
 
-      PutTextFont (optionx + 155, windowy + 25, "English", SettingsC);
 
       PutGFX (0, 0, 32, 32, cursor, cursorPosition.x, cursorPosition.y);
       PrintScreen ();
     }
+  
 }
 
 
@@ -582,3 +683,42 @@ SettingsScreen_MouseSpeed ()
       PrintScreen ();
     }
 }
+
+void
+Toggle_Lang (int mode)
+{
+  if (language_ran == 0)
+    {
+      int dfd;
+      dfd = sceIoDopen ("ms0:/PSP-OSS/SYSTEM/LANG/");
+      sceIoDread (dfd, &dir);
+      sceIoDread (dfd, &dir);
+
+      while (sceIoDread (dfd, &dir) > 0)
+	{
+	      LR_language[i] = strdup (dir.d_name); 
+	      i++;
+	}
+
+      //Close Dir Command
+      frtd = 0;
+      sceIoDclose (dfd);
+      LR_language_amount = i;
+      language_ran =1;
+      PauseVbl (20);
+    }   
+
+  //Next ConfigFile
+  if (mode == "NEXT")
+    {    	
+      LR_language_current += 1;
+
+      if (LR_language_amount == LR_language_current)
+					{
+					  LR_language_current = 0;
+					}
+		  Write_config ("ms0:/PSP-OSS/SYSTEM/CONFIG/LANG.cfg", LR_language[LR_language_current]);
+		  textlang ();     
+    }
+  }
+  

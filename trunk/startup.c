@@ -27,7 +27,7 @@ PSP-OSS
 #include "cursor.h"
 #include "filebrowser.h"
 #include "main.h"
-
+SceUID file;
 void
 StartUp (void)
 {
@@ -47,30 +47,11 @@ StartUp (void)
       PauseVbl (5 * 60);
     }
 
-  int filesize;
-  SceUID file;
-  char buffer[256];
-	scePowerSetClockFrequency (333, 333, 166);
+ scePowerSetClockFrequency (333, 333, 166);
   
-  /*
-     Load Wallpaper
-   */
-  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/WALLPAPER.cfg", PSP_O_RDONLY, 0);
-  char tempwallpaper[255];
-  sceIoRead (file, tempwallpaper, 255);
-  filesize = sceIoLseek (file, 0, SEEK_END);
-  sceIoClose (file);
-  tempwallpaper[filesize] = 0x00;
-  wallpaper = LoadGFX (tempwallpaper);
-
-  /*
-     What SKIN do we use? Let's check...
-   */
-  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg", PSP_O_RDONLY, 0);
-  sceIoRead (file, skin, 20);
-  filesize = sceIoLseek (file, 0, SEEK_END);
-  sceIoClose (file);
-  skin[filesize] = 0x00;
+ WallCheck();  
+  
+ SkinCheck();
 
   // Load Default Font
   sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/FONT.ttf", skin);
@@ -251,7 +232,10 @@ StartUp (void)
   SubMenuBottomRight = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomright.png");
   
   textlang ();   		         
+
   textcolour ();
+  
+  loadingdone = 1;
   
   //Run at 333mHz?
   file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/CPU.CFG", PSP_O_RDONLY, 0);
@@ -352,6 +336,36 @@ StartUp (void)
      //Toggle wallpapers
      // END OF CODE
    */
+   
+  /*
+     //Toggle Mp3s
+     // START OF CODE
+   */
+  file =
+    sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/TOGGLE_MP3.cfg",
+	       PSP_O_RDONLY, 0);
+  char toggle_MP3s[3];
+  sceIoRead (file, toggle_MP3s, 3);
+  sceIoClose (file);
+  toggle_MP3s[3] = 0x00;
+
+  if (strcmp (toggle_MP3s, "LRT") == 0)
+    {
+      toggle_MP3 = "LRT";
+    }
+  else if (strcmp (toggle_MP3s, "STA") == 0)
+    {
+      toggle_MP3 = "STA";
+    }
+  else if (strcmp (toggle_MP3s, "OFF") == 0)
+    {
+      toggle_MP3 = "OFF";
+    }
+  /*
+     //Toggle Mp3s
+     // END OF CODE
+   */   
+   
 
   //Effects
   file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/EFFECT.CFG", PSP_O_RDONLY, 0);
@@ -411,7 +425,6 @@ StartUp (void)
       mousespeed = 7;
     }
 
-
   //Place cursor in the middle of the screen
   cursorPosition.x = 208;
   cursorPosition.y = 104;
@@ -440,5 +453,194 @@ StartUp (void)
   //Clear screen
   pspDebugScreenClear ();
   pspDebugScreenInit ();
+}
 
+void SkinCheck ()
+{
+
+  /*
+     What SKIN do we use? Let's check...
+   */
+	char            *data_ptr;
+	unsigned long   data_size;
+	FILE * fp;	   
+
+		  if (skincheck == 0 && skincheck2 != 1)
+		    {
+					  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg", PSP_O_RDONLY, 0);
+					  sceIoRead (file, skin, 20);
+					  filesize = sceIoLseek (file, 0, SEEK_END);
+					  sceIoClose (file);
+					  skin[filesize] = 0x00;
+								    	
+			      FILE *File = NULL;
+			      char skinbuffer[200];
+			      sprintf (skinbuffer, "ms0:/PSP-OSS/SKINS/%s",skin);
+			      File = fopen (skinbuffer, "r");	// Check To See If The File Exists         
+			      fclose (File);
+	
+			      if (File)	// Does The File Exist?
+						{								
+								sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s", skin);
+								fp = fopen(skinpath, "rb");
+								urarlib_get(&data_ptr, &data_size, "version.cfg", fp, NULL); 	
+								fclose(fp);
+								fp = fopen("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", "wb");
+								fwrite(data_ptr, 1, data_size, fp);
+								fclose(fp);
+								
+								char version[20];
+								file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", PSP_O_RDONLY, 0);
+							  sceIoRead (file, version, 20);
+							  filesize = sceIoLseek (file, 0, SEEK_END);
+							  sceIoClose (file);
+							  version[filesize] = 0x00;						
+							  
+							  if (strcmp (version, "PSP-OSS_03") == 0)
+							  {	  															  	
+							  			skincheck = 1;	
+											skincheck2 = 1;		
+											skincheck3 = 1;
+											skincheck4 = 1;																
+							  }
+							  else
+							  {				  										
+							  			pspDebugScreenPrintf ("\n");			    
+							  	  	pspDebugScreenPrintf ("Skin is not designed for PSP-OSS_0,3");
+      								PauseVbl (60);
+      								skincheck = 1;
+      								skincheck2 = 1;
+      								StartUp ();		
+      					}	  						
+						}								
+				}
+				else if (skincheck4 != 1)
+				{
+						if (skincheck3 != 1)
+						{
+					      int i = 0;
+					      int dfd;
+					      dfd = sceIoDopen ("ms0:/PSP-OSS/Skins/");
+					      sceIoDread (dfd, &dir);
+					      sceIoDread (dfd, &dir);
+					
+					      while (sceIoDread (dfd, &dir) > 0)
+								{					
+						     			LR_Skin[i] = strdup (dir.d_name);	      	
+						     			i++;					  	 
+								}
+					
+					      //Close Dir Command
+					      frtd = 0;
+					      sceIoDclose (dfd);
+					      LR_Skin_amount = i;
+					      skincheck3 = 1;
+					    }									  			  												
+																
+								sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s", LR_Skin[LR_Skin_current]);
+								fp = fopen(skinpath, "rb");
+								urarlib_get(&data_ptr, &data_size, "version.cfg", fp, NULL); 	
+								fclose(fp);
+								fp = fopen("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", "wb");
+								fwrite(data_ptr, 1, data_size, fp);
+								fclose(fp);
+								
+								char version[20];
+								file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", PSP_O_RDONLY, 0);
+							  sceIoRead (file, version, 20);
+							  filesize = sceIoLseek (file, 0, SEEK_END);
+							  sceIoClose (file);
+							  version[filesize] = 0x00;						
+							  
+						if (strcmp (version, "PSP-OSS_03") == 0)
+					  {
+					  			Write_config ("ms0:/PSP-OSS/SYSTEM/SKIN.CFG", LR_Skin[LR_Skin_current]);
+							  	skincheck = 1;	
+									skincheck2 = 1;		
+									skincheck3 = 1;					  			
+					  			skincheck4 = 1;
+					  			
+					  			file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg", PSP_O_RDONLY, 0);
+								  sceIoRead (file, skin, 20);
+								  filesize = sceIoLseek (file, 0, SEEK_END);
+								  sceIoClose (file);
+  								skin[filesize] = 0x00;
+					  }
+					  else if (skincheck4 != 1)
+					  {				  											
+					  			pspDebugScreenPrintf ("\n");		    
+					  	  	pspDebugScreenPrintf ("Skin is not designed for PSP-OSS_0,3 trying another skin");
+  								PauseVbl (60);
+			  				  if (LR_Skin_amount == LR_Skin_current)
+									{
+												pspDebugScreenPrintf ("\n");
+								  	  	pspDebugScreenPrintf ("None of your current skins are designed for PSP-OSS_0,3 Shutting Down");
+			  								PauseVbl (100);
+			  								ShutDown ();									
+			  					}  				  	
+					  			LR_Skin_current += 1;					  												
+  								StartUp ();	 
+									}																					 											
+	    } 
+}
+
+
+void WallCheck ()
+{
+	  /*
+     Load Wallpaper
+       */
+  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/WALLPAPER.cfg", PSP_O_RDONLY, 0);
+  char tempwallpaper[255];
+  sceIoRead (file, tempwallpaper, 255);
+  filesize = sceIoLseek (file, 0, SEEK_END);
+  sceIoClose (file);
+  tempwallpaper[filesize] = 0x00;
+
+		  if (wallcheck == 0)
+		    {
+			      FILE *File = NULL;
+			      File = fopen (tempwallpaper, "r");	// Check To See If The File Exists         
+			      fclose (File);
+	
+			      if (File)	// Does The File Exist?
+						{
+	  						wallpaper = LoadGFX (tempwallpaper);	
+	  						wallcheck = 1;
+	  						wallcheck2 = 1;
+	  						wallcheck3 = 1;
+						}
+						else if (wallcheck2 == 0)
+						{
+								if (wallcheck3 == 0)
+								{
+							      int i = 0;
+							      int dfd;
+							      dfd = sceIoDopen ("ms0:/PSP-OSS/WALLPAPERS/");
+							      sceIoDread (dfd, &dir);
+							      sceIoDread (dfd, &dir);
+							
+							      while (sceIoDread (dfd, &dir) > 0)
+										{					
+								     			LR_Wall[i] = strdup (dir.d_name);	      	
+								     			i++;					  	 
+										}
+							
+							      //Close Dir Command
+							      frtd = 0;
+							      sceIoDclose (dfd);
+							      LR_Wall_amount = i;
+							      wallcheck3 = 1;
+							    }
+						
+							  LR_Wall_current += 1;					
+							
+								char wallbuffer[200];
+								sprintf (wallbuffer, "ms0:/PSP-OSS/WALLPAPERS/%s",LR_Wall[LR_Wall_current]);
+								Write_config ("ms0:/PSP-OSS/SYSTEM/WALLPAPER.cfg", wallbuffer);
+								wallpaper = LoadGFX (wallbuffer);
+								wallcheck2 = 1;							    
+								StartUp ();	
+					}				 
+	    }
 }

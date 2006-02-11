@@ -1,1 +1,18 @@
 void StartUp (void);
+void SkinCheck ();
+void WallCheck ();
+int wallcheck;
+int wallcheck2;
+int wallcheck3;
+int skincheck;
+int skincheck2;
+int skincheck3;
+int skincheck4;
+int filesize;
+char buffer[256];
+char *LR_Wall[256];
+int LR_Wall_amount;
+int LR_Wall_current;
+char *LR_Skin[256];
+int LR_Skin_amount;
+int LR_Skin_current;

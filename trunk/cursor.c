@@ -60,8 +60,8 @@ cursorHandler (int analogX, int analogY)
 	}
     }
 
-//u32 RAMsize = ramAvailable();
-//sprintf(ramfer, "RAM :%u bytes", RAMsize);    
+u32 RAMsize = ramAvailable();
+sprintf(ramfer, "RAM :%u bytes", RAMsize);    
     
   //Right
   if ((cursorPosition.x < 479) && (analogX >= 154))

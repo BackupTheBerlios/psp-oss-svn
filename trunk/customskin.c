@@ -25,7 +25,19 @@ textlang ()
 
 // Read configuration    
 
- configLoad ("ms0:/PSP-OSS/SYSTEM/LANG/eng.cfg");
+  SceUID file;
+  char Langfile[255];
+  char *Langfile2[255];
+  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/LANG.cfg", PSP_O_RDONLY, 0);	// Open the File
+  sceIoRead (file, Langfile, 255);	// Read 255 Bytes from the File
+  int filesize = sceIoLseek (file, 0, SEEK_END);	// Determine the File's Size
+  sceIoClose (file);
+  Langfile[filesize] = 0x00;	// Insert a Terminator Null at the End of the File (Cuts the String to the True Width)
+	
+	sprintf (Langfile2, "ms0:/PSP-OSS/SYSTEM/LANG/%s", Langfile);
+  configLoad (Langfile2);
+
+  configRead ("Language", "Current_Language", LangT, NULL, NULL);
 
   //UMD Related
   configRead ("Language", "UMD_Load", UMDLoadT, NULL, NULL);
@@ -33,6 +45,8 @@ textlang ()
   configRead ("Language", "No_UMD", NoUMDT, NULL, NULL);
   configRead ("Language", "No_UMD_2", NoUMD2T, NULL, NULL);  
   
+  if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -42,7 +56,7 @@ textlang ()
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 192, 159);	//Loading
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();        
-  
+	}  
   //Skin Related                                                          
   configRead ("Language", "Reload_Skin", ReloadSkinT, NULL, NULL);
   configRead ("Language", "Reload_Skin_2", ReloadSkin2T, NULL, NULL);
@@ -74,7 +88,9 @@ textlang ()
   configRead ("Language", "Backgr", BackgrT, NULL, NULL);
   configRead ("Language", "Theme", ThemeT, NULL, NULL);
   
-	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
+	if (loadingdone != 1)
+  {
+  FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 162, 159);	//Loading
@@ -83,7 +99,8 @@ textlang ()
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 192, 159);	//Loading
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 202, 159);	//Loading
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
-  PrintScreen ();       
+  PrintScreen (); 
+  }      
  
   //Desktop                                                                                               
   configRead ("Language", "USB", USBT, NULL, NULL);
@@ -110,6 +127,8 @@ textlang ()
   configRead ("Language", "Previous_Page", PreviousPageT, NULL, NULL);
   configRead ("Language", "Next_Page", NextPageT, NULL, NULL);
   
+  if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -121,7 +140,7 @@ textlang ()
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 212, 159);	//Loading
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();    
-  
+  }
   configRead ("Language", "UnknownQL", UnknownQLT, NULL, NULL);
   configRead ("Language", "UnknownQL_2", UnknownQL2T, NULL, NULL);
   configRead ("Language", "Crash", CrashT, NULL, NULL);
@@ -146,6 +165,8 @@ textlang ()
   configRead ("Language", "Empty", EmptyT, NULL, NULL);
   configRead ("Language", "SM_Wallpapers", SMWallpapersT, NULL, NULL);
   
+  if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -158,7 +179,7 @@ textlang ()
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 222, 159);	//Loading
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();       
-    
+  }  
   configRead ("Language", "SM_Settings", SMSettingsT, NULL, NULL);
   configRead ("Language", "SM_Themes", SMThemesT, NULL, NULL);
 
@@ -175,7 +196,6 @@ textlang ()
 
 // Read configuration
   configClose ();
-
 }
 
 
@@ -205,7 +225,9 @@ fclose(fp);
   findcolour ();
   StartSubMenuC = Tbuffer;
 
-  FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
+  if (loadingdone != 1)
+  {
+	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 162, 159);	//Loading
@@ -218,6 +240,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 232, 159);	//Loading
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();  
+  }
   
   configRead ("TextColor", "Start_Sub_Menu_Over", fontcolour, NULL, NULL);
   findcolour ();
@@ -243,6 +266,8 @@ fclose(fp);
   CopyC = Tbuffer;
   
   
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -257,7 +282,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 242, 159);	//Loading
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();     
-  
+	}
   configRead ("TextColor", "Paste", fontcolour, NULL, NULL);
   findcolour ();
   PasteC = Tbuffer;
@@ -279,6 +304,8 @@ fclose(fp);
   findcolour ();
   ThemeC = Tbuffer;
   
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -294,7 +321,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 252, 159);	//Loading
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();       
-  
+  }
     
   configRead ("TextColor", "Desktop_Text", fontcolour, NULL, NULL);
   findcolour ();
@@ -317,6 +344,8 @@ fclose(fp);
   findcolour ();
   WallpaperTextOverC = Tbuffer;
 
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -333,7 +362,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 262, 159);	//Loading		     
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();    
-  
+	}
   configRead ("TextColor", "Skin_Text_TB", fontcolour, NULL, NULL);
   findcolour ();
   SkinTextTBC = Tbuffer;
@@ -358,6 +387,8 @@ fclose(fp);
   findcolour ();
   OSSVersionC = Tbuffer;
 
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -375,6 +406,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 272, 159);	//Loading		   		     
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();      
+  }
   
   configRead ("TextColor", "Battery", fontcolour, NULL, NULL);
   findcolour ();
@@ -399,6 +431,8 @@ fclose(fp);
   USBC = Tbuffer;
 
 
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -417,8 +451,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 282, 159);	//Loading		   		     
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();    
-    
-
+  } 
 
   //Music                                                                                                 
   configRead ("TextColor", "Play", fontcolour, NULL, NULL);
@@ -439,6 +472,8 @@ fclose(fp);
   findcolour ();
   GraphicC = Tbuffer;
 
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -458,6 +493,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 292, 159);	//Loading		     
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();    
+  }
   
   configRead ("TextColor", "Music", fontcolour, NULL, NULL);
   findcolour ();
@@ -477,6 +513,8 @@ fclose(fp);
   configRead ("TextColor", "Previous_Page", fontcolour, NULL, NULL);
   findcolour ();
 
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -497,6 +535,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 302, 159);	//Loading	
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();  
+  }
   
   PreviousPageC = Tbuffer;
   configRead ("TextColor", "Next_Page", fontcolour, NULL, NULL);
@@ -520,6 +559,8 @@ fclose(fp);
   findcolour ();
   ConfirmC = Tbuffer;
 
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -541,6 +582,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 312, 159);	//Loading	
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();  
+  }
   
   configRead ("TextColor", "Toggle_Wallpaper", fontcolour, NULL, NULL);
   findcolour ();
@@ -564,6 +606,8 @@ fclose(fp);
   findcolour ();
   BrowseC = Tbuffer;
   
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -586,7 +630,8 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 322, 159);	//Loading	
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen ();  
-    
+	}
+	  
   configRead ("TextColor", "Games", fontcolour, NULL, NULL);
   findcolour ();
   GamesC = Tbuffer;
@@ -611,6 +656,8 @@ fclose(fp);
   findcolour ();
   ShutdownC = Tbuffer;
 
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -634,6 +681,7 @@ fclose(fp);
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 332, 159);	//Loading	
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		     		     
   PrintScreen (); 
+  }
   
   configRead ("TextColor", "Shutdown_2", fontcolour, NULL, NULL);
   findcolour ();
@@ -664,6 +712,8 @@ fclose(fp);
 // Read configuration
   configClose ();  
 
+	if (loadingdone != 1)
+  {
 	FadeScreenMessage ("Booting up...", "PSP-OSS is booting up",
 		     "Please wait...", "");
 		     PutGFX (0, 0, 10, 11, Loadingbar2, 152, 159);	//Loading
@@ -689,7 +739,7 @@ fclose(fp);
 		     PutGFX (0, 0, 206, 15, Loadingbar, 150, 157);	//Loading		   
 
   PrintScreen ();   		  
-  
+  }
 }
 
 
