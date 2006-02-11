@@ -6,7 +6,7 @@ OBJS = main.o desktop.o startup.o customskin.o cursor.o unrarlib.o config.o acti
 
 
 INCDIR = 
-CFLAGS = -O2 -G0 -Wall -fno-strict-aliasing $(EXTRA_CFLAGS) $(shell freetype-config --cflags)
+CFLAGS = -O3 -G0 -Wall -fno-strict-aliasing $(EXTRA_CFLAGS) $(shell freetype-config --cflags)
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS) -c
 
