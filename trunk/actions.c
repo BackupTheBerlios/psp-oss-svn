@@ -93,13 +93,42 @@ SetWallpaper (const char *NewWallpaper)
 void
 SetSkin (const char *NewSkin)
 {
-  SceUID file;
-  file =
-    sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg",
-	       PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC, 0777);
-  sceIoWrite (file, NewSkin, strlen (NewSkin));
+	
+	char            *data_ptr;
+	unsigned long   data_size;
+	FILE * fp;	   
+	SceUID file;
+	int filesize;
+
+	sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s", NewSkin);
+	fp = fopen(skinpath, "rb");
+	urarlib_get(&data_ptr, &data_size, "version.cfg", fp, NULL); 	
+	fclose(fp);
+	fp = fopen("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", "wb");
+	fwrite(data_ptr, 1, data_size, fp);
+	fclose(fp);
+	
+	char version[20];
+	file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", PSP_O_RDONLY, 0);
+  sceIoRead (file, version, 20);
+  filesize = sceIoLseek (file, 0, SEEK_END);
   sceIoClose (file);
-  ReloadSkin ();
+  version[filesize] = 0x00;						
+  
+  if (strcmp (version, "PSP-OSS_03") == 0)
+  {	  															  	
+		  SceUID file;
+		  file =
+		    sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg",
+			       PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC, 0777);
+		  sceIoWrite (file, NewSkin, strlen (NewSkin));
+		  sceIoClose (file);
+		  ReloadSkin ();													
+  }	
+  else
+  {
+ 				 MessageWindow ("Skin Error", "Skin is not supported in PSP-OSS_0.3");
+	}
 }
 
 void
@@ -332,7 +361,7 @@ ReloadSkin ()
   SubMenuBottom = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottom.png");
   SubMenuBottomLeft = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomleft.png");
   SubMenuBottomRight = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomright.png");
- 
+ 	textcolour ();
 
 }
 
