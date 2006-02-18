@@ -41,24 +41,10 @@ SettingsScreen ()
 	  && cursorPosition.y > windowy + 15
 	  && cursorPosition.y < windowy + 30)
 	{
-	  //SettingsScreen_Language ();
+		//SettingsScreen_Language ();
 	  Toggle_Lang ("NEXT");
-	  
-  SceUID file;
-  char Langfile[255];
-  char *Langfile2[255];
-  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/LANG.cfg", PSP_O_RDONLY, 0);	// Open the File
-  sceIoRead (file, Langfile, 255);	// Read 255 Bytes from the File
-  int filesize = sceIoLseek (file, 0, SEEK_END);	// Determine the File's Size
-  sceIoClose (file);
-  Langfile[filesize] = 0x00;	// Insert a Terminator Null at the End of the File (Cuts the String to the True Width)
-	
-	sprintf (Langfile2, "ms0:/PSP-OSS/SYSTEM/LANG/%s", Langfile);
-  configLoad (Langfile2);
-
-  configRead ("Language", "Current_Language", LangT, NULL, NULL);
-  configClose ();
-  checkkey = 1;
+	  textlang ();
+ 		checkkey = 1;
 	  
 	}
 

@@ -46,20 +46,16 @@ Keyboard (char *Keyboard_Output_Temp)
 	{
 	  if (Keyboard_CurrentKey == Keyboard_ButtonTemp)
 	    {
-	      PutGFX (0, 0, 15, 15, Keyboard_Button2,
-		      (15 * (Keyboard_ButtonTemp - 1)), 257);
+	      PutGFX (0, 0, 15, 15, Keyboard_Button2,(15 * (Keyboard_ButtonTemp - 1)), 257);
 	    }
 	  else
 	    {
-	      PutGFX (0, 0, 15, 15, Keyboard_Button1,
-		      (15 * (Keyboard_ButtonTemp - 1)), 257);
+	      PutGFX (0, 0, 15, 15, Keyboard_Button1,(15 * (Keyboard_ButtonTemp - 1)), 257);
 	    }
 
 	  char buffer[10];
-	  sprintf (buffer, "%c",
-		   Keyboard_Characters[(Keyboard_ButtonTemp - 1)]);
-	  PutTextFont ((15 * (Keyboard_ButtonTemp - 1) + 3), 260, buffer,
-		       Keyboard2C);
+	  sprintf (buffer, "%c",Keyboard_Characters[(Keyboard_ButtonTemp - 1)]);
+	  PutTextFont ((15 * (Keyboard_ButtonTemp - 1) + 3), 260, buffer,Keyboard2C);
 
 	  Keyboard_ButtonTemp += 1;
 	}
@@ -68,11 +64,12 @@ Keyboard (char *Keyboard_Output_Temp)
 	{
 	  old_buttons = pad.Buttons;
 
-	  if (pad.Buttons & PSP_CTRL_CONFIRM
-	      && strlen (Keyboard_Output_Temp) < 50)
+	  if (pad.Buttons & PSP_CTRL_CONFIRM&& strlen (Keyboard_Output_Temp) < 50)
 	    {
-	      Keyboard_Output_Temp[strlen (Keyboard_Output_Temp)] =
-		Keyboard_Characters[(Keyboard_CurrentKey - 1)];
+	    	int size;
+	    	size = strlen (Keyboard_Output_Temp);
+	      Keyboard_Output_Temp[size] =	Keyboard_Characters[(Keyboard_CurrentKey - 1)];
+	      Keyboard_Output_Temp[size+1] = '\0';	      
 	    }
 
 	  //Space

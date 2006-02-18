@@ -214,6 +214,7 @@ int language_ran;
 char *LR_language[256];
 int LR_language_amount;
 int LR_language_current;
+char *Langfile2[255];
 
 //MP3
 char Audiofolder[255];
@@ -244,7 +245,6 @@ int loadingdone;
 
 char skin[20];
 char skinpath[256];
-char fontcolour[20];
 
 //Skin Version
 char VersionT[20];		// Text Colour
@@ -441,6 +441,11 @@ char QuestionT[50];
 
  //Ram
  char ramfer[255];
+u32 RAMsize;
+ 
 //Go back to filebrowser after viewing an image from it
 int fbimager;
 char imageDic[500];
+
+
+

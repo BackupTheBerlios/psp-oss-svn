@@ -367,6 +367,9 @@ StartListMenu ()
 
   while (sceIoDread (dfd, &dir) > 0)
     {
+
+   		free(startitemname[i]);
+   		startitemname[i] = NULL;    	
       startitemname[i] = strdup (dir.d_name);
 
       //This code identifys if an item is a directory or not.

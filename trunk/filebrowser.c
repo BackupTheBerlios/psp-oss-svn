@@ -38,6 +38,8 @@ BrowseWallpapers ()		// Browse Wallpapers :)
 
       while (sceIoDread (dfd, &dir) > 0)
 	{
+		free(wallpapericonname[i]);
+	  wallpapericonname[i] = NULL;
 	  wallpapericonname[i] = strdup (dir.d_name);
 	  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
 	    {
@@ -221,6 +223,8 @@ BrowseSkins ()
 
       while (sceIoDread (dfd, &dir) > 0)
 	{
+		free(skinsiconname[i]);
+	  skinsiconname[i] = NULL;
 	  skinsiconname[i] = strdup (dir.d_name);
 	  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
 	    {
@@ -417,6 +421,8 @@ loo:
   //While there are more files left...     
   while (sceIoDread (dfd, &dir) > 0)
     {
+			free(iconname[i]);
+	  	iconname[i] = NULL;    	
       iconname[i] = strdup (dir.d_name);
 
       //If it's a dir. Set isdir to 1.
@@ -880,11 +886,14 @@ Toggle_Wallpapers (int mode)
 	  char *suffix = strrchr (strdup (dir.d_name), '.');
 	  if (stricmp (suffix, ".png") == 0)
 	    {
+	    	free(LR_Wallpapers[i]);
+	    	LR_Wallpapers[i] = NULL;
 	      LR_Wallpapers[i] = strdup (dir.d_name);
 	      i++;
 	    }
 	}
 
+			
       //Close Dir Command
       frtd = 0;
       sceIoDclose (dfd);
@@ -905,6 +914,7 @@ Toggle_Wallpapers (int mode)
       char buffer[200];
       sprintf (buffer, "ms0:/PSP-OSS/WALLPAPERS/%s",
 	       LR_Wallpapers[LR_Wallpapers_current]);
+	       
       SetWallpaper (buffer);
     }
 
@@ -918,8 +928,7 @@ Toggle_Wallpapers (int mode)
 	}
 
       char buffer[200];
-      sprintf (buffer, "ms0:/PSP-OSS/WALLPAPERS/%s",
-	       LR_Wallpapers[LR_Wallpapers_current]);
+      sprintf (buffer, "ms0:/PSP-OSS/WALLPAPERS/%s",LR_Wallpapers[LR_Wallpapers_current]);
       SetWallpaper (buffer);
     }
 }
@@ -939,6 +948,8 @@ Toggle_MP3 (int mode)
 	{
 		  if (dir.d_stat.st_attr & FIO_SO_IFDIR)
 			{
+				free(isdir[i]);
+	    	isdir[i] = NULL;
 			  isdir[i] = 1;
 			}
 
@@ -948,6 +959,8 @@ Toggle_MP3 (int mode)
 	  	char *suffix = strrchr (strdup (dir.d_name), '.');
 	  	if (stricmp (suffix, ".mp3") == 0 || stricmp (suffix, ".ogg") == 0)
 	    	{
+	    		free(LR_MUSIC[i]);
+	    		LR_MUSIC[i] = NULL;
 	     		LR_MUSIC[i] = strdup (dir.d_name);	      	
 	     		i++;
 				}

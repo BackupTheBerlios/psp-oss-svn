@@ -60,7 +60,7 @@ cursorHandler (int analogX, int analogY)
 	}
     }
 
-u32 RAMsize = ramAvailable();
+RAMsize = ramAvailable();
 sprintf(ramfer, "RAM :%u bytes", RAMsize);    
     
   //Right
@@ -415,7 +415,6 @@ RightClick_Icon_Desktop (int PositionX, int PositionY, const char *filepath,
 	      sprintf (buffer, "%sCopy %s", filepath, Temp_Filename);
 	      CopyExecute ("ms0:/PSP-OSS/SYSTEM/tempfile", buffer);
 	      sceIoRemove ("ms0:/PSP-OSS/SYSTEM/tempfile");
-
 	      Pastefile = 0;
 	    }
 	  //Rename

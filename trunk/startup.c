@@ -46,23 +46,21 @@ StartUp (void)
 	("PSP-OSS was designed to run primarily on 1.5, as a result you may experience reduced functionality.");
       PauseVbl (5 * 60);
     }
-
+    
  scePowerSetClockFrequency (333, 333, 166);
-  
+
  WallCheck();  
   
  SkinCheck();
 
   // Load Default Font
-  sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/FONT.ttf", skin);
-  defaultFont = LoadFont (buffer);
+  //sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/FONT.ttf", skin);
+  //defaultFont = LoadFont (buffer);
   //defaultFont=SetPixelSize(defaultFont,0,10);
 
   /*
      Load the images we need for the startup screen
    */
-  //sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s/SYSTEM/taskbar.png", skin);
-  //taskbar = LoadGFX (buffer);
   
   sprintf (buffer, "ms0:/PSP-OSS/SKINS/%s", skin);
   taskbar = LoadGFX_RAR (buffer, "SYSTEM/taskbar.png");
@@ -464,124 +462,146 @@ void SkinCheck ()
 	char            *data_ptr;
 	unsigned long   data_size;
 	FILE * fp;	   
-
-		  if (skincheck == 0 && skincheck2 != 1)
-		    {
-					  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg", PSP_O_RDONLY, 0);
-					  sceIoRead (file, skin, 20);
-					  filesize = sceIoLseek (file, 0, SEEK_END);
-					  sceIoClose (file);
-					  skin[filesize] = 0x00;
-								    	
-			      FILE *File = NULL;
-			      char skinbuffer[200];
-			      sprintf (skinbuffer, "ms0:/PSP-OSS/SKINS/%s",skin);
-			      File = fopen (skinbuffer, "r");	// Check To See If The File Exists         
-			      fclose (File);
+	char message[50];
 	
-			      if (File)	// Does The File Exist?
-						{								
-								sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s", skin);
-								fp = fopen(skinpath, "rb");
-								urarlib_get(&data_ptr, &data_size, "version.cfg", fp, NULL); 	
-								fclose(fp);
-								fp = fopen("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", "wb");
-								fwrite(data_ptr, 1, data_size, fp);
-								fclose(fp);
-								
-								char version[20];
-								file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", PSP_O_RDONLY, 0);
-							  sceIoRead (file, version, 20);
-							  filesize = sceIoLseek (file, 0, SEEK_END);
-							  sceIoClose (file);
-							  version[filesize] = 0x00;						
-							  
-							  if (strcmp (version, "PSP-OSS_03") == 0)
-							  {	  															  	
-							  			skincheck = 1;	
-											skincheck2 = 1;		
-											skincheck3 = 1;
-											skincheck4 = 1;																
-							  }
-							  else
-							  {				  										
-							  			pspDebugScreenPrintf ("\n");			    
-							  	  	pspDebugScreenPrintf ("Skin is not designed for PSP-OSS_0,3");
-      								PauseVbl (60);
-      								skincheck = 1;
-      								skincheck2 = 1;
-      								StartUp ();		
-      					}	  						
-						}								
-				}
-				else if (skincheck4 != 1)
+	if (skincheck != 1)
+	{
+		if (skincheck2 !=1)
+		{
+			file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg", PSP_O_RDONLY, 0);
+			sceIoRead (file, skin, 20);
+		  filesize = sceIoLseek (file, 0, SEEK_END);
+		  sceIoClose (file);
+		  skin[filesize] = 0x00;
+						    	
+	    FILE *File = NULL;
+	    char skinbuffer[200];
+	    sprintf (skinbuffer, "ms0:/PSP-OSS/SKINS/%s",skin);
+	    File = fopen (skinbuffer, "r");	// Check To See If The File Exists         
+	    fclose (File);
+	
+			if (File)	// Does The File Exist?
+			{								
+				sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s", skin);
+				fp = fopen(skinpath, "rb");
+				urarlib_get(&data_ptr, &data_size, "version.cfg", fp, NULL); 	
+				fclose(fp);
+				fp = fopen("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", "wb");
+				fwrite(data_ptr, 1, data_size, fp);
+				fclose(fp);
+					
+				char version[20];
+				file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", PSP_O_RDONLY, 0);
+				sceIoRead (file, version, 20);
+				filesize = sceIoLseek (file, 0, SEEK_END);
+				sceIoClose (file);
+				version[filesize] = 0x00;						
+				  
+				if (strcmp (version, "PSP-OSS_03") == 0)
+				{	  															  	
+					skincheck = 1;	
+					skincheck2 = 1;		
+					skincheck3 = 1;
+					skincheck4 = 1;																						
+			  }
+			  else
 				{
-						if (skincheck3 != 1)
-						{
-					      int i = 0;
-					      int dfd;
-					      dfd = sceIoDopen ("ms0:/PSP-OSS/Skins/");
-					      sceIoDread (dfd, &dir);
-					      sceIoDread (dfd, &dir);
-					
-					      while (sceIoDread (dfd, &dir) > 0)
-								{					
-						     			LR_Skin[i] = strdup (dir.d_name);	      	
-						     			i++;					  	 
-								}
-					
-					      //Close Dir Command
-					      frtd = 0;
-					      sceIoDclose (dfd);
-					      LR_Skin_amount = i;
-					      skincheck3 = 1;
-					    }									  			  												
-																
-								sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s", LR_Skin[LR_Skin_current]);
-								fp = fopen(skinpath, "rb");
-								urarlib_get(&data_ptr, &data_size, "version.cfg", fp, NULL); 	
-								fclose(fp);
-								fp = fopen("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", "wb");
-								fwrite(data_ptr, 1, data_size, fp);
-								fclose(fp);
-								
-								char version[20];
-								file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", PSP_O_RDONLY, 0);
-							  sceIoRead (file, version, 20);
-							  filesize = sceIoLseek (file, 0, SEEK_END);
-							  sceIoClose (file);
-							  version[filesize] = 0x00;						
-							  
-						if (strcmp (version, "PSP-OSS_03") == 0)
-					  {
-					  			Write_config ("ms0:/PSP-OSS/SYSTEM/SKIN.CFG", LR_Skin[LR_Skin_current]);
-							  	skincheck = 1;	
-									skincheck2 = 1;		
-									skincheck3 = 1;					  			
-					  			skincheck4 = 1;
-					  			
-					  			file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg", PSP_O_RDONLY, 0);
-								  sceIoRead (file, skin, 20);
-								  filesize = sceIoLseek (file, 0, SEEK_END);
-								  sceIoClose (file);
-  								skin[filesize] = 0x00;
-					  }
-					  else if (skincheck4 != 1)
-					  {				  											
-					  			pspDebugScreenPrintf ("\n");		    
-					  	  	pspDebugScreenPrintf ("Skin is not designed for PSP-OSS_0,3 trying another skin");
-  								PauseVbl (60);
-			  				  if (LR_Skin_amount == LR_Skin_current)
-									{
-												pspDebugScreenPrintf ("\n");
-								  	  	pspDebugScreenPrintf ("None of your current skins are designed for PSP-OSS_0,3 Shutting Down");
-			  								PauseVbl (100);
-			  								ShutDown ();									
-			  					}  				  	
-					  			LR_Skin_current += 1;					  												
-  								StartUp ();	 
-									}																					 											
-	    } 
+				pspDebugScreenPrintf ("\n");			    
+				sprintf (message, "The skin called %s is not designed for PSP-OSS_0,3",skin);
+			  pspDebugScreenPrintf (message);
+				PauseVbl (100);
+				skincheck2 = 1;
+				}					
+			}
+			else
+			{
+				pspDebugScreenPrintf ("\n");          
+				sprintf (message, "The skin called %s does not exist on the Memory Stick",skin);
+			  pspDebugScreenPrintf (message);
+        PauseVbl (100);
+        skincheck2 = 1;
+      }
+        
+		}
+		if (skincheck3 != 1)
+		{
+			if (skincheck4 != 1)
+			{
+				int i = 0;
+				int dfd;
+	      dfd = sceIoDopen ("ms0:/PSP-OSS/Skins/");
+	      sceIoDread (dfd, &dir);
+		    sceIoDread (dfd, &dir);
+						
+	      while (sceIoDread (dfd, &dir) > 0)
+				{					
+		    	LR_Skin[i] = strdup (dir.d_name);	  
+		    	LR_Skin_amount = i;    	
+		    	i++;					  	 
+				}
+	
+	      //Close Dir Command
+	      frtd = 0;
+	      sceIoDclose (dfd);	      
+	      skincheck4 = 1;
+			}											  					
+			sprintf (skinpath, "ms0:/PSP-OSS/SKINS/%s", LR_Skin[LR_Skin_current]);
+			fp = fopen(skinpath, "rb");
+			urarlib_get(&data_ptr, &data_size, "version.cfg", fp, NULL); 	
+			fclose(fp);
+			fp = fopen("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", "wb");
+			fwrite(data_ptr, 1, data_size, fp);
+			fclose(fp);
+			
+			char version[20];
+			file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/CONFIG/versionc.cfg", PSP_O_RDONLY, 0);
+		  sceIoRead (file, version, 20);
+		  filesize = sceIoLseek (file, 0, SEEK_END);
+		  sceIoClose (file);
+		  version[filesize] = 0x00;						
+								  
+			if (strcmp (version, "PSP-OSS_03") == 0)
+		  {
+				Write_config ("ms0:/PSP-OSS/SYSTEM/SKIN.CFG", LR_Skin[LR_Skin_current]);
+		  	skincheck = 1;	
+				skincheck2 = 1;		
+				skincheck3 = 1;					  			
+				skincheck4 = 1;
+				
+				file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/SKIN.cfg", PSP_O_RDONLY, 0);
+			  sceIoRead (file, skin, 20);
+			  filesize = sceIoLseek (file, 0, SEEK_END);
+			  sceIoClose (file);
+				skin[filesize] = 0x00;
+		  }
+		  else if (skincheck3 != 1)
+		  {				  											
+				pspDebugScreenPrintf ("\n");		    
+				pspDebugScreenSetTextColor (WHITE);
+				sprintf (message, "The skin called %s is not designed for PSP-OSS_0,3.",LR_Skin[LR_Skin_current]);				
+			  pspDebugScreenPrintf (message);
+			  pspDebugScreenPrintf ("\n");					  
+			  pspDebugScreenSetTextColor (RED);
+			  pspDebugScreenPrintf ("Trying another skin!");
+				PauseVbl (100);
+				pspDebugScreenInit ();
+  			pspDebugScreenClear ();
+			  if (LR_Skin_current == LR_Skin_amount)
+				{
+					pspDebugScreenSetTextColor (WHITE);
+					pspDebugScreenPrintf ("\n");
+	  	  	pspDebugScreenPrintf ("None of your current skins are designed for PSP-OSS_0,3");
+	  	  	pspDebugScreenPrintf ("\n");
+	  	  	pspDebugScreenSetTextColor (RED);
+	  	  	pspDebugScreenPrintf ("Shutting Down");
+					PauseVbl (180);
+					ShutDown ();									
+				}  				  	
+				LR_Skin_current += 1;					  												
+				SkinCheck();	 
+			}																					 										
+		}
+	}
 }
 
 

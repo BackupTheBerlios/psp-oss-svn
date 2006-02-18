@@ -134,72 +134,87 @@ SetSkin (const char *NewSkin)
 void
 ReloadSkin ()
 {
-  FadeScreenMessage (ReloadSkinT, ReloadSkin2T, WaitT, "");
-  PrintScreen ();
-
+	int mem1;
+	int mem2;
+	int mem;
+	char memor[255];
+	RAMsize = ramAvailable();
+	mem1 = RAMsize;  
   freeImage (taskbar);
   freeImage (TopBar);
   freeImage (cursor);
+  freeImage (Message_Window_Top1);
+  freeImage (Message_Window_Top2);
+  freeImage (Message_Window_Body);
+  freeImage (Loadingbar);
+  freeImage (Loadingbar2);
+  freeImage (Fade);      
   freeImage (Keyboard_Output);
   freeImage (Keyboard_Button1);
   freeImage (Keyboard_Button2);
   freeImage (Keyboard_ButtonOver);
-  freeImage (Message_Window_Top1);
-  freeImage (Message_Window_Top2);
-  freeImage (Message_Window_Body);
   freeImage (Fullscreen_Window_Top1);
   freeImage (Fullscreen_Window_Top2);
   freeImage (Fullscreen_Window_Body);
+  freeImage (Settings_Window);
+  freeImage (Settings_Window_Bottom);     
   freeImage (Window_Exit1);
   freeImage (Window_Exit2);
+  freeImage (Button1);
+  freeImage (Button2);    
   freeImage (USB_Icon);
   freeImage (No_USB_Icon);
-  freeImage (Fade);
+  freeImage (WLAN_Icon);
+  freeImage (Music_play1);
+  freeImage (Music_play2);
+  freeImage (Music_pause1);
+  freeImage (Music_pause2);  
   freeImage (Battery_full);
   freeImage (Battery_half);
   freeImage (Battery_low);
   freeImage (Battery_empty);
-  freeImage (Battery_charging);
-  freeImage (Icon_Eboot);
-  freeImage (Icon_Eboot_Over);
-  freeImage (Icon_Unknown);
-  freeImage (Icon_Unknown_Over);
+  freeImage (Battery_charging);  
+  freeImage (Icon_UMD);
+  freeImage (Icon_UMD_Over); 
+  freeImage (Icon_Quit);   
+  freeImage (Icon_Quit_Over);
+  freeImage (Icon_No_UMD);
+  freeImage (Icon_No_UMD_Over);  
+  freeImage (Icon_GFX);
+  freeImage (Icon_GFX_Over);  
+  freeImage (Icon_Audio);
+  freeImage (Icon_Audio_Over);  
   freeImage (Icon_Settings);
-  freeImage (Icon_Settings_Over);
+  freeImage (Icon_Settings_Over); 
   freeImage (Icon_Themes);
   freeImage (Icon_Themes_Over);
   freeImage (Icon_Wallpapers);
-  freeImage (Icon_Wallpapers_Over);
-  freeImage (Icon_Quit);
-  freeImage (Icon_Quit_Over);
-  freeImage (Icon_GFX);
-  freeImage (Icon_GFX_Over);
-  freeImage (Icon_Audio);
-  freeImage (Icon_Audio_Over);
-  freeImage (Icon_UMD);
-  freeImage (Icon_UMD_Over);
-  freeImage (Icon_No_UMD);
-  freeImage (Icon_No_UMD_Over);
+  freeImage (Icon_Wallpapers_Over);   
+  freeImage (Icon_Eboot);
+  freeImage (Icon_Eboot_Over);  
+  freeImage (Icon_Unknown);
+  freeImage (Icon_Unknown_Over);
+  freeImage (Icon_Video);
+  freeImage (Icon_Video_Over);  
+  freeImage (Icon_Lua);
+  freeImage (Icon_Lua_Over);    
+  freeImage (Audio_Player);      
+  freeImage (Music_stop1);
+  freeImage (Music_stop2); 
+  freeImage (Icon_Folder);
+  freeImage (Icon_Folder_Over);   
   freeImage (Icon_QuickLink);
   freeImage (Icon_QuickLink_Over);
-  freeImage (Button1);
-  freeImage (Button2);
-  freeImage (Music_play1);
-  freeImage (Music_play2);
-  freeImage (Music_pause1);
-  freeImage (Music_pause2);
-  freeImage (Music_stop1);
-  freeImage (Music_stop2);
-  freeImage (Icon_Folder);
-  freeImage (Icon_Folder_Over);
   freeImage (Back);
   freeImage (Back_Over);
+  freeImage (FBRight);
+  freeImage (FBLeft);  
   freeImage (RightclickMenu_Top);
   freeImage (RightclickMenu_Body);
   freeImage (RightclickMenu_Body_Over);
   freeImage (RightclickMenu_Bottom);
   freeImage (Start_menu);
-  freeImage (Start_menu_Over);
+  freeImage (Start_menu_Over);  
   freeImage (Start_menu_Open);
   freeImage (Start_Menu_Body);
   freeImage (Start_Menu_Body_Over);
@@ -214,12 +229,20 @@ ReloadSkin ()
   freeImage (SubMenuBottom);
   freeImage (SubMenuBottomLeft);
   freeImage (SubMenuBottomRight);
-  freeImage (Settings_Window);
-  freeImage (Settings_Window_Bottom);
+  freeImage (wallpaper);
 
   int filesize;
   SceUID file;
   char buffer[200];
+
+  file = sceIoOpen ("ms0:/PSP-OSS/SYSTEM/WALLPAPER.cfg", PSP_O_RDONLY, 0);
+  char tempwallpaper[255];
+  sceIoRead (file, tempwallpaper, 255);
+  filesize = sceIoLseek (file, 0, SEEK_END);
+  sceIoClose (file);
+  tempwallpaper[filesize] = 0x00;
+
+	wallpaper = LoadGFX (tempwallpaper);	
 
   /*
      What SKIN do we use? Let's check...
@@ -250,12 +273,13 @@ ReloadSkin ()
   //Fade
   Fade = LoadGFX_RAR (buffer, "SYSTEM/fade.png");  
 
+
   //Keyboard layout
   Keyboard_Output = LoadGFX_RAR (buffer, "SYSTEM/keyboard_output.png");
   Keyboard_Button1 = LoadGFX_RAR (buffer, "SYSTEM/keyboard_button1.png");
   Keyboard_Button2 = LoadGFX_RAR (buffer, "SYSTEM/keyboard_button2.png");
   Keyboard_ButtonOver = LoadGFX_RAR (buffer, "SYSTEM/keyboard_buttonOver.png");
-
+  
   //Fullscreen window
   Fullscreen_Window_Top1 = LoadGFX_RAR (buffer, "WINDOWS/Fullscreen_top1.png");
   Fullscreen_Window_Top2 = LoadGFX_RAR (buffer, "WINDOWS/Fullscreen_top2.png");
@@ -263,7 +287,6 @@ ReloadSkin ()
 
   Settings_Window = LoadGFX_RAR (buffer, "WINDOWS/Settings_Window.png");
   Settings_Window_Bottom = LoadGFX_RAR (buffer, "WINDOWS/Settings_Window_Bottom.png");
-
 
   //Window icons
   Window_Exit1 = LoadGFX_RAR (buffer, "WINDOWS/Exit1.png");
@@ -291,7 +314,6 @@ ReloadSkin ()
   Battery_charging = LoadGFX_RAR (buffer, "SYSTEM/battery_charge.png");
 
   //WLANBackground = LoadGFX_RAR (buffer, "SYSTEM/WLAN_background.png");
-
 
   //Icons
   Icon_UMD = LoadGFX_RAR (buffer, "ICONS/UMD1.png");
@@ -350,6 +372,7 @@ ReloadSkin ()
   Start_Menu_Body_Over = LoadGFX_RAR (buffer, "SYSTEM/startmenu_body2.png");
   Start_Menu_Top = LoadGFX_RAR (buffer, "SYSTEM/startmenu_top.png");
 
+
   //Start Menu Pics
   SubMenuSelect = LoadGFX_RAR (buffer, "SYSTEM/START/submenu_select.png");
   SubMenuTop = LoadGFX_RAR (buffer, "SYSTEM/START/submenutop.png");
@@ -361,7 +384,16 @@ ReloadSkin ()
   SubMenuBottom = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottom.png");
   SubMenuBottomLeft = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomleft.png");
   SubMenuBottomRight = LoadGFX_RAR (buffer, "SYSTEM/START/submenubottomright.png");
+  
  	textcolour ();
+ 	RAMsize = ramAvailable();
+ 	mem2 = RAMsize;  
+ 	mem = (mem1-mem2);
+ 	sprintf(memor, "%u", mem);   
+ 		FadeScreenMessage ("Booting up...", memor,
+		     memor, "");     
+  PrintScreen ();    
+  PauseVbl (160);
 
 }
 
@@ -491,6 +523,7 @@ ViewImage (const char *filename)
     }
   // Release the Image from Memory
   freeImage (TempImage);
+	TempImage = NULL;
 }
 
 // Load/Run the UMD

@@ -1,8 +1,7 @@
 void textcolour ();
 void findcolour ();
 void textlang ();
-void textlangint ();
 
+char fontcolour[20];
 float Tbuffer;
 FILE * fp;
- 

@@ -34,7 +34,8 @@ DoActiveDesktop ()
   PutGFX (0, 0, 480, 15, taskbar, 0, 257);	//Taskbar
   PutGFX (0, 0, 480, 15, TopBar, 0, 0);	//Top Bar
 
-  PutTextFont (5, 5, ramfer, OSSVersionC);	//Version
+ // PutTextFont (5, 5, ramfer, OSSVersionC);	//Version
+ PutTextFont (5, 5, OSSVersion, OSSVersionC);	//Version
 
   //Draw the start menu
   DrawStartMenu ();
